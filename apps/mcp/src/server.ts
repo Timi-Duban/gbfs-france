@@ -12,7 +12,7 @@ import {
 } from './schemas';
 
 export const VERSION = pkg.version;
-export const USER_AGENT = `gbfs-france-mcp/${VERSION} (+https://github.com/timi-duban/gbfs-france)`;
+export const USER_AGENT = `gbfs-france-mcp/${VERSION} (+https://github.com/Timi-Duban/gbfs-france)`;
 
 const annotations = { readOnlyHint: true, openWorldHint: true, idempotentHint: true };
 

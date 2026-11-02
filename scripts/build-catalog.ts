@@ -5,7 +5,7 @@ import { CATALOG_API, buildCatalog, renderNetworkList } from './catalog-builder'
 const OUT = new URL('../packages/gbfs-core/data/catalog.json', import.meta.url);
 const READMES = ['../README.md', '../README.fr.md'].map((p) => new URL(p, import.meta.url));
 const HEADERS = {
-  'User-Agent': 'gbfs-france-catalog (+https://github.com/timi-duban/gbfs-france)',
+  'User-Agent': 'gbfs-france-catalog (+https://github.com/Timi-Duban/gbfs-france)',
 };
 
 async function fetchJson(url: string): Promise<unknown> {

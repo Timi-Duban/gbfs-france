@@ -10,4 +10,4 @@ MCP server for live bike-share availability in France (GBFS feeds from transport
 }
 ```
 
-Docs, coverage and licences: https://github.com/timi-duban/gbfs-france
+Docs, coverage and licences: https://github.com/Timi-Duban/gbfs-france

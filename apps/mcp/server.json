@@ -1,19 +1,19 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.timi-duban/gbfs-france",
+  "name": "io.github.Timi-Duban/gbfs-france",
   "title": "GBFS France",
   "description": "Live bike-share availability in France: docked networks, nearby stations, bikes and docks.",
   "repository": {
-    "url": "https://github.com/timi-duban/gbfs-france",
+    "url": "https://github.com/Timi-Duban/gbfs-france",
     "source": "github",
     "subfolder": "apps/mcp"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "gbfs-france-mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "transport": {
         "type": "stdio"
       }
