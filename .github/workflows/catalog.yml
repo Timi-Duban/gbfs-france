@@ -24,4 +24,7 @@ jobs:
           commit-message: 'chore(catalog): refresh network snapshot'
           title: 'chore(catalog): refresh network snapshot'
           body: Weekly rebuild of `packages/gbfs-core/data/catalog.json` from transport.data.gouv.fr.
-          add-paths: packages/gbfs-core/data/catalog.json
+          add-paths: |
+            packages/gbfs-core/data/catalog.json
+            README.md
+            README.fr.md

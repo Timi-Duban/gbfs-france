@@ -174,6 +174,22 @@ async function buildDataset(d: Dataset, fetchJson: FetchJson) {
   };
 }
 
+const LIST_START = '<!-- networks:start -->';
+const LIST_END = '<!-- networks:end -->';
+
+/** Replaces the generated network list between markers in a README. */
+export function renderNetworkList(readme: string, catalog: Catalog): string {
+  const names = [...new Set(catalog.networks.map((n) => n.name))].sort((a, b) =>
+    a.localeCompare(b, 'fr'),
+  );
+  const date = catalog.generatedAt.slice(0, 10);
+  const body = `${names.length} networks (snapshot ${date}): ${names.join(', ')}.`;
+  const start = readme.indexOf(LIST_START);
+  const end = readme.indexOf(LIST_END);
+  if (start < 0 || end < start) return readme;
+  return `${readme.slice(0, start + LIST_START.length)}\n\n${body}\n\n${readme.slice(end)}`;
+}
+
 async function mapLimit<T, R>(
   items: T[],
   limit: number,
