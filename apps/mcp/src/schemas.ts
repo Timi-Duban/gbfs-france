@@ -1,6 +1,8 @@
+import { LICENCES, LIMITS } from '@gbfs-france/core';
+import type { NearbyStations, NetworkSearch, StationDetails } from '@gbfs-france/core';
 import { z } from 'zod';
 
-// Input bounds (R15) keep answers small for the AI and turn bad ids into clear errors.
+// Input bounds keep answers small for the AI and turn bad ids into clear errors.
 const networkId = z
   .string()
   .min(1)
@@ -9,6 +11,8 @@ const networkId = z
     'Network id returned by search_networks, e.g. "velib-velos-et-bornes-disponibilite-temps-reel".',
   );
 
+const limit = z.number().int().min(1).max(LIMITS.maxLimit).default(LIMITS.defaultLimit);
+
 export const searchInput = z.object({
   query: z
     .string()
@@ -16,19 +20,24 @@ export const searchInput = z.object({
     .min(2)
     .max(80)
     .describe('City, area or network name, e.g. "Lyon" or "Vélib".'),
-  limit: z.number().int().min(1).max(20).default(5),
+  limit,
 });
 
 export const nearbyInput = z.object({
   network_id: networkId,
   lat: z.number().min(-90).max(90),
   lon: z.number().min(-180).max(180),
-  limit: z.number().int().min(1).max(20).default(5),
+  limit,
   need: z
     .enum(['bikes', 'docks'])
     .optional()
     .describe('"bikes" keeps stations renting with bikes left, "docks" stations with free docks.'),
-  max_distance_meters: z.number().int().min(50).max(10_000).default(2000),
+  max_distance_meters: z
+    .number()
+    .int()
+    .min(50)
+    .max(LIMITS.maxDistanceMeters)
+    .default(LIMITS.defaultMaxDistanceMeters),
 });
 
 export const stationInput = z.object({
@@ -38,7 +47,7 @@ export const stationInput = z.object({
 
 const attribution = z.object({
   publisher: z.string(),
-  licence: z.enum(['lov2', 'fr-lo', 'odc-odbl']),
+  licence: z.enum(LICENCES),
   licenceName: z.string(),
   sourceUrl: z.string(),
   updated: z.string(),
@@ -64,7 +73,7 @@ const station = z.object({
   reportedAt: z.number().nullable(),
   reportedAgeSeconds: z.number().nullable(),
   outdated: z.boolean(),
-  distanceMeters: z.number().optional(),
+  distanceMeters: z.number().exactOptional(),
 });
 
 export const searchOutput = z.object({
@@ -81,7 +90,7 @@ export const searchOutput = z.object({
   ),
   unsupported: z.array(z.object({ slug: z.string(), title: z.string(), reason: z.string() })),
   snapshotDate: z.string(),
-});
+}) satisfies z.ZodType<NetworkSearch>;
 
 export const nearbyOutput = z.object({
   network,
@@ -91,6 +100,12 @@ export const nearbyOutput = z.object({
   droppedStations: z.number(),
   freshness,
   attribution,
-});
+}) satisfies z.ZodType<NearbyStations>;
 
-export const stationOutput = z.object({ network, station, freshness, attribution });
+// `satisfies` fails typecheck if these copies drift from the core result types.
+export const stationOutput = z.object({
+  network,
+  station,
+  freshness,
+  attribution,
+}) satisfies z.ZodType<StationDetails>;

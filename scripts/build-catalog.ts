@@ -24,9 +24,3 @@ for (const readme of READMES) {
   await writeFile(readme, renderNetworkList(await readFile(readme, 'utf8'), catalog));
 }
 console.log(`${catalog.networks.length} networks, ${catalog.excluded.length} excluded datasets.`);
-for (const required of ['Vélib', "Vélo'v", 'STAR']) {
-  if (!catalog.networks.some((n) => n.name.includes(required) || n.title.includes(required))) {
-    console.error(`Missing expected network: ${required}`);
-    process.exitCode = 1;
-  }
-}

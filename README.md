@@ -1,51 +1,35 @@
 # GBFS France
 
-Live bike-share availability for France, for AI assistants. An [MCP](https://modelcontextprotocol.io) server that reads the official GBFS feeds listed on [transport.data.gouv.fr](https://transport.data.gouv.fr) and answers "where can I get a bike (or drop one) near here?".
-
-[Version française](README.fr.md)
+[MCP](https://modelcontextprotocol.io) server for live bike-share availability in France, from the GBFS feeds listed on [transport.data.gouv.fr](https://transport.data.gouv.fr). [Français](README.fr.md)
 
 ## Tools
 
-| Tool              | Input                                                                                     | Returns                                                            |
-| ----------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| `search_networks` | `query` (city, area or name)                                                              | network ids, plus matching networks that are not supported and why |
-| `nearby_stations` | `network_id`, `lat`, `lon`, `limit?`, `need?` (`bikes` / `docks`), `max_distance_meters?` | nearest stations with bikes, e-bikes, free docks and distance      |
-| `get_station`     | `network_id`, `station_id`                                                                | one station's live status                                          |
+Read-only, structured output plus short text, data producer credited on every answer.
 
-All tools are read-only, return structured content (with output schemas) plus a short text, and credit the data producer on every answer.
-
-Example (live data, Vélo'v Lyon):
+- `search_networks(query)`: network ids for a city, area or name, plus unsupported matches and why.
+- `nearby_stations(network_id, lat, lon, limit?, need?: bikes|docks, max_distance_meters?)`: nearest stations with bikes, e-bikes, free docks.
+- `get_station(network_id, station_id)`: one station's live status.
 
 ```text
-> search_networks { "query": "Lyon" }
-Vélo'v Lyon [stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel] (467 stations)
-Not supported: Autopartage Citiz Métropole de Lyon (not a bike-share network (carsharing))
-
-> nearby_stations { "network_id": "stations-velov-…", "lat": 45.7578, "lon": 4.832, "limit": 3, "need": "bikes" }
-3 station(s) on Vélo'v Lyon.
-BELLECOUR / ST EXUPÉRY (128 m): 14 bikes, 2 e-bikes, 25 docks [last report over 30 min ago]
-PLACE ANTONIN PONCET (187 m): 17 bikes, 3 e-bikes, 22 docks [last report over 30 min ago]
-BELLECOUR / RÉPUBLIQUE (202 m): 12 bikes, 7 e-bikes, 2 docks [last report over 30 min ago]
+> nearby_stations { "network_id": "stations-velov-…", "lat": 45.7578, "lon": 4.832, "limit": 2 }
+2 station(s) on Vélo'v Lyon.
+BELLECOUR / ST EXUPÉRY (128 m): 4 bikes (0 e-bikes), 36 docks
+PLACE ANTONIN PONCET (187 m): 7 bikes (0 e-bikes), 32 docks
+Note: every station listed last reported 91 min to 7 h ago; counts are from the operator’s latest feed and may miss recent changes.
 Data: Métropole de Lyon, Licence Ouverte v2.0 (Etalab), https://transport.data.gouv.fr/datasets/…
 ```
 
 ## Install
 
-Requires Node.js 22 or later. In Claude Desktop (`claude_desktop_config.json`) or any MCP client:
+Node.js 22+. Claude Code: `claude mcp add gbfs-france -- npx -y gbfs-france-mcp`. Other MCP clients:
 
 ```json
-{
-  "mcpServers": {
-    "gbfs-france": { "command": "npx", "args": ["-y", "gbfs-france-mcp"] }
-  }
-}
+{ "mcpServers": { "gbfs-france": { "command": "npx", "args": ["-y", "gbfs-france-mcp"] } } }
 ```
-
-Claude Code: `claude mcp add gbfs-france -- npx -y gbfs-france-mcp`.
 
 ## Coverage
 
-Docked bike-share networks with an open licence (Licence Ouverte v1/v2, ODbL) and a GBFS 1.x, 2.x or 3.0 feed:
+Docked networks with an open licence (Licence Ouverte, ODbL) and a GBFS 1.x-3.0 feed. Free-floating, scooters, car sharing and unlicensed datasets are not served.
 
 <!-- networks:start -->
 
@@ -53,47 +37,23 @@ Docked bike-share networks with an open licence (Licence Ouverte v1/v2, ODbL) an
 
 <!-- networks:end -->
 
-Not served yet: free-floating operators (Lime, Dott, Pony), scooters, car sharing, and datasets published without a licence. `search_networks` names them with the reason.
+## Design
 
-## Data and licences
+`apps/mcp` (stdio) calls `packages/gbfs-core`, which has no Node imports (Hermes-safe, for a future Expo app):
 
-Network list: [transport.data.gouv.fr](https://transport.data.gouv.fr) (national access point). Availability: each operator's GBFS feed, fetched live. Every answer returns the publisher, licence and dataset page, as ODbL and Licence Ouverte require. Station counts are what operators publish: `null` means unknown, stations not reporting for 30 minutes are flagged `outdated`.
-
-## How it works
-
-```text
-apps/mcp (stdio)  ->  packages/gbfs-core: createGbfsFrance()
-                        catalog.json (committed snapshot, rebuilt weekly)
-                        discovery -> adapter v2 (1.x/2.x) | v3 (3.0)
-                        feed loader: cache, single-flight, timeout, stale-if-error
-                        join station_information x station_status -> StationView
-```
-
-Design patterns, by file:
-
-- **Facade**: [`facade.ts`](packages/gbfs-core/src/facade.ts) hides versions, the feed join, caching and errors behind three calls, shared with the future Expo app.
-- **Adapter**: [`feeds/v2.ts`](packages/gbfs-core/src/feeds/v2.ts) and [`feeds/v3.ts`](packages/gbfs-core/src/feeds/v3.ts) turn each GBFS version into the same records.
-- **Cache-Aside** with **single-flight**: [`fetch/feed-loader.ts`](packages/gbfs-core/src/fetch/feed-loader.ts) caches each feed for its own `ttl` clamped per feed kind (live status 30-60 s), merges concurrent identical requests, serves the last good data up to 10 min when an operator fails, and keeps at most 64 feeds (LRU).
-- **Result type**: the facade never throws on data failures; it returns `{ ok: false, error }` with a typed `kind`.
-
-The core has no Node imports and avoids APIs missing on Hermes (React Native), enforced by ESLint.
+- **Facade** [`facade.ts`](packages/gbfs-core/src/facade.ts): three calls hiding catalog, versions, feed join, cache and errors.
+- **Adapter** [`feeds/v2.ts`](packages/gbfs-core/src/feeds/v2.ts), [`v3.ts`](packages/gbfs-core/src/feeds/v3.ts): one per GBFS version, same records out.
+- **Cache-Aside + single-flight** [`feed-loader.ts`](packages/gbfs-core/src/fetch/feed-loader.ts): clamped ttl, stale-if-error 10 min, LRU 64.
+- **Result type**: `{ ok: false, error }` instead of throwing.
 
 ## Development
 
 ```bash
-fnm use            # Node 24 from .nvmrc
-pnpm install
+fnm use && pnpm install
 pnpm lint && pnpm typecheck && pnpm test
-pnpm build         # apps/mcp/dist/index.js
-pnpm catalog       # rebuild the network snapshot and this list
+pnpm catalog   # rebuild the network snapshot and lists
 ```
 
-### Maintainer notes
-
-- First npm release by hand (`pnpm --filter gbfs-france-mcp build`, then `npm publish` in `apps/mcp`), then set up npm trusted publishing for `release.yml`. After that, pushing a `vX.Y.Z` tag publishes to npm (with provenance) and to the MCP registry.
-- GitHub turns off scheduled workflows after 60 days without activity: merging the weekly catalog PR keeps them running.
-- Follow-ups are in [TODOS.md](TODOS.md).
-
-## License
+Release: push tag `vX.Y.Z` (npm with provenance, then MCP registry). Merge the weekly catalog PR so GitHub keeps scheduled workflows on. Follow-ups: [TODOS.md](TODOS.md).
 
 MIT. Data stays under each producer's licence.

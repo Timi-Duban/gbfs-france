@@ -1,4 +1,4 @@
-// R5/R22: spec payloads (MobilityData's official types) must be accepted by our zod schemas.
+// Spec payloads (MobilityData's official types) must be accepted by our zod schemas.
 // Checked by `tsc` at compile time; the runtime test only keeps vitest happy.
 import type { Station as InfoV23 } from 'gbfs-typescript-types/v2.3/station_information';
 import type { Station as StatusV23 } from 'gbfs-typescript-types/v2.3/station_status';

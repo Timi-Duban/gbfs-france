@@ -54,7 +54,7 @@ describe('buildCatalog', async () => {
   const ids = catalog.networks.map((n) => n.id);
   const reason = (slug: string) => catalog.excluded.find((e) => e.slug === slug)?.reason;
 
-  it('keeps docked bike networks with an open licence, including unversioned Vélib (R19)', () => {
+  it('keeps docked bike networks with an open licence, including unversioned Vélib', () => {
     const velib = catalog.networks.find((n) => n.slug.startsWith('velib'));
     expect(velib).toMatchObject({
       gbfsVersion: '1.x',
@@ -67,7 +67,7 @@ describe('buildCatalog', async () => {
     expect(ids).toContain('stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel');
   });
 
-  it('excludes non-open licences, other vehicle kinds and free-floating (R2/R3)', () => {
+  it('excludes non-open licences, other vehicle kinds and free-floating', () => {
     expect(reason('tier-dott-gbfs-lyon')).toMatch(/licence "notspecified"/);
     expect(
       reason('offre-et-disponibilite-temps-reel-du-service-citiz-en-autopartage-metropole-de-lyon'),
@@ -82,7 +82,7 @@ describe('buildCatalog', async () => {
     ]);
   });
 
-  it('keeps the highest version when a system is published twice (R21)', () => {
+  it('keeps the highest version when a system is published twice', () => {
     const brive = catalog.networks.filter((n) => n.slug === 'vls-ca-bassin-de-brive-velibeo');
     expect(brive).toHaveLength(1);
     expect(brive[0]?.gbfsVersion).toBe('3.0');

@@ -1,7 +1,14 @@
 import type { GbfsError, GbfsFrance } from '@gbfs-france/core';
 import { McpServer } from '@modelcontextprotocol/server';
 import pkg from '../package.json';
-import { credit, errorText, freshnessNote, stationLine } from './format';
+import {
+  catalogCredit,
+  credit,
+  errorText,
+  freshnessNote,
+  stationLine,
+  stationLines,
+} from './format';
 import {
   nearbyInput,
   nearbyOutput,
@@ -48,8 +55,9 @@ export function createServer(gbfs: GbfsFrance): McpServer {
       const { networks, unsupported } = r.data;
       const lines = networks.map((n) => `${n.name} [${n.id}] (${n.stationCount} stations)`);
       for (const u of unsupported) lines.push(`Not supported: ${u.title} (${u.reason})`);
-      const text = lines.length ? lines.join('\n') : `No network matches "${query}".`;
-      return { content: [{ type: 'text', text }], structuredContent: r.data };
+      if (!lines.length) lines.push(`No network matches "${query}".`);
+      lines.push(catalogCredit(r.data.snapshotDate));
+      return { content: [{ type: 'text', text: lines.join('\n') }], structuredContent: r.data };
     },
   );
 
@@ -77,7 +85,7 @@ export function createServer(gbfs: GbfsFrance): McpServer {
         : `${d.stations.length} station(s) on ${d.network.name}.`;
       const text = [
         head + freshnessNote(d.freshness),
-        ...d.stations.map(stationLine),
+        ...stationLines(d.stations),
         credit(d.attribution),
       ];
       return { content: [{ type: 'text', text: text.join('\n') }], structuredContent: d };

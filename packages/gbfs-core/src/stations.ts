@@ -5,11 +5,10 @@ export const OUTDATED_AFTER_SECONDS = 30 * 60;
 
 const ELECTRIC = new Set(['electric_assist', 'electric']);
 
-/** Mechanical / e-bike counts when the feed lets us derive them (R25), else null. */
-function splitBikes(status: StationStatusRecord, types: VehicleTypeRecord[] | null) {
+/** Mechanical / e-bike counts when the feed lets us derive them, else null. */
+function splitBikes(status: StationStatusRecord, propulsion: Map<string, string> | null) {
   if (status.split) return status.split;
-  if (!status.vehicleTypes || !types) return null;
-  const propulsion = new Map(types.map((t) => [t.id, t.propulsion]));
+  if (!status.vehicleTypes || !propulsion) return null;
   let mechanical = 0;
   let ebikes = 0;
   for (const { vehicleTypeId, count } of status.vehicleTypes) {
@@ -21,10 +20,7 @@ function splitBikes(status: StationStatusRecord, types: VehicleTypeRecord[] | nu
   return { mechanical, ebikes };
 }
 
-/**
- * Inner join of station_information and station_status on station_id (R14).
- * Stations missing from either feed are dropped and counted; uninstalled stations are excluded.
- */
+/** Inner join of station_information and station_status; drops (and counts) unmatched, skips uninstalled. */
 export function joinStations(
   info: StationInfoRecord[],
   status: StationStatusRecord[],
@@ -32,6 +28,7 @@ export function joinStations(
   nowSeconds: number,
 ): { stations: StationView[]; dropped: number } {
   const statusById = new Map(status.map((s) => [s.id, s]));
+  const propulsion = types && new Map(types.map((t) => [t.id, t.propulsion]));
   const stations: StationView[] = [];
   let matched = 0;
   for (const i of info) {
@@ -39,7 +36,7 @@ export function joinStations(
     if (!s) continue;
     matched++;
     if (!s.isInstalled) continue;
-    const split = splitBikes(s, types);
+    const split = splitBikes(s, propulsion);
     const reportedAgeSeconds =
       s.lastReported === null ? null : Math.max(0, Math.round(nowSeconds - s.lastReported));
     stations.push({

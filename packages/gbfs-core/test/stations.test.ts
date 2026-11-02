@@ -30,7 +30,7 @@ function join(statuses: StationStatusRecord[], infos = statuses.map((s) => info(
   return joinStations(infos, statuses, null, NOW);
 }
 
-describe('station rules (R14)', () => {
+describe('station rules', () => {
   it('excludes stations that are not installed', () => {
     expect(join([status('a', { isInstalled: false })]).stations).toHaveLength(0);
   });
@@ -64,7 +64,7 @@ describe('station rules (R14)', () => {
   });
 });
 
-describe('e-bike split (R25)', () => {
+describe('e-bike split', () => {
   const typed = status('a', {
     bikes: 5,
     vehicleTypes: [

@@ -1,5 +1,7 @@
-/** Open licences served (R2). Anything else is excluded from the catalog. */
-export type Licence = 'lov2' | 'fr-lo' | 'odc-odbl';
+import type { Catalog, LICENCES } from './catalog/schema';
+
+/** Open licences served. Anything else is excluded from the catalog. */
+export type Licence = (typeof LICENCES)[number];
 
 /** Credit owed to the data producer; returned with every result. */
 export interface Attribution {
@@ -22,11 +24,7 @@ export interface NetworkSummary {
   attribution: Attribution;
 }
 
-export interface UnsupportedNetwork {
-  slug: string;
-  title: string;
-  reason: string;
-}
+export type UnsupportedNetwork = Catalog['excluded'][number];
 
 export interface NetworkSearch {
   networks: NetworkSummary[];
@@ -101,6 +99,7 @@ export type GbfsErrorKind =
   | 'timeout'
   | 'invalid-feed'
   | 'unsupported-version'
+  | 'unknown-network'
   | 'not-supported-network'
   | 'station-not-found';
 

@@ -19,6 +19,9 @@ import v30System from './fixtures/v30/system_information.json';
 import v30Types from './fixtures/v30/vehicle_types.json';
 import type { FetchLike } from '../src/types';
 
+/** Clock the fixtures were captured at, in epoch ms. */
+export const FIXTURE_NOW_MS = 1_793_626_400_000;
+
 /** Real feeds trimmed to 3 stations: Vélib (1.x), Vélomagg (2.2), Vélo'v (2.3), Naolib (3.0). */
 export const fixtures = {
   v1: {

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// Lenient readers for real French feeds (R22): Vélib sends numeric ids and 0/1 flags.
+// Lenient readers for real French feeds: Vélib sends numeric ids and 0/1 flags.
 
 export const id = z.union([z.string(), z.number()]).transform(String);
 
@@ -26,17 +26,23 @@ export const timestamp = z
     return Number.isNaN(ms) ? null : Math.floor(ms / 1000);
   });
 
+/** Picks the French item, else English, else the first one. */
+export function preferFrench<T>(items: T[], language: (item: T) => string): T | undefined {
+  const starts = (prefix: string) =>
+    items.find((i) => language(i).toLowerCase().startsWith(prefix));
+  return starts('fr') ?? starts('en') ?? items[0];
+}
+
 const localizedText = z.array(z.object({ text: z.string(), language: z.string() }));
 
 /** v3 localized strings: French first, then English, then the first non-empty value. */
-export const localized = localizedText.transform((items) => {
-  const filled = items.filter((i) => i.text.trim() !== '');
-  const pick =
-    filled.find((i) => i.language.toLowerCase().startsWith('fr')) ??
-    filled.find((i) => i.language.toLowerCase().startsWith('en')) ??
-    filled[0];
-  return pick?.text ?? '';
-});
+export const localized = localizedText.transform(
+  (items) =>
+    preferFrench(
+      items.filter((i) => i.text.trim() !== ''),
+      (i) => i.language,
+    )?.text ?? '',
+);
 
 /** Parses each item on its own and drops invalid ones, so one bad station never fails a feed. */
 export function parseEach<S extends z.ZodType>(items: unknown[], schema: S): z.output<S>[] {

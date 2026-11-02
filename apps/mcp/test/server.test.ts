@@ -2,11 +2,14 @@ import { createGbfsFrance } from '@gbfs-france/core';
 import type { FetchLike } from '@gbfs-france/core';
 import { Client, InMemoryTransport } from '@modelcontextprotocol/client';
 import { afterEach, describe, expect, it } from 'vitest';
-import { fakeFetch, fixtures } from '../../../packages/gbfs-core/test/helpers';
+import {
+  FIXTURE_NOW_MS as NOW,
+  fakeFetch,
+  fixtures,
+} from '../../../packages/gbfs-core/test/helpers';
 import { nearbyOutput, searchOutput, stationOutput } from '../src/schemas';
 import { createServer } from '../src/server';
 
-const NOW = 1_793_626_400_000;
 let client: Client | undefined;
 
 async function connect(fetch: FetchLike = fakeFetch(fixtures.v1)) {
@@ -54,6 +57,9 @@ describe('MCP server (in-memory client)', () => {
     const velib = found.networks[0];
     expect(velib?.attribution.licence).toBe('odc-odbl');
     expect(text(search)).toContain(velib?.id);
+    expect(text(search)).toMatch(
+      /Network list: transport\.data\.gouv\.fr .*, snapshot \d{4}-\d{2}-\d{2}$/,
+    );
 
     const nearby = await c.callTool({
       name: 'nearby_stations',
@@ -63,7 +69,7 @@ describe('MCP server (in-memory client)', () => {
     expect(near.stations[0]?.name).toBe('Benjamin Godard - Victor Hugo');
     expect(near.attribution.publisher).toBe('Ville de Paris');
     expect(text(nearby)).toMatch(
-      /Benjamin Godard - Victor Hugo \(\d+ m\): 1 bikes, 0 e-bikes, 34 docks/,
+      /Benjamin Godard - Victor Hugo \(\d+ m\): 1 bike \(0 e-bikes\), 34 docks/,
     );
     expect(text(nearby)).toContain('Data: Ville de Paris');
 
@@ -72,7 +78,7 @@ describe('MCP server (in-memory client)', () => {
       arguments: { network_id: velib?.id, station_id: near.stations[0]?.id },
     });
     expect(stationOutput.parse(station.structuredContent).attribution.licence).toBe('odc-odbl');
-    expect(text(station)).toContain('last report over 30 min ago');
+    expect(text(station)).toContain('[last report 57 min ago]');
   });
 
   it.each([
@@ -84,7 +90,7 @@ describe('MCP server (in-memory client)', () => {
     ['nearby_stations', { network_id: 'x', lat: 0, lon: 0, limit: 0 }],
     ['nearby_stations', { network_id: 'x', lat: 0, lon: 0, max_distance_meters: 10_001 }],
     ['get_station', { network_id: 'x', station_id: '' }],
-  ])('%s rejects out-of-bounds input %j (R15)', async (name, args) => {
+  ])('%s rejects out-of-bounds input %j', async (name, args) => {
     const r = await (await connect()).callTool({ name, arguments: args });
     expect(r.isError).toBe(true);
   });

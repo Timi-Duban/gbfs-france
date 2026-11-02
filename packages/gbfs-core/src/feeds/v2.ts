@@ -1,7 +1,15 @@
 import { z } from 'zod';
-import { count, coordinate, flag, id, parseEach, timestamp } from './coerce';
-import { parseEnvelope, stationsEnvelope, vehicleTypesEnvelope } from './envelope';
+import { count, flag, id, parseEach, timestamp } from './coerce';
+import { parseEnvelope, stationsEnvelope } from './envelope';
 import type { GbfsAdapter } from './model';
+import {
+  readStationInformation,
+  readVehicleTypes,
+  stationInformationSchema,
+  toTypeCounts,
+  typeCounts,
+  vehicleType,
+} from './shared';
 
 // GBFS 1.x, 2.2 and 2.3 share these station fields; only the ones we read are declared.
 
@@ -9,16 +17,7 @@ export const systemInformationV2 = z.object({
   data: z.object({ system_id: id, name: z.string() }),
 });
 
-export const stationInformationV2 = z.object({
-  station_id: id,
-  name: z.string(),
-  lat: coordinate,
-  lon: coordinate,
-  address: z.string().nullish(),
-  capacity: count,
-});
-
-const typeCount = z.object({ vehicle_type_id: id, count: z.number() });
+export const stationInformationV2 = stationInformationSchema(z.string());
 
 export const stationStatusV2 = z.object({
   station_id: id,
@@ -28,12 +27,12 @@ export const stationStatusV2 = z.object({
   is_renting: flag,
   is_returning: flag,
   last_reported: timestamp,
-  vehicle_types_available: z.array(typeCount).nullish(),
+  vehicle_types_available: typeCounts,
   // Vélib: [{ mechanical: n }, { ebike: n }]
   num_bikes_available_types: z.array(z.record(z.string(), z.number())).nullish(),
 });
 
-export const vehicleTypeV2 = z.object({ vehicle_type_id: id, propulsion_type: z.string() });
+export const vehicleTypeV2 = vehicleType;
 
 function velibSplit(types: Record<string, number>[] | null | undefined) {
   if (!types) return null;
@@ -51,17 +50,7 @@ export const v2Adapter: GbfsAdapter = {
     const { data } = parseEnvelope(raw, systemInformationV2, 'system_information');
     return { id: data.system_id, name: data.name };
   },
-  stationInformation(raw) {
-    const { data } = parseEnvelope(raw, stationsEnvelope, 'station_information');
-    return parseEach(data.stations, stationInformationV2).map((s) => ({
-      id: s.station_id,
-      name: s.name,
-      lat: s.lat,
-      lon: s.lon,
-      address: s.address ?? null,
-      capacity: s.capacity,
-    }));
-  },
+  stationInformation: (raw) => readStationInformation(raw, stationInformationV2),
   stationStatus(raw) {
     const { data } = parseEnvelope(raw, stationsEnvelope, 'station_status');
     return parseEach(data.stations, stationStatusV2).map((s) => ({
@@ -72,19 +61,9 @@ export const v2Adapter: GbfsAdapter = {
       bikes: s.num_bikes_available,
       docks: s.num_docks_available,
       lastReported: s.last_reported,
-      vehicleTypes:
-        s.vehicle_types_available?.map((t) => ({
-          vehicleTypeId: t.vehicle_type_id,
-          count: t.count,
-        })) ?? null,
+      vehicleTypes: toTypeCounts(s.vehicle_types_available),
       split: velibSplit(s.num_bikes_available_types),
     }));
   },
-  vehicleTypes(raw) {
-    const { data } = parseEnvelope(raw, vehicleTypesEnvelope, 'vehicle_types');
-    return parseEach(data.vehicle_types, vehicleTypeV2).map((t) => ({
-      id: t.vehicle_type_id,
-      propulsion: t.propulsion_type,
-    }));
-  },
+  vehicleTypes: readVehicleTypes,
 };

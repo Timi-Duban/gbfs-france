@@ -1,53 +1,35 @@
 # GBFS France
 
-La disponibilité des vélos en libre-service en France, en direct, pour les assistants IA. Un serveur [MCP](https://modelcontextprotocol.io) qui lit les flux GBFS officiels référencés sur [transport.data.gouv.fr](https://transport.data.gouv.fr) et répond à « où trouver un vélo (ou le déposer) près d'ici ? ».
-
-[English version](README.md)
+Serveur [MCP](https://modelcontextprotocol.io) pour la disponibilité en direct des vélos en libre-service en France, à partir des flux GBFS référencés sur [transport.data.gouv.fr](https://transport.data.gouv.fr). [English](README.md)
 
 ## Outils
 
-| Outil             | Entrée                                                                                    | Renvoie                                                                                    |
-| ----------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `search_networks` | `query` (ville, territoire ou nom)                                                        | les identifiants de réseau, et les réseaux trouvés mais non pris en charge, avec la raison |
-| `nearby_stations` | `network_id`, `lat`, `lon`, `limit?`, `need?` (`bikes` / `docks`), `max_distance_meters?` | les stations les plus proches : vélos, VAE, places libres et distance                      |
-| `get_station`     | `network_id`, `station_id`                                                                | l'état en direct d'une station                                                             |
+Lecture seule, sortie structurée et court texte (en anglais), producteur des données cité dans chaque réponse.
 
-Tous les outils sont en lecture seule, renvoient un contenu structuré (avec schéma de sortie) et un court texte, et citent le producteur des données dans chaque réponse.
-
-Exemple (données réelles, Vélo'v Lyon) :
+- `search_networks(query)` : identifiants de réseau pour une ville, un territoire ou un nom, et réseaux non pris en charge avec la raison.
+- `nearby_stations(network_id, lat, lon, limit?, need?: bikes|docks, max_distance_meters?)` : stations les plus proches, avec vélos, VAE, places libres.
+- `get_station(network_id, station_id)` : état en direct d'une station.
 
 ```text
-> search_networks { "query": "Lyon" }
-Vélo'v Lyon [stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel] (467 stations)
-Not supported: Autopartage Citiz Métropole de Lyon (not a bike-share network (carsharing))
-
-> nearby_stations { "network_id": "stations-velov-…", "lat": 45.7578, "lon": 4.832, "limit": 3, "need": "bikes" }
-3 station(s) on Vélo'v Lyon.
-BELLECOUR / ST EXUPÉRY (128 m): 14 bikes, 2 e-bikes, 25 docks [last report over 30 min ago]
-PLACE ANTONIN PONCET (187 m): 17 bikes, 3 e-bikes, 22 docks [last report over 30 min ago]
-BELLECOUR / RÉPUBLIQUE (202 m): 12 bikes, 7 e-bikes, 2 docks [last report over 30 min ago]
+> nearby_stations { "network_id": "stations-velov-…", "lat": 45.7578, "lon": 4.832, "limit": 2 }
+2 station(s) on Vélo'v Lyon.
+BELLECOUR / ST EXUPÉRY (128 m): 4 bikes (0 e-bikes), 36 docks
+PLACE ANTONIN PONCET (187 m): 7 bikes (0 e-bikes), 32 docks
+Note: every station listed last reported 91 min to 7 h ago; counts are from the operator’s latest feed and may miss recent changes.
 Data: Métropole de Lyon, Licence Ouverte v2.0 (Etalab), https://transport.data.gouv.fr/datasets/…
 ```
 
-Les réponses des outils sont en anglais ; l'assistant les reformule dans la langue de l'utilisateur.
-
 ## Installation
 
-Node.js 22 ou plus. Dans Claude Desktop (`claude_desktop_config.json`) ou tout client MCP :
+Node.js 22+. Claude Code : `claude mcp add gbfs-france -- npx -y gbfs-france-mcp`. Autres clients MCP :
 
 ```json
-{
-  "mcpServers": {
-    "gbfs-france": { "command": "npx", "args": ["-y", "gbfs-france-mcp"] }
-  }
-}
+{ "mcpServers": { "gbfs-france": { "command": "npx", "args": ["-y", "gbfs-france-mcp"] } } }
 ```
-
-Claude Code : `claude mcp add gbfs-france -- npx -y gbfs-france-mcp`.
 
 ## Couverture
 
-Réseaux de vélos en station sous licence ouverte (Licence Ouverte v1/v2, ODbL) avec un flux GBFS 1.x, 2.x ou 3.0 :
+Réseaux en station sous licence ouverte (Licence Ouverte, ODbL) avec un flux GBFS 1.x à 3.0. Free-floating, trottinettes, autopartage et jeux sans licence ne sont pas servis.
 
 <!-- networks:start -->
 
@@ -55,47 +37,23 @@ Réseaux de vélos en station sous licence ouverte (Licence Ouverte v1/v2, ODbL)
 
 <!-- networks:end -->
 
-Pas encore servis : les opérateurs en free-floating (Lime, Dott, Pony), les trottinettes, l'autopartage et les jeux de données publiés sans licence. `search_networks` les cite avec la raison.
+## Conception
 
-## Données et licences
+`apps/mcp` (stdio) appelle `packages/gbfs-core`, sans import Node (compatible Hermes, pour une future app Expo) :
 
-Liste des réseaux : [transport.data.gouv.fr](https://transport.data.gouv.fr) (point d'accès national). Disponibilités : le flux GBFS de chaque opérateur, lu en direct. Chaque réponse indique le producteur, la licence et la page du jeu de données, comme l'exigent l'ODbL et la Licence Ouverte. Les compteurs sont ceux publiés par les opérateurs : `null` signifie inconnu, et une station sans remontée depuis 30 minutes est marquée `outdated`.
-
-## Fonctionnement
-
-```text
-apps/mcp (stdio)  ->  packages/gbfs-core : createGbfsFrance()
-                        catalog.json (instantané versionné, reconstruit chaque semaine)
-                        découverte -> adaptateur v2 (1.x/2.x) | v3 (3.0)
-                        chargement des flux : cache, single-flight, timeout, stale-if-error
-                        jointure station_information x station_status -> StationView
-```
-
-Design patterns, par fichier :
-
-- **Façade** : [`facade.ts`](packages/gbfs-core/src/facade.ts) cache les versions, la jointure des flux, le cache et les erreurs derrière trois appels, partagés avec la future app Expo.
-- **Adaptateur** : [`feeds/v2.ts`](packages/gbfs-core/src/feeds/v2.ts) et [`feeds/v3.ts`](packages/gbfs-core/src/feeds/v3.ts) ramènent chaque version de GBFS aux mêmes enregistrements.
-- **Cache-Aside** avec **single-flight** : [`fetch/feed-loader.ts`](packages/gbfs-core/src/fetch/feed-loader.ts) garde chaque flux le temps de son `ttl`, borné selon le type de flux (statut en direct : 30 à 60 s), fusionne les requêtes identiques simultanées, ressert les dernières données valides jusqu'à 10 min si un opérateur tombe, et garde au plus 64 flux (LRU).
-- **Type Result** : la façade ne lève jamais d'exception sur un problème de données ; elle renvoie `{ ok: false, error }` avec un `kind` typé.
-
-Le cœur n'importe aucun module Node et évite les API absentes de Hermes (React Native), ce que vérifie ESLint.
+- **Façade** [`facade.ts`](packages/gbfs-core/src/facade.ts) : trois appels qui cachent catalogue, versions, jointure, cache et erreurs.
+- **Adaptateur** [`feeds/v2.ts`](packages/gbfs-core/src/feeds/v2.ts), [`v3.ts`](packages/gbfs-core/src/feeds/v3.ts) : un par version GBFS, mêmes enregistrements.
+- **Cache-Aside + single-flight** [`feed-loader.ts`](packages/gbfs-core/src/fetch/feed-loader.ts) : ttl borné, stale-if-error 10 min, LRU 64.
+- **Type Result** : `{ ok: false, error }` au lieu d'une exception.
 
 ## Développement
 
 ```bash
-fnm use            # Node 24 via .nvmrc
-pnpm install
+fnm use && pnpm install
 pnpm lint && pnpm typecheck && pnpm test
-pnpm build         # apps/mcp/dist/index.js
-pnpm catalog       # reconstruit l'instantané des réseaux et cette liste
+pnpm catalog   # reconstruit l'instantané et les listes
 ```
 
-### Notes de maintenance
-
-- Première publication npm à la main (`pnpm --filter gbfs-france-mcp build`, puis `npm publish` dans `apps/mcp`), puis configuration du trusted publishing npm pour `release.yml`. Ensuite, pousser un tag `vX.Y.Z` publie sur npm (avec provenance) et sur le registre MCP.
-- GitHub désactive les workflows planifiés après 60 jours sans activité : fusionner la PR hebdomadaire du catalogue les garde actifs.
-- Les suites prévues sont dans [TODOS.md](TODOS.md).
-
-## Licence
+Publication : pousser un tag `vX.Y.Z` (npm avec provenance, puis registre MCP). Fusionner la PR hebdomadaire du catalogue pour que GitHub garde les workflows planifiés. Suites : [TODOS.md](TODOS.md).
 
 MIT. Les données restent sous la licence de chaque producteur.

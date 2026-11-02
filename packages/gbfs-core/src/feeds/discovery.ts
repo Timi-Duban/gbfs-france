@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { FeedFailure } from '../errors';
+import { preferFrench } from './coerce';
 import type { GbfsAdapter } from './model';
 import { v2Adapter } from './v2';
 import { v3Adapter } from './v3';
@@ -11,9 +12,10 @@ export const discoverySchema = z.object({
   version: z.string().optional(),
   data: z.union([
     z.object({ feeds: feedList }).transform((d) => d.feeds),
-    z
-      .record(z.string(), z.object({ feeds: feedList }))
-      .transform((byLang) => pickLanguage(byLang)?.feeds ?? []),
+    z.record(z.string(), z.object({ feeds: feedList })).transform((byLang) => {
+      const lang = preferFrench(Object.keys(byLang), (l) => l);
+      return (lang === undefined ? undefined : byLang[lang])?.feeds ?? [];
+    }),
   ]),
 });
 
@@ -32,26 +34,21 @@ export function parseDiscovery(raw: unknown): Discovery {
   return { version: r.data.version ?? '1.x', feeds };
 }
 
-function pickLanguage<T>(byLang: Record<string, T>): T | undefined {
-  const langs = Object.keys(byLang);
-  const lang =
-    langs.find((l) => l.toLowerCase().startsWith('fr')) ??
-    langs.find((l) => l.toLowerCase().startsWith('en')) ??
-    langs[0];
-  return lang === undefined ? undefined : byLang[lang];
+const ADAPTERS = new Map<string, GbfsAdapter>([
+  ...['1.x', '1.0', '1.1', '2.0', '2.1', '2.2', '2.3'].map((v) => [v, v2Adapter] as const),
+  ['3.0', v3Adapter],
+]);
+
+/** The Adapter for a GBFS version (v2 reads 1.x/2.x, v3 reads 3.0), if supported. */
+export function findAdapter(version: string): GbfsAdapter | undefined {
+  return ADAPTERS.get(version);
 }
 
-const V2_VERSIONS = new Set(['1.x', '1.0', '1.1', '2.0', '2.1', '2.2', '2.3']);
-
-export function isSupportedVersion(version: string): boolean {
-  return V2_VERSIONS.has(version) || version === '3.0';
-}
-
-/** Picks the Adapter for a GBFS version: v2 reads 1.x/2.x, v3 reads 3.0. */
 export function adapterFor(version: string): GbfsAdapter {
-  if (V2_VERSIONS.has(version)) return v2Adapter;
-  if (version === '3.0') return v3Adapter;
-  throw new FeedFailure('unsupported-version', `GBFS version ${version} is not supported.`);
+  const adapter = findAdapter(version);
+  if (!adapter)
+    throw new FeedFailure('unsupported-version', `GBFS version ${version} is not supported.`);
+  return adapter;
 }
 
 /** Orders versions so the highest one wins when a system is published twice. */

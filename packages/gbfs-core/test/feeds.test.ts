@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { FeedFailure } from '../src/errors';
 import { adapterFor, parseDiscovery } from '../src/feeds/discovery';
 import { joinStations } from '../src/stations';
-import { fixtures } from './helpers';
+import { FIXTURE_NOW_MS, fixtures } from './helpers';
 
 function normalize(set: keyof typeof fixtures) {
   const f = fixtures[set];
@@ -13,7 +13,7 @@ function normalize(set: keyof typeof fixtures) {
     adapter.stationInformation(f.station_information),
     adapter.stationStatus(f.station_status),
     types,
-    1_793_626_400,
+    FIXTURE_NOW_MS / 1000,
   );
   return { discovery, system: adapter.systemInformation(f.system_information), stations };
 }
