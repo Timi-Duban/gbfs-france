@@ -1,6 +1,4 @@
-// Regression: ISSUE-001 — "13 bikes, 1 e-bikes" read as 14 bikes; e-bikes are part of the total
-// Found by /qa on 2026-11-02
-// Report: .gstack/qa-reports/qa-report-gbfs-france-mcp-2026-11-02.md
+// Regression (QA 2026-11-02): "13 bikes, 1 e-bikes" read as 14 bikes.
 import type { StationView } from '@gbfs-france/core';
 import { expect, it } from 'vitest';
 import { stationLine } from '../src/format';

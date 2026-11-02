@@ -1,4 +1,4 @@
-// Live smoke (R17): the built server answers nearby_stations on real feeds. Run after `pnpm build`.
+// Live smoke: the built server answers nearby_stations on real feeds. Run after `pnpm build`.
 import { Client } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 import { fileURLToPath } from 'node:url';

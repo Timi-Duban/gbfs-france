@@ -23,7 +23,7 @@ describe('committed snapshot', () => {
   });
 });
 
-describe('search (R21)', () => {
+describe('search', () => {
   const network = (over: Partial<CatalogNetwork>): CatalogNetwork => ({
     id: 'x',
     slug: 'x',

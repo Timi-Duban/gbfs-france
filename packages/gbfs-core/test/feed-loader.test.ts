@@ -14,7 +14,7 @@ function setup(fetch: FetchLike) {
   return { loader, advance: (ms: number) => (now += ms) };
 }
 
-describe('cache policy (R1)', () => {
+describe('cache policy', () => {
   it.each([
     ['station_status', 0, 30],
     ['station_status', 3600, 60],
@@ -112,7 +112,7 @@ describe('FeedLoader', () => {
     expect(fetch).toHaveBeenCalledTimes(2);
   });
 
-  describe('stale-if-error (R8)', () => {
+  describe('stale-if-error', () => {
     async function primedThenFailing() {
       let fail = false;
       const fetch: FetchLike = async () =>

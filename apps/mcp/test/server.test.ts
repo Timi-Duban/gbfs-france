@@ -87,7 +87,7 @@ describe('MCP server (in-memory client)', () => {
     ['nearby_stations', { network_id: 'x', lat: 0, lon: 0, limit: 0 }],
     ['nearby_stations', { network_id: 'x', lat: 0, lon: 0, max_distance_meters: 10_001 }],
     ['get_station', { network_id: 'x', station_id: '' }],
-  ])('%s rejects out-of-bounds input %j (R15)', async (name, args) => {
+  ])('%s rejects out-of-bounds input %j', async (name, args) => {
     const r = await (await connect()).callTool({ name, arguments: args });
     expect(r.isError).toBe(true);
   });

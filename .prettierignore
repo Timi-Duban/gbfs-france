@@ -4,3 +4,4 @@ coverage
 packages/gbfs-core/data/catalog.json
 packages/gbfs-core/test/fixtures
 scripts/test/fixtures
+.gstack

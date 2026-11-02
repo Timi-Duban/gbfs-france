@@ -111,7 +111,7 @@ describe('getStation', () => {
   });
 });
 
-describe('typed errors (R8/R13): never throws', () => {
+describe('typed errors: never throws', () => {
   afterEach(() => vi.useRealTimers());
 
   const unsupportedVersion = {

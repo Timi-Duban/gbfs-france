@@ -1,6 +1,6 @@
 import type { Attribution, Freshness, GbfsError, StationView } from '@gbfs-france/core';
 
-/** Short text renderings next to structuredContent, for clients that only read text. */
+/** Text next to structuredContent, for text-only clients. */
 
 export function credit(a: Attribution): string {
   return `Data: ${a.publisher}, ${a.licenceName}, ${a.sourceUrl}`;
@@ -36,10 +36,7 @@ export function stationLine(s: StationView, tagOutdated = true): string {
   return `${s.name}${where}: ${count(s.bikes, 'bike')}${split}, ${count(s.docks, 'dock')}${note}`;
 }
 
-/**
- * One line per station. When every station is outdated (some operators only report on
- * change), a single note with the age range replaces the repeated per-line tags.
- */
+/** One line per station; one note replaces the tags when all are outdated. */
 export function stationLines(stations: StationView[]): string[] {
   const ages = stations.flatMap((s) => lag(s) ?? []);
   const allLate = stations.length > 1 && ages.length === stations.length;

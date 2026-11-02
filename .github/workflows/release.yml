@@ -1,7 +1,6 @@
 name: Release
 
-# Push a tag `vX.Y.Z` matching apps/mcp/package.json. The first npm publish is manual; then
-# configure npm trusted publishing (this repo + release.yml) so no npm token is stored.
+# Tag `vX.Y.Z` = apps/mcp version. Publishes via npm trusted publishing (OIDC, no token).
 on:
   push:
     tags: ['v*']
@@ -27,15 +26,14 @@ jobs:
       - uses: ./.github/actions/mcp-publisher
       - run: mcp-publisher validate server.json
         working-directory: apps/mcp
-      # pnpm pack rewrites workspace: ranges; npm publishes the tarball through OIDC.
-      # Skipped when the version is already on npm, so a rerun can finish the registry step.
+      # pnpm pack rewrites workspace: ranges; skipped if already published, so reruns work.
       - name: Publish to npm
         working-directory: apps/mcp
         run: |
           if npm view "gbfs-france-mcp@${GITHUB_REF_NAME#v}" version >/dev/null 2>&1; then exit 0; fi
           pnpm pack --out package.tgz
           npm publish package.tgz --provenance --access public
-      # npm processes new versions for a few minutes; the MCP registry checks the version exists.
+      # The MCP registry rejects versions npm has not finished processing.
       - name: Wait for the version on npm
         run: |
           for _ in $(seq 60); do

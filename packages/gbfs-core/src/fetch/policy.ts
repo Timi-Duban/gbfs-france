@@ -8,7 +8,7 @@ interface Bounds {
   fallback: number;
 }
 
-// R1: operator ttl values are unreliable (Vélib status says 3600, many say 0), so clamp by feed kind.
+// Operator ttl values are unreliable (Vélib status says 3600, many say 0), so clamp by feed kind.
 const LIVE: Bounds = { min: 30, max: 60, fallback: 60 };
 const STATIC: Bounds = { min: 300, max: 86_400, fallback: 300 };
 
@@ -27,7 +27,7 @@ export function cacheSeconds(kind: FeedKind, ttl: number | undefined): number {
   return Math.min(b.max, Math.max(b.min, ttl));
 }
 
-/** Stale-if-error window after expiry (R8). */
+/** Stale-if-error window after expiry. */
 export const STALE_IF_ERROR_MS = 10 * 60 * 1000;
 export const TIMEOUT_MS = 8000;
 export const MAX_ENTRIES = 64;

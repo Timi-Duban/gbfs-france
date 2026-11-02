@@ -21,10 +21,7 @@ function queryWords(query: string): string[] {
   return split(query).map(fold).filter(Boolean);
 }
 
-/**
- * Field words, joined across apostrophes ("Vélo'v" -> velov) and also split on them
- * ("d'agglomération" -> agglomeration) and on camel case ("VélôToulouse" -> toulouse).
- */
+/** Field words, also split on apostrophes and camel case: "VélôToulouse" -> velotoulouse, toulouse. */
 export function words(parts: string[]): Set<string> {
   const out = new Set<string>();
   for (const word of parts.flatMap(split)) {
@@ -43,11 +40,7 @@ function match(token: string, field: Set<string>): number {
   return 0;
 }
 
-/**
- * Accent-insensitive word-prefix search: every query word must start a word of the network's
- * fields ("lyon" matches "Lyon" and "lyonnais", "velov" does not match "ViVélo").
- * Exact words in the name or area rank first, then larger networks.
- */
+/** Accent-insensitive word-prefix search; exact name/area words rank first, then size. */
 export function searchCatalog(catalog: Catalog, query: string, limit: number) {
   const tokens = queryWords(query);
   if (tokens.length === 0) return { networks: [], unsupported: [] };

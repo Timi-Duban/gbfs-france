@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// Lenient readers for real French feeds (R22): Vélib sends numeric ids and 0/1 flags.
+// Lenient readers for real French feeds: Vélib sends numeric ids and 0/1 flags.
 
 export const id = z.union([z.string(), z.number()]).transform(String);
 

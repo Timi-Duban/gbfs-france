@@ -24,10 +24,7 @@ export interface FeedLoaderOptions {
   headers: Record<string, string>;
 }
 
-/**
- * Cache-Aside over GBFS feeds, with single-flight per URL (concurrent callers share one request),
- * a timeout, an LRU bound and stale-if-error.
- */
+/** Cache-Aside with single-flight per URL, timeout, LRU bound and stale-if-error. */
 export class FeedLoader {
   private readonly cache = new Lru<Entry>(MAX_ENTRIES);
   private readonly inflight = new Map<string, Promise<unknown>>();

@@ -91,7 +91,7 @@ function displayName(title: string, systemName: string, single: boolean): string
   return systemName || curated?.trim() || title;
 }
 
-/** Applies R2 (licences), R3 (docked bikes), R19 (1.x included) and R21 (ids, dedupe) to the catalog. */
+/** Keeps open-licence docked-bike systems (GBFS 1.x+), with unique ids. */
 export async function buildCatalog(
   rawDatasets: unknown,
   fetchJson: FetchJson,

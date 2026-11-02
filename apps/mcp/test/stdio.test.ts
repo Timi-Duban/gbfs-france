@@ -4,7 +4,7 @@ import { expect, it } from 'vitest';
 
 const entry = fileURLToPath(new URL('../src/index.ts', import.meta.url));
 
-/** R27: over stdio, stdout must carry JSON-RPC messages only (logs go to stderr). */
+/** stdout carries JSON-RPC only; logs go to stderr. */
 it('writes only protocol messages to stdout', async () => {
   const child = spawn(process.execPath, ['--import', 'tsx', entry], { stdio: 'pipe' });
   let stdout = '';

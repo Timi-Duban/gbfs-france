@@ -58,10 +58,7 @@ function summaryOf(n: CatalogNetwork): NetworkSummary {
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
-/**
- * Facade over French GBFS feeds: hides the catalog, version Adapters, feed join, cache and errors
- * behind three calls shared by the MCP server and future apps.
- */
+/** Facade: three calls hiding catalog, version Adapters, feed join, cache and errors. */
 export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
   const catalog = loadCatalog();
   const now = options.now ?? (() => Date.now());
@@ -127,7 +124,7 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
     };
   }
 
-  /** Runs a network query and maps every core failure to a typed error (R8/R13). */
+  /** Runs a network query and maps every core failure to a typed error. */
   async function withNetwork<T>(
     networkId: string,
     run: (network: CatalogNetwork, ref: NetworkRef, attribution: Attribution) => Promise<Result<T>>,

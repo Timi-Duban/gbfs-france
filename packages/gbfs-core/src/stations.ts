@@ -5,7 +5,7 @@ export const OUTDATED_AFTER_SECONDS = 30 * 60;
 
 const ELECTRIC = new Set(['electric_assist', 'electric']);
 
-/** Mechanical / e-bike counts when the feed lets us derive them (R25), else null. */
+/** Mechanical / e-bike counts when the feed lets us derive them, else null. */
 function splitBikes(status: StationStatusRecord, types: VehicleTypeRecord[] | null) {
   if (status.split) return status.split;
   if (!status.vehicleTypes || !types) return null;
@@ -21,10 +21,7 @@ function splitBikes(status: StationStatusRecord, types: VehicleTypeRecord[] | nu
   return { mechanical, ebikes };
 }
 
-/**
- * Inner join of station_information and station_status on station_id (R14).
- * Stations missing from either feed are dropped and counted; uninstalled stations are excluded.
- */
+/** Inner join of station_information and station_status; drops (and counts) unmatched, skips uninstalled. */
 export function joinStations(
   info: StationInfoRecord[],
   status: StationStatusRecord[],

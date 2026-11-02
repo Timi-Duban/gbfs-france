@@ -1,4 +1,4 @@
-/** Open licences served (R2). Anything else is excluded from the catalog. */
+/** Open licences served. Anything else is excluded from the catalog. */
 export type Licence = 'lov2' | 'fr-lo' | 'odc-odbl';
 
 /** Credit owed to the data producer; returned with every result. */

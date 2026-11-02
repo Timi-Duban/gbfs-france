@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// Input bounds (R15) keep answers small for the AI and turn bad ids into clear errors.
+// Input bounds keep answers small for the AI and turn bad ids into clear errors.
 const networkId = z
   .string()
   .min(1)
