@@ -79,6 +79,18 @@ describe('search (R21)', () => {
     });
   });
 
+  it.each([
+    ['velov', 'ViVélo Vichy', []],
+    ['bourg', 'Vélhop Strasbourg', []],
+    ['velo', 'ViVélo Vichy', ['x']],
+    ['toulouse', 'VélôToulouse', ['x']],
+    ['agglomeration', "Vélos de l'agglomération", ['x']],
+    ['velostan', 'VélOstan’lib', ['x']],
+  ])('"%s" against "%s" matches word starts only', (query, name, ids) => {
+    const one: Catalog = { ...fixture, networks: [network({ name })], excluded: [] };
+    expect(searchCatalog(one, query, 5).networks.map((n) => n.id)).toEqual(ids);
+  });
+
   it('returns nothing for an empty query and honours the limit', () => {
     expect(searchCatalog(fixture, ' - ', 5).networks).toEqual([]);
     expect(searchCatalog(fixture, 'lyon', 1).networks).toHaveLength(1);
