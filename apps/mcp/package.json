@@ -1,6 +1,6 @@
 {
   "name": "gbfs-france-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for live bike-share availability in France (GBFS).",
   "type": "module",
   "license": "MIT",
