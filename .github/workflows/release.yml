@@ -28,11 +28,21 @@ jobs:
       - run: mcp-publisher validate server.json
         working-directory: apps/mcp
       # pnpm pack rewrites workspace: ranges; npm publishes the tarball through OIDC.
+      # Skipped when the version is already on npm, so a rerun can finish the registry step.
       - name: Publish to npm
         working-directory: apps/mcp
         run: |
+          if npm view "gbfs-france-mcp@${GITHUB_REF_NAME#v}" version >/dev/null 2>&1; then exit 0; fi
           pnpm pack --out package.tgz
           npm publish package.tgz --provenance --access public
+      # npm processes new versions for a few minutes; the MCP registry checks the version exists.
+      - name: Wait for the version on npm
+        run: |
+          for _ in $(seq 60); do
+            npm view "gbfs-france-mcp@${GITHUB_REF_NAME#v}" version --prefer-online >/dev/null 2>&1 && exit 0
+            sleep 15
+          done
+          exit 1
       - run: mcp-publisher login github-oidc
       - run: mcp-publisher publish
         working-directory: apps/mcp
