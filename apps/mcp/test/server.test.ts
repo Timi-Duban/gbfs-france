@@ -54,6 +54,9 @@ describe('MCP server (in-memory client)', () => {
     const velib = found.networks[0];
     expect(velib?.attribution.licence).toBe('odc-odbl');
     expect(text(search)).toContain(velib?.id);
+    expect(text(search)).toMatch(
+      /Network list: transport\.data\.gouv\.fr .*, snapshot \d{4}-\d{2}-\d{2}$/,
+    );
 
     const nearby = await c.callTool({
       name: 'nearby_stations',
@@ -72,7 +75,7 @@ describe('MCP server (in-memory client)', () => {
       arguments: { network_id: velib?.id, station_id: near.stations[0]?.id },
     });
     expect(stationOutput.parse(station.structuredContent).attribution.licence).toBe('odc-odbl');
-    expect(text(station)).toContain('last report over 30 min ago');
+    expect(text(station)).toContain('[last report 57 min ago]');
   });
 
   it.each([

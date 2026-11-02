@@ -20,12 +20,14 @@ Exemple (données réelles, Vélo'v Lyon) :
 > search_networks { "query": "Lyon" }
 Vélo'v Lyon [stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel] (467 stations)
 Not supported: Autopartage Citiz Métropole de Lyon (not a bike-share network (carsharing))
+Network list: transport.data.gouv.fr (national access point), snapshot 2026-11-02
 
 > nearby_stations { "network_id": "stations-velov-…", "lat": 45.7578, "lon": 4.832, "limit": 3, "need": "bikes" }
 3 station(s) on Vélo'v Lyon.
-BELLECOUR / ST EXUPÉRY (128 m): 14 bikes (2 e-bikes), 25 docks [last report over 30 min ago]
-PLACE ANTONIN PONCET (187 m): 17 bikes (3 e-bikes), 22 docks [last report over 30 min ago]
-BELLECOUR / RÉPUBLIQUE (202 m): 12 bikes (7 e-bikes), 2 docks [last report over 30 min ago]
+BELLECOUR / ST EXUPÉRY (128 m): 4 bikes (0 e-bikes), 36 docks
+PLACE ANTONIN PONCET (187 m): 7 bikes (0 e-bikes), 32 docks
+2001 - BELLECOUR / RÉPUBLIQUE (202 m): 6 bikes (0 e-bikes), 9 docks
+Note: every station listed last reported 91 min to 7 h ago; counts are from the operator’s latest feed and may miss recent changes.
 Data: Métropole de Lyon, Licence Ouverte v2.0 (Etalab), https://transport.data.gouv.fr/datasets/…
 ```
 
