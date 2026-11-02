@@ -1,0 +1,36 @@
+{
+ "last_updated": 1793626300,
+ "ttl": 300,
+ "version": "2.3",
+ "data": {
+  "stations": [
+   {
+    "station_id": "1024",
+    "name": "1024 - ROUVILLE",
+    "lat": 45.769684,
+    "lon": 4.824607,
+    "address": "PLACE ROUVILLE",
+    "capacity": 17
+   },
+   {
+    "station_id": "3079",
+    "name": "3079 - PLACE LOUISE",
+    "lat": 45.75118,
+    "lon": 4.884795,
+    "address": "4 PLACE LOUISE",
+    "capacity": 16
+   },
+   {
+    "station_id": "1031",
+    "name": "PLACE DE LA PAIX",
+    "lat": 45.768023,
+    "lon": 4.831733,
+    "address": "Place de la Paix - En face de La Poste",
+    "rental_methods": [
+     "creditcard"
+    ],
+    "capacity": 20
+   }
+  ]
+ }
+}

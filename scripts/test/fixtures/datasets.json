@@ -1,0 +1,324 @@
+[
+ {
+  "slug": "base-nationale-des-lieux-de-covoiturage",
+  "title": "Base nationale consolidée des lieux de covoiturage",
+  "type": "carpooling-areas",
+  "licence": "odc-odbl",
+  "page_url": "https://transport.data.gouv.fr/datasets/base-nationale-des-lieux-de-covoiturage",
+  "updated": "2026-10-23T12:23:51.130880Z",
+  "sub_types": [],
+  "publisher": {
+   "id": "5abca8d588ee386ee6ece479",
+   "name": "Point d'Accès National transport.data.gouv.fr",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "pays",
+    "nom": "France",
+    "insee": "FR"
+   }
+  ],
+  "resources": [
+   {
+    "format": "csv",
+    "original_url": "https://raw.githubusercontent.com/etalab/transport-base-nationale-covoiturage/main/bnlc-.csv",
+    "title": "BNLC (avant janvier 2024)"
+   },
+   {
+    "format": "csv",
+    "original_url": "https://raw.githubusercontent.com/etalab/transport-base-nationale-covoiturage/main/datasets.csv",
+    "title": "Jeux de données composant la BNLC"
+   },
+   {
+    "format": "shp",
+    "original_url": "https://static.data.gouv.fr/resources/base-nationale-des-lieux-de-covoiturage/20220623-152325/aire-de-covoiturage-bretagne-supplementaires.shp",
+    "title": "aire-de-covoiturage-bretagne-supplementaires.shp"
+   },
+   {
+    "format": "csv",
+    "original_url": "https://raw.githubusercontent.com/etalab/transport-base-nationale-covoiturage/refs/heads/main/disabled_datasets.csv",
+    "title": "Jeux de données retirés temporairement"
+   },
+   {
+    "format": "csv",
+    "original_url": "https://static.data.gouv.fr/resources/base-nationale-des-lieux-de-covoiturage/20260917-214635/bnlc.csv",
+    "title": "bnlc.csv"
+   }
+  ]
+ },
+ {
+  "slug": "velib-velos-et-bornes-disponibilite-temps-reel",
+  "title": "VLS Vélib Paris et communes limitrophes",
+  "type": "vehicles-sharing",
+  "licence": "odc-odbl",
+  "page_url": "https://transport.data.gouv.fr/datasets/velib-velos-et-bornes-disponibilite-temps-reel",
+  "updated": "2026-11-02T03:59:04.000000Z",
+  "sub_types": [
+   "bicycle"
+  ],
+  "publisher": {
+   "id": "534fff89a3a7292c64a77eb7",
+   "name": "Ville de Paris",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "region",
+    "nom": "Île-de-France",
+    "insee": "11"
+   }
+  ],
+  "resources": [
+   {
+    "format": "csv",
+    "original_url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel/exports/csv?use_labels=true",
+    "title": "velib-disponibilite-en-temps-reel.csv"
+   },
+   {
+    "format": "gbfs",
+    "original_url": "https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/gbfs.json",
+    "title": "Flux GBFS"
+   },
+   {
+    "format": "json",
+    "original_url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel/exports/json",
+    "title": "velib-disponibilite-en-temps-reel.json"
+   },
+   {
+    "format": "geojson",
+    "original_url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel/exports/geojson",
+    "title": "velib-disponibilite-en-temps-reel.geojson"
+   },
+   {
+    "format": "zip",
+    "original_url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel/exports/shp",
+    "title": "velib-disponibilite-en-temps-reel.zip"
+   }
+  ]
+ },
+ {
+  "slug": "offre-et-disponibilite-temps-reel-du-service-citiz-en-autopartage-metropole-de-lyon",
+  "title": "Autopartage Citiz Métropole de Lyon",
+  "type": "vehicles-sharing",
+  "licence": "lov2",
+  "page_url": "https://transport.data.gouv.fr/datasets/offre-et-disponibilite-temps-reel-du-service-citiz-en-autopartage-metropole-de-lyon",
+  "updated": "2026-10-30T03:16:38.986543Z",
+  "sub_types": [
+   "carsharing"
+  ],
+  "publisher": {
+   "id": "534fff7aa3a7292c64a77e0c",
+   "name": "Métropole de Lyon",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "epci",
+    "nom": "Métropole de Lyon",
+    "insee": "200046977"
+   }
+  ],
+  "resources": [
+   {
+    "format": "gbfs",
+    "original_url": "https://data.grandlyon.com/files/rdata/lpa_mobilite.donnees/gbfs.json",
+    "title": "Offre et disponibilité temps réel du service Citiz en Autopartage Métropole de Lyon"
+   }
+  ]
+ },
+ {
+  "slug": "tier-dott-gbfs-lyon",
+  "title": "Vélos et trottinettes Dott Lyon",
+  "type": "vehicles-sharing",
+  "licence": "notspecified",
+  "page_url": "https://transport.data.gouv.fr/datasets/tier-dott-gbfs-lyon",
+  "updated": "2025-05-23T05:36:02.156913Z",
+  "sub_types": [
+   "freefloating",
+   "bicycle",
+   "scooter"
+  ],
+  "publisher": {
+   "id": "6136092ff8171447633d3212",
+   "name": "Dott",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "epci",
+    "nom": "Métropole de Lyon",
+    "insee": "200046977"
+   }
+  ],
+  "resources": [
+   {
+    "format": "gbfs",
+    "original_url": "https://gbfs.api.ridedott.com/public/v2/lyon/gbfs.json",
+    "title": "Tier-Dott Lyon GBFS"
+   }
+  ]
+ },
+ {
+  "slug": "stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel",
+  "title": "VLS Vélo'v Lyon",
+  "type": "vehicles-sharing",
+  "licence": "lov2",
+  "page_url": "https://transport.data.gouv.fr/datasets/stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel",
+  "updated": "2026-10-30T06:06:07.050836Z",
+  "sub_types": [
+   "bicycle"
+  ],
+  "publisher": {
+   "id": "534fff7aa3a7292c64a77e0c",
+   "name": "Métropole de Lyon",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "epci",
+    "nom": "Métropole de Lyon",
+    "insee": "200046977"
+   }
+  ],
+  "resources": [
+   {
+    "format": "geojson",
+    "original_url": "https://data.grandlyon.com/geoserver/metropole-de-lyon/ows?SERVICE=WFS&VERSION=2.0.0&request=GetFeature&typename=metropole-de-lyon:jcd_jcdecaux.jcdvelov&outputFormat=application/json&SRSNAME=EPSG:4326",
+    "title": "Station Vélo'V (Disponibilités temps réel)"
+   },
+   {
+    "format": "shp",
+    "original_url": "https://data.grandlyon.com/geoserver/metropole-de-lyon/ows?SERVICE=WFS&VERSION=2.0.0&request=GetFeature&typename=metropole-de-lyon:jcd_jcdecaux.jcdvelov&outputFormat=shape-zip&SRSNAME=EPSG:2154",
+    "title": "Station Vélo'V (Disponibilités temps réel)"
+   },
+   {
+    "format": "csv",
+    "original_url": "https://data.grandlyon.com/geoserver/metropole-de-lyon/ows?SERVICE=WFS&VERSION=2.0.0&request=GetFeature&typename=metropole-de-lyon:jcd_jcdecaux.jcdvelov&outputFormat=CSV&SRSNAME=EPSG:4326",
+    "title": "Station Vélo'V (Disponibilités temps réel)"
+   },
+   {
+    "format": "gbfs",
+    "original_url": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/gbfs.json",
+    "title": "gbfs.json"
+   }
+  ]
+ },
+ {
+  "slug": "gbfs-lille",
+  "title": "Vélos et trottinettes Lime Lille",
+  "type": "vehicles-sharing",
+  "licence": "lov2",
+  "page_url": "https://transport.data.gouv.fr/datasets/gbfs-lille",
+  "updated": "2026-01-29T04:39:33.325464Z",
+  "sub_types": [
+   "bicycle",
+   "scooter",
+   "freefloating"
+  ],
+  "publisher": {
+   "id": "61b1d85c7733ba6e71e04f13",
+   "name": "Lime",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "commune",
+    "nom": "Lille",
+    "insee": "59350"
+   }
+  ],
+  "resources": [
+   {
+    "format": "gbfs",
+    "original_url": "https://data.lime.bike/api/partners/v2/gbfs/lille/gbfs.json",
+    "title": "GBFS Lille"
+   }
+  ]
+ },
+ {
+  "slug": "velo-en-libre-service-de-la-ville-damiens",
+  "title": "VLS Vélam Amiens",
+  "type": "vehicles-sharing",
+  "licence": "lov2",
+  "page_url": "https://transport.data.gouv.fr/datasets/velo-en-libre-service-de-la-ville-damiens",
+  "updated": "2026-10-30T06:33:34.616722Z",
+  "sub_types": [
+   "bicycle"
+  ],
+  "publisher": {
+   "id": "62ac72051170a1fcc75a9a35",
+   "name": "Amiens Métropole - Communauté d'Agglomération",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "epci",
+    "nom": "CA Amiens Métropole",
+    "insee": "248000531"
+   }
+  ],
+  "resources": [
+   {
+    "format": "gbfs",
+    "original_url": "https://api.cyclocity.fr/contracts/amiens/gbfs/v2/vehicle_types.json",
+    "title": "Caractéristiques des vélos"
+   },
+   {
+    "format": "gbfs",
+    "original_url": "https://api.cyclocity.fr/contracts/amiens/gbfs/gbfs.json",
+    "title": "Index racine de l'API"
+   },
+   {
+    "format": "gbfs",
+    "original_url": "https://api.cyclocity.fr/contracts/amiens/gbfs/v2/station_information.json",
+    "title": "Inventaire des stations"
+   },
+   {
+    "format": "gbfs",
+    "original_url": "https://api.cyclocity.fr/contracts/amiens/gbfs/v2/station_status.json",
+    "title": "Disponibilité en temps réel"
+   },
+   {
+    "format": "gbfs",
+    "original_url": "https://api.cyclocity.fr/contracts/amiens/gbfs/v2/system_information.json",
+    "title": "Information sur le service Vélam"
+   }
+  ]
+ },
+ {
+  "slug": "vls-ca-bassin-de-brive-velibeo",
+  "title": "VLS Vélibéo CA Bassin de Brive",
+  "type": "vehicles-sharing",
+  "licence": "odc-odbl",
+  "page_url": "https://transport.data.gouv.fr/datasets/vls-ca-bassin-de-brive-velibeo",
+  "updated": "2026-10-30T00:00:00.000000Z",
+  "sub_types": [
+   "bicycle"
+  ],
+  "publisher": {
+   "id": "5c52f0cc8b4c410915918eee",
+   "name": "Nouvelle-Aquitaine Mobilités",
+   "type": "organization"
+  },
+  "covered_area": [
+   {
+    "type": "epci",
+    "nom": "CA du Bassin de Brive",
+    "insee": "200043172"
+   }
+  ],
+  "resources": [
+   {
+    "format": "gbfs",
+    "original_url": "https://api.gbfs.ecovelo.mobi/velibeo/gbfs.json",
+    "title": "API GBFS Ecovelo du réseau vélo de Brive"
+   },
+   {
+    "format": "gbfs",
+    "original_url": "https://mobi-iti-nam.okina.fr/api-proxy/api/gbfs/1.0/gbfs/velibeo_ecovelo/gbfs",
+    "title": "API GBFS du réseau vélo de Brive"
+   }
+  ]
+ }
+]

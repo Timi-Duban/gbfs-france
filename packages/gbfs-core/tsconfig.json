@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Runtime-agnostic: no Node types, so `node:*` imports fail to compile (Expo/Hermes later).
+    "lib": ["ES2022", "DOM"],
+    "types": []
+  },
+  "include": ["src", "test"]
+}

@@ -1,0 +1,10 @@
+{
+ "lastUpdatedOther": 1793626301,
+ "ttl": 3600,
+ "data": {
+  "system_id": "Paris",
+  "name": "Paris",
+  "language": "en",
+  "timezone": "Europe/Paris"
+ }
+}

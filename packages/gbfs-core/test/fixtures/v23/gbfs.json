@@ -1,0 +1,31 @@
+{
+ "last_updated": 1793626281,
+ "ttl": 3600,
+ "version": "2.3",
+ "data": {
+  "fr": {
+   "feeds": [
+    {
+     "name": "gbfs_versions",
+     "url": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/gbfs_versions.json"
+    },
+    {
+     "name": "station_information",
+     "url": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/station_information.json"
+    },
+    {
+     "name": "system_information",
+     "url": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/system_information.json"
+    },
+    {
+     "name": "station_status",
+     "url": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/station_status.json"
+    },
+    {
+     "name": "vehicle_types",
+     "url": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/vehicle_types.json"
+    }
+   ]
+  }
+ }
+}

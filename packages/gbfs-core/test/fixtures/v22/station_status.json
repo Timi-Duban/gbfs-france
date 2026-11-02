@@ -1,0 +1,150 @@
+{
+ "data": {
+  "stations": [
+   {
+    "is_installed": true,
+    "is_renting": true,
+    "is_returning": true,
+    "last_reported": 1793626267,
+    "num_bikes_available": 4,
+    "num_docks_available": 23,
+    "station_id": "006",
+    "vehicle_types_available": [
+     {
+      "count": 0,
+      "vehicle_type_id": "1"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "2"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "4"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "5"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "6"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "7"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "10"
+     },
+     {
+      "count": 4,
+      "vehicle_type_id": "14"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "15"
+     }
+    ]
+   },
+   {
+    "is_installed": true,
+    "is_renting": true,
+    "is_returning": true,
+    "last_reported": 1793626267,
+    "num_bikes_available": 1,
+    "num_docks_available": 7,
+    "station_id": "007",
+    "vehicle_types_available": [
+     {
+      "count": 0,
+      "vehicle_type_id": "1"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "2"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "4"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "5"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "6"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "7"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "10"
+     },
+     {
+      "count": 1,
+      "vehicle_type_id": "14"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "15"
+     }
+    ]
+   },
+   {
+    "is_installed": true,
+    "is_renting": true,
+    "is_returning": true,
+    "last_reported": 1793626267,
+    "num_bikes_available": 0,
+    "num_docks_available": 16,
+    "station_id": "014",
+    "vehicle_types_available": [
+     {
+      "count": 0,
+      "vehicle_type_id": "1"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "2"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "4"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "5"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "6"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "7"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "10"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "14"
+     },
+     {
+      "count": 0,
+      "vehicle_type_id": "15"
+     }
+    ]
+   }
+  ]
+ },
+ "last_updated": 1793626267,
+ "ttl": 60,
+ "version": "2.2"
+}

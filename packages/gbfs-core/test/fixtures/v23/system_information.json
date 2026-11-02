@@ -1,0 +1,11 @@
+{
+ "last_updated": 1793626281,
+ "ttl": 3600,
+ "version": "2.3",
+ "data": {
+  "system_id": "lyon",
+  "name": "Vélov",
+  "language": "fr",
+  "timezone": "Europe/Paris"
+ }
+}

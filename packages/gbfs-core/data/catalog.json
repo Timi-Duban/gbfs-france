@@ -1,0 +1,1584 @@
+{
+  "generatedAt": "2026-11-02T13:39:19.853Z",
+  "source": "https://transport.data.gouv.fr/api/datasets",
+  "networks": [
+    {
+      "id": "besancon-velos-en-libre-service-ginko-velo",
+      "slug": "besancon-velos-en-libre-service-ginko-velo",
+      "systemId": "besancon",
+      "name": "VéloCité Besançon",
+      "systemName": "Ginko VéloCité",
+      "title": "VLS VéloCité Besançon",
+      "areas": [
+        "Besançon"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://api.cyclocity.fr/contracts/besancon/gbfs/gbfs.json",
+      "stationCount": 33,
+      "publisher": "Ville de Besancon",
+      "licence": "fr-lo",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/besancon-velos-en-libre-service-ginko-velo",
+      "updated": "2025-09-01T23:58:06.996502Z"
+    },
+    {
+      "id": "ce-jeu-de-donnees-contient-la-liste-et-lemplacement-des-velostations-en-libres-service-du-service-libelo-appartenant-a-valence-romans-mobilites",
+      "slug": "ce-jeu-de-donnees-contient-la-liste-et-lemplacement-des-velostations-en-libres-service-du-service-libelo-appartenant-a-valence-romans-mobilites",
+      "systemId": "libelo",
+      "name": "Libélo Valence Romans",
+      "systemName": "libelo",
+      "title": "VLS Libélo Valence Romans",
+      "areas": [
+        "CA Valence Romans Agglo"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://valence.publicbikesystem.net/customer/gbfs/v2/gbfs.json",
+      "stationCount": 68,
+      "publisher": "Valence Romans Mobilités",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/ce-jeu-de-donnees-contient-la-liste-et-lemplacement-des-velostations-en-libres-service-du-service-libelo-appartenant-a-valence-romans-mobilites",
+      "updated": "2026-10-30T02:28:32.037269Z"
+    },
+    {
+      "id": "choletbus-2-roues-vaels",
+      "slug": "choletbus-2-roues-vaels",
+      "systemId": "choletbus",
+      "name": "Choletbus 2 Roues Cholet",
+      "systemName": "Choletbus 2 Roues",
+      "title": "VLS Choletbus 2 Roues Cholet",
+      "areas": [
+        "CA Cholet Agglomération"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/choletbus/gbfs.json",
+      "stationCount": 16,
+      "publisher": "Transports Publics du Choletais",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/choletbus-2-roues-vaels",
+      "updated": "2025-06-02T17:17:09.511297Z"
+    },
+    {
+      "id": "cyclolibre-les-velos-electriques-en-libre-service-par-carcassonne",
+      "slug": "cyclolibre-les-velos-electriques-en-libre-service-par-carcassonne",
+      "systemId": "cyclolibre",
+      "name": "CYCLOlibre Carcassonne",
+      "systemName": "Cyclolibre",
+      "title": "VLS CYCLOlibre Carcassonne",
+      "areas": [
+        "CA Carcassonne Agglo"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/cyclolibre/gbfs.json",
+      "stationCount": 10,
+      "publisher": "Carcassonne Agglo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/cyclolibre-les-velos-electriques-en-libre-service-par-carcassonne",
+      "updated": "2025-04-20T14:41:52.274218Z"
+    },
+    {
+      "id": "disponibilite-en-temps-reel-des-velin",
+      "slug": "disponibilite-en-temps-reel-des-velin",
+      "systemId": "calais-velos",
+      "name": "Vel'in Grand Calais (SITAC)",
+      "systemName": "Vélos en libre-service Calais",
+      "title": "VLS Vel'in Grand Calais (SITAC)",
+      "areas": [
+        "CA Grand Calais Terres et Mers"
+      ],
+      "gbfsVersion": "1.x",
+      "discoveryUrl": "https://stce.transdev-hdf.fr/gbfs/",
+      "stationCount": 80,
+      "publisher": "Syndicat Intercommunal des Transports urbains de l’Agglomération du Calaisis",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/disponibilite-en-temps-reel-des-velin",
+      "updated": "2026-02-25T14:11:48.740449Z"
+    },
+    {
+      "id": "disponibilite-en-temps-reel-des-velos-en-libre-service-velomagg-de-montpellier",
+      "slug": "disponibilite-en-temps-reel-des-velos-en-libre-service-velomagg-de-montpellier",
+      "systemId": "velomagg_montpellier",
+      "name": "Vélomagg Montpellier Méditerranée Métropole",
+      "systemName": "Vélomagg (Montpellier)",
+      "title": "VLS Vélomagg Montpellier Méditerranée Métropole",
+      "areas": [
+        "Montpellier Méditerranée Métropole"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.theta.fifteen.eu/gbfs/montpellier/gbfs.json",
+      "stationCount": 52,
+      "publisher": "Montpellier Méditerranée Métropole",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/disponibilite-en-temps-reel-des-velos-en-libre-service-velomagg-de-montpellier",
+      "updated": "2026-10-19T23:14:27.482467Z"
+    },
+    {
+      "id": "donnees-statiques-et-temps-reel-du-service-de-vls-lovelo-metropole-rouen-normandie",
+      "slug": "donnees-statiques-et-temps-reel-du-service-de-vls-lovelo-metropole-rouen-normandie",
+      "systemId": "inurba-rouen",
+      "name": "Lovélo Rouen",
+      "systemName": "LOVÉLO libre-service",
+      "title": "VLS Lovélo Rouen",
+      "areas": [
+        "Métropole Rouen Normandie"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://gbfs.urbansharing.com/lovelolibreservice.fr/gbfs.json",
+      "stationCount": 127,
+      "publisher": "Métropole Rouen Normandie",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/donnees-statiques-et-temps-reel-du-service-de-vls-lovelo-metropole-rouen-normandie",
+      "updated": "2026-10-29T17:03:45.000000Z"
+    },
+    {
+      "id": "donnees-velopop-temps-reel-sur-lagglomeration-du-grand-avignon-velos-electriques-en-libre-service",
+      "slug": "donnees-velopop-temps-reel-sur-lagglomeration-du-grand-avignon-velos-electriques-en-libre-service",
+      "systemId": "velopop",
+      "name": "Velopop’ Avignon",
+      "systemName": "velopop - avignon",
+      "title": "VLS Velopop’ Avignon",
+      "areas": [
+        "CA du Grand Avignon (COGA)"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/avignon/gbfs.json",
+      "stationCount": 30,
+      "publisher": "Grand Avignon",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/donnees-velopop-temps-reel-sur-lagglomeration-du-grand-avignon-velos-electriques-en-libre-service",
+      "updated": "2026-10-03T16:28:23.366682Z"
+    },
+    {
+      "id": "etat-des-stations-de-velos-en-libre-service-c-velo-gbfs-du-syndicat-mixte-des-transports-en-commun-de-lagglomeration-clermontoise-smtc-ac-1",
+      "slug": "etat-des-stations-de-velos-en-libre-service-c-velo-gbfs-du-syndicat-mixte-des-transports-en-commun-de-lagglomeration-clermontoise-smtc-ac-1",
+      "systemId": "velo_clermontferrand",
+      "name": "C Vélo Clermont-Ferrand",
+      "systemName": "velo-clermontferrand",
+      "title": "VLS C Vélo Clermont-Ferrand",
+      "areas": [
+        "Clermont Auvergne Métropole"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://clermontferrand.publicbikesystem.net/customer/gbfs/v2/",
+      "stationCount": 82,
+      "publisher": "Clermont Auvergne Métropole",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/etat-des-stations-de-velos-en-libre-service-c-velo-gbfs-du-syndicat-mixte-des-transports-en-commun-de-lagglomeration-clermontoise-smtc-ac-1",
+      "updated": "2026-10-29T18:34:14.374673Z"
+    },
+    {
+      "id": "flux-gbfs-montenvelo",
+      "slug": "flux-gbfs-montenvelo",
+      "systemId": "montenvelo_mont_blanc",
+      "name": "MontenVélo CC Pays du Mont-Blanc (CCPMB)",
+      "systemName": "MontenVélo (Mont Blanc)",
+      "title": "VLS MontenVélo CC Pays du Mont-Blanc (CCPMB)",
+      "areas": [
+        "CC Pays du Mont-Blanc"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/2.2/mont_blanc/en/gbfs.json",
+      "stationCount": 23,
+      "publisher": "Communauté de communes Pays du Mont-Blanc ",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/flux-gbfs-montenvelo",
+      "updated": "2026-10-29T17:08:32.059511Z"
+    },
+    {
+      "id": "flux-temps-reel-velivert",
+      "slug": "flux-temps-reel-velivert",
+      "systemId": "velivert_saint_etienne",
+      "name": "VéliVert Saint-Etienne",
+      "systemName": "Vélivert (Saint-Étienne)",
+      "title": "VLS VéliVert Saint-Etienne",
+      "areas": [
+        "Saint-Étienne Métropole"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://bus-prod.saint-etienne-metropole.fr/Public/velivert/api/gbfs.json",
+      "stationCount": 104,
+      "publisher": "Saint-Etienne Métropole",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/flux-temps-reel-velivert",
+      "updated": "2026-10-29T19:54:42.823779Z"
+    },
+    {
+      "id": "gbfs-tempo-velo",
+      "slug": "gbfs-tempo-velo",
+      "systemId": "tempovelo",
+      "name": "Tempo Vélo Agen",
+      "systemName": "Tempovelo",
+      "title": "VLS Tempo Vélo Agen",
+      "areas": [
+        "CA Agglomération d'Agen"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/tempovelo/gbfs.json",
+      "stationCount": 16,
+      "publisher": "Tempo Vélo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/gbfs-tempo-velo",
+      "updated": "2025-04-21T16:39:34.669913Z"
+    },
+    {
+      "id": "idecycle-velos-en-libre-service-au-standard-gbfs",
+      "slug": "idecycle-velos-en-libre-service-au-standard-gbfs",
+      "systemId": "idecycle_pau",
+      "name": "IDEcycle Pau",
+      "systemName": "IDEcycle (Pau)",
+      "title": "VLS IDEcycle Pau",
+      "areas": [
+        "CA Pau Béarn Pyrénées"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/pau/gbfs",
+      "stationCount": 40,
+      "publisher": "Pau Béarn Pyrénées Mobilités",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/idecycle-velos-en-libre-service-au-standard-gbfs",
+      "updated": "2026-10-15T03:36:42.326326Z"
+    },
+    {
+      "id": "ilevia-vlille-disponibilite-en-temps-reel",
+      "slug": "ilevia-vlille-disponibilite-en-temps-reel",
+      "systemId": "v_lille",
+      "name": "V'lille Lille",
+      "systemName": "V'lille",
+      "title": "VLS V'lille Lille",
+      "areas": [
+        "Métropole Européenne de Lille"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://media.ilevia.fr/opendata/gbfs.json",
+      "stationCount": 268,
+      "publisher": "Métropole Européenne de Lille ",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/ilevia-vlille-disponibilite-en-temps-reel",
+      "updated": "2026-10-29T17:56:04.000000Z"
+    },
+    {
+      "id": "liste-api-ecovelo-pour-stations-velyceo-electriques-sur-saint-nazaire-agglo",
+      "slug": "liste-api-ecovelo-pour-stations-velyceo-electriques-sur-saint-nazaire-agglo",
+      "systemId": "velyceo",
+      "name": "VélYcéo Saint-Nazaire",
+      "systemName": "VélYcéo",
+      "title": "VLS VélYcéo Saint-Nazaire",
+      "areas": [
+        "CA de la Région Nazairienne et de l'Estuaire (CARENE)"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/velyceo/gbfs.json",
+      "stationCount": 5,
+      "publisher": "Saint-Nazaire agglo - La CARENE",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/liste-api-ecovelo-pour-stations-velyceo-electriques-sur-saint-nazaire-agglo",
+      "updated": "2025-04-20T19:21:01.079659Z"
+    },
+    {
+      "id": "liste-des-api-ecovelo-pour-les-stations-du-velo-baulois-velos-electriques-en-libre-service-sur-la-baule-escoublac-gbfs",
+      "slug": "liste-des-api-ecovelo-pour-les-stations-du-velo-baulois-velos-electriques-en-libre-service-sur-la-baule-escoublac-gbfs",
+      "systemId": "labaule",
+      "name": "Le Vélo Baulois La Baule-Escoublac",
+      "systemName": "La Baule",
+      "title": "VLS Le Vélo Baulois La Baule-Escoublac",
+      "areas": [
+        "La Baule-Escoublac"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/labaule/gbfs.json",
+      "stationCount": 14,
+      "publisher": "CapAtlantique La Baule-Guérande Agglo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/liste-des-api-ecovelo-pour-les-stations-du-velo-baulois-velos-electriques-en-libre-service-sur-la-baule-escoublac-gbfs",
+      "updated": "2026-03-18T20:13:58.781719Z"
+    },
+    {
+      "id": "offre-et-temps-reel-du-service-naolib-micromob-de-nantes-metropole-au-format-gbfs",
+      "slug": "offre-et-temps-reel-du-service-naolib-micromob-de-nantes-metropole-au-format-gbfs",
+      "systemId": "chantrerie",
+      "name": "Naolib Micromob'",
+      "systemName": "Naolib Micromob'",
+      "title": "Vélos et trottinettes Naolib micromob Nantes (avec stations)",
+      "areas": [
+        "Nantes Métropole"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/chantrerie/gbfs.json",
+      "stationCount": 16,
+      "publisher": "Nantes Métropole",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/offre-et-temps-reel-du-service-naolib-micromob-de-nantes-metropole-au-format-gbfs",
+      "updated": "2026-06-10T16:21:41.433927Z"
+    },
+    {
+      "id": "offre-et-temps-reel-du-service-velos-en-libre-service-naolib-de-nantes-metropole-au-format-gbfs",
+      "slug": "offre-et-temps-reel-du-service-velos-en-libre-service-naolib-de-nantes-metropole-au-format-gbfs",
+      "systemId": "nantes",
+      "name": "Naolib Nantes Métropole",
+      "systemName": "Naolib",
+      "title": "VLS Naolib Nantes Métropole",
+      "areas": [
+        "Nantes Métropole"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.cyclocity.fr/contracts/nantes/gbfs/v3/gbfs.json",
+      "stationCount": 120,
+      "publisher": "Nantes Métropole",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/offre-et-temps-reel-du-service-velos-en-libre-service-naolib-de-nantes-metropole-au-format-gbfs",
+      "updated": "2026-09-07T01:51:11.675892Z"
+    },
+    {
+      "id": "optymo-velo-en-libre-service",
+      "slug": "optymo-velo-en-libre-service",
+      "systemId": "velo_optymo_belfort",
+      "name": "Optymo Belfort",
+      "systemName": "Vélo Optymo (Belfort)",
+      "title": "VLS Optymo Belfort",
+      "areas": [
+        "Belfort"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://data.optymo.fr/vls/gbfs.json",
+      "stationCount": 32,
+      "publisher": "Optymo - Belfort",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/optymo-velo-en-libre-service",
+      "updated": "2026-10-30T06:23:58.773770Z"
+    },
+    {
+      "id": "rubisvelo-velos-a-assistance-electrique-en-libre-service-de-grand-bourg-agglomeration",
+      "slug": "rubisvelo-velos-a-assistance-electrique-en-libre-service-de-grand-bourg-agglomeration",
+      "systemId": "beb",
+      "name": "Rubis'Vélo Grand Bourg Agglomération",
+      "systemName": "Rubis'Velo",
+      "title": "VLS Rubis'Vélo Grand Bourg Agglomération",
+      "areas": [
+        "CA du Bassin de Bourg-en-Bresse"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/beb/gbfs.json",
+      "stationCount": 46,
+      "publisher": "Grand Bourg Agglomération",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/rubisvelo-velos-a-assistance-electrique-en-libre-service-de-grand-bourg-agglomeration",
+      "updated": "2026-05-21T04:16:56.939700Z"
+    },
+    {
+      "id": "service-brennus-a-velo",
+      "slug": "service-brennus-a-velo",
+      "systemId": "brennus_a_velo_sens",
+      "name": "Brennus à Vélo Grand Sénonais",
+      "systemName": "Brennus à Vélo (Sens)",
+      "title": "VLS Brennus à Vélo Grand Sénonais",
+      "areas": [
+        "CA du Grand Sénonais"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/sens/gbfs.json",
+      "stationCount": 18,
+      "publisher": "Communauté d'Agglomération du Grand Sénonais INTERCOM",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/service-brennus-a-velo",
+      "updated": "2026-10-20T15:24:32.495914Z"
+    },
+    {
+      "id": "station-le-velo-en-temps-reel-1",
+      "slug": "station-le-velo-en-temps-reel-1",
+      "systemId": "velo-tbm-bordeaux",
+      "name": "Le Vélo TBM Bordeaux Métropole",
+      "systemName": "Le Vélo par TBM",
+      "title": "VLS Le Vélo TBM Bordeaux Métropole",
+      "areas": [
+        "Bordeaux Métropole"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://bdx.mecatran.com/utw/ws/gbfs/bordeaux/v3/gbfs.json?apiKey=opendata-bordeaux-metropole-flux-gtfs-rt",
+      "stationCount": 232,
+      "publisher": "Bordeaux Métropole",
+      "licence": "fr-lo",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/station-le-velo-en-temps-reel-1",
+      "updated": "2026-11-01T23:57:14.000000Z"
+    },
+    {
+      "id": "stations-de-velo-en-libre-service-velocite-sur-mulhouse-flux-gbfs",
+      "slug": "stations-de-velo-en-libre-service-velocite-sur-mulhouse-flux-gbfs",
+      "systemId": "nextbike_af",
+      "name": "VéloCité Mulhouse",
+      "systemName": "VéloCité Mulhouse",
+      "title": "VLS VéloCité Mulhouse",
+      "areas": [
+        "CA Mulhouse Alsace Agglomération"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://gbfs.nextbike.net/maps/gbfs/v2/nextbike_af/gbfs.json",
+      "stationCount": 63,
+      "publisher": "Mulhouse Alsace Agglomération",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/stations-de-velo-en-libre-service-velocite-sur-mulhouse-flux-gbfs",
+      "updated": "2026-07-02T12:08:09.000000Z"
+    },
+    {
+      "id": "stations-en-libre-service-velhop-flux-gbfs",
+      "slug": "stations-en-libre-service-velhop-flux-gbfs",
+      "systemId": "nextbike_ae",
+      "name": "Vélhop Strasbourg Eurométropole",
+      "systemName": "Vélhop - Strasbourg",
+      "title": "VLS Vélhop Strasbourg Eurométropole",
+      "areas": [
+        "Eurométropole de Strasbourg"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://gbfs.nextbike.net/maps/gbfs/v2/nextbike_ae/gbfs.json",
+      "stationCount": 40,
+      "publisher": "Eurométropole de Strasbourg",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/stations-en-libre-service-velhop-flux-gbfs",
+      "updated": "2026-11-01T11:01:05.000000Z"
+    },
+    {
+      "id": "stations-velo-en-libre-service-vls-de-la-roche-sur-yon",
+      "slug": "stations-velo-en-libre-service-vls-de-la-roche-sur-yon",
+      "systemId": "impulsyon",
+      "name": "Impulsyon La Roche Sur Yon",
+      "systemName": "Impulsyon",
+      "title": "VLS Impulsyon La Roche Sur Yon",
+      "areas": [
+        "CA La Roche-sur-Yon - Agglomération"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/impulsyon/gbfs.json",
+      "stationCount": 31,
+      "publisher": "La Roche-sur-Yon Agglomération",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/stations-velo-en-libre-service-vls-de-la-roche-sur-yon",
+      "updated": "2025-04-21T03:52:09.955997Z"
+    },
+    {
+      "id": "stations-velonecy-60-min-gbfs",
+      "slug": "stations-velonecy-60-min-gbfs",
+      "systemId": "velonecy60minutes_annecy",
+      "name": "Velonecy Grand Annecy",
+      "systemName": "Vélonecy 60 minutes (Annecy)",
+      "title": "VLS Velonecy Grand Annecy",
+      "areas": [
+        "CA du Grand Annecy"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/annecy/gbfs.json",
+      "stationCount": 79,
+      "publisher": "GRAND ANNECY Agglomération",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/stations-velonecy-60-min-gbfs",
+      "updated": "2026-10-30T04:35:31.242993Z"
+    },
+    {
+      "id": "stations-velos-en-libre-service-tanlib-flux-en-temps-reel",
+      "slug": "stations-velos-en-libre-service-tanlib-flux-en-temps-reel",
+      "systemId": "tanlib",
+      "name": "Tanlib Niort",
+      "systemName": "Vélo Tanlib",
+      "title": "VLS Tanlib Niort",
+      "areas": [
+        "CA du Niortais"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/tanlib/gbfs.json",
+      "stationCount": 58,
+      "publisher": "réseau tanlib",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/stations-velos-en-libre-service-tanlib-flux-en-temps-reel",
+      "updated": "2025-04-20T23:54:31.512253Z"
+    },
+    {
+      "id": "stations-velostanlib",
+      "slug": "stations-velostanlib",
+      "systemId": "nancy",
+      "name": "VélOstan’lib Nancy",
+      "systemName": "vélOstan'lib",
+      "title": "VLS VélOstan’lib Nancy",
+      "areas": [
+        "Métropole du Grand Nancy"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://api.cyclocity.fr/contracts/nancy/gbfs/gbfs.json",
+      "stationCount": 38,
+      "publisher": "Métropole du Grand Nancy",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/stations-velostanlib",
+      "updated": "2025-04-21T10:32:23.006710Z"
+    },
+    {
+      "id": "stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel",
+      "slug": "stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel",
+      "systemId": "lyon",
+      "name": "Vélo'v Lyon",
+      "systemName": "Vélov",
+      "title": "VLS Vélo'v Lyon",
+      "areas": [
+        "Métropole de Lyon"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/gbfs.json",
+      "stationCount": 467,
+      "publisher": "Métropole de Lyon",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel",
+      "updated": "2026-10-30T06:06:07.050836Z"
+    },
+    {
+      "id": "ti-velo-1",
+      "slug": "ti-velo-1",
+      "systemId": "ti_velo",
+      "name": "Ti Vélo Pays de Landerneau-Daoulas",
+      "systemName": "Ti Vélo",
+      "title": "VLS Ti Vélo Pays de Landerneau-Daoulas",
+      "areas": [
+        "CA du Pays de Landerneau-Daoulas"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/landerneau/gbfs.json",
+      "stationCount": 14,
+      "publisher": "Pays de Landerneau-Daoulas",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/ti-velo-1",
+      "updated": "2026-10-24T11:21:49.440580Z"
+    },
+    {
+      "id": "velib-velos-et-bornes-disponibilite-temps-reel",
+      "slug": "velib-velos-et-bornes-disponibilite-temps-reel",
+      "systemId": "Paris",
+      "name": "Vélib Paris et communes limitrophes",
+      "systemName": "Paris",
+      "title": "VLS Vélib Paris et communes limitrophes",
+      "areas": [
+        "Île-de-France"
+      ],
+      "gbfsVersion": "1.x",
+      "discoveryUrl": "https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/gbfs.json",
+      "stationCount": 1520,
+      "publisher": "Ville de Paris",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velib-velos-et-bornes-disponibilite-temps-reel",
+      "updated": "2026-11-02T03:59:04.000000Z"
+    },
+    {
+      "id": "velo-a-assistance-electrique-en-libre-service",
+      "slug": "velo-a-assistance-electrique-en-libre-service",
+      "systemId": "semo",
+      "name": "Semo CA Seine-Eure",
+      "systemName": "Semo Vélo",
+      "title": "VLS Semo CA Seine-Eure",
+      "areas": [
+        "CA Seine-Eure"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/semo/gbfs.json",
+      "stationCount": 39,
+      "publisher": "Communauté d'Agglomération Seine Eure",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velo-a-assistance-electrique-en-libre-service",
+      "updated": "2026-04-10T04:14:03.276021Z"
+    },
+    {
+      "id": "velo-a-assistance-electrique-en-libre-service-velozef-en-temps-reel",
+      "slug": "velo-a-assistance-electrique-en-libre-service-velozef-en-temps-reel",
+      "systemId": "velozef",
+      "name": "VéloZef Brest",
+      "systemName": "velozef - Brest",
+      "title": "VLS VéloZef Brest",
+      "areas": [
+        "Brest Métropole"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/brest/gbfs.json",
+      "stationCount": 46,
+      "publisher": "Brest métropole",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velo-a-assistance-electrique-en-libre-service-velozef-en-temps-reel",
+      "updated": "2026-10-11T21:29:20.712931Z"
+    },
+    {
+      "id": "velo-en-libre-service-de-la-ville-damiens",
+      "slug": "velo-en-libre-service-de-la-ville-damiens",
+      "systemId": "amiens",
+      "name": "Vélam Amiens",
+      "systemName": "Velam",
+      "title": "VLS Vélam Amiens",
+      "areas": [
+        "CA Amiens Métropole"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://api.cyclocity.fr/contracts/amiens/gbfs/gbfs.json",
+      "stationCount": 45,
+      "publisher": "Amiens Métropole - Communauté d'Agglomération",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velo-en-libre-service-de-la-ville-damiens",
+      "updated": "2026-10-30T06:33:34.616722Z"
+    },
+    {
+      "id": "velo-en-libre-service-du-star-au-standard-gbfs",
+      "slug": "velo-en-libre-service-du-star-au-standard-gbfs",
+      "systemId": "le_velo_star",
+      "name": "STAR Rennes",
+      "systemName": "LE vélo STAR",
+      "title": "VLS STAR Rennes",
+      "areas": [
+        "Rennes"
+      ],
+      "gbfsVersion": "1.x",
+      "discoveryUrl": "https://eu.ftp.opendatasoft.com/star/gbfs/gbfs.json",
+      "stationCount": 57,
+      "publisher": "STAR",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velo-en-libre-service-du-star-au-standard-gbfs",
+      "updated": "2026-10-30T04:15:16.000000Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-argeles-sur-mer-velo-daqui-1",
+      "slug": "velos-a-assistance-electrique-en-libre-service-argeles-sur-mer-velo-daqui-1",
+      "systemId": "velodaqui",
+      "name": "Vélo d'Aqui Argelès-sur-mer",
+      "systemName": "Vélo d'Aqui",
+      "title": "VLS Vélo d'Aqui Argelès-sur-mer",
+      "areas": [
+        "Argelès-sur-Mer"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/velodaqui/gbfs.json",
+      "stationCount": 6,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-argeles-sur-mer-velo-daqui-1",
+      "updated": "2025-04-23T03:34:53.618127Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-cap-cotentin",
+      "slug": "velos-a-assistance-electrique-en-libre-service-cap-cotentin",
+      "systemId": "capcotentin",
+      "name": "Cap Cotentin Vélo",
+      "systemName": "CapCotentin",
+      "title": "VLS Cap Cotentin Vélo",
+      "areas": [
+        "CA du Cotentin"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/capcotentin/gbfs.json",
+      "stationCount": 51,
+      "publisher": "Communauté d'agglomération Le Cotentin",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-cap-cotentin",
+      "updated": "2025-04-21T23:39:55.432231Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-des-ports-de-piriac-sur-mer-et-de-la-turballe",
+      "slug": "velos-a-assistance-electrique-en-libre-service-des-ports-de-piriac-sur-mer-et-de-la-turballe",
+      "systemId": "rhoule",
+      "name": "R'Houle ports de Piriac-sur-Mer et de La Turballe",
+      "systemName": "Rhoule",
+      "title": "VLS R'Houle ports de Piriac-sur-Mer et de La Turballe",
+      "areas": [
+        "La Turballe",
+        "Piriac-sur-Mer"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/rhoule/gbfs.json",
+      "stationCount": 2,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-des-ports-de-piriac-sur-mer-et-de-la-turballe",
+      "updated": "2025-04-21T03:37:41.150419Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-laon-velocite",
+      "slug": "velos-a-assistance-electrique-en-libre-service-laon-velocite",
+      "systemId": "velocite",
+      "name": "Vélo'Cité Laon",
+      "systemName": "Vélo'Cité",
+      "title": "VLS Vélo'Cité Laon",
+      "areas": [
+        "Laon"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/velocite/gbfs.json",
+      "stationCount": 19,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-laon-velocite",
+      "updated": "2025-04-22T22:31:51.342553Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-levelo-sur-marseille",
+      "slug": "velos-a-assistance-electrique-en-libre-service-levelo-sur-marseille",
+      "systemId": "levelo_inurba_marseille",
+      "name": "LeVélo Marseille",
+      "systemName": "levélo - marseille",
+      "title": "VLS LeVélo Marseille",
+      "areas": [
+        "Métropole d'Aix-Marseille-Provence"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://api.omega.fifteen.eu/gbfs/2.2/marseille/en/gbfs.json?&key=MjE0ZDNmMGEtNGFkZS00M2FlLWFmMWItZGNhOTZhMWQyYzM2",
+      "stationCount": 228,
+      "publisher": "Métropole d'Aix-Marseille-Provence",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-levelo-sur-marseille",
+      "updated": "2025-05-21T23:04:59.249955Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-nimes-metropole-nemovelo",
+      "slug": "velos-a-assistance-electrique-en-libre-service-nimes-metropole-nemovelo",
+      "systemId": "nemovelo",
+      "name": "NemoVélo Nîmes Métropole",
+      "systemName": "NemoVélo",
+      "title": "VLS NemoVélo Nîmes Métropole",
+      "areas": [
+        "CA de Nîmes Métropole"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/nemovelo/gbfs.json",
+      "stationCount": 52,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-nimes-metropole-nemovelo",
+      "updated": "2025-12-15T21:29:54.886451Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-pointe-a-pitre-la-guadeloupe-karuvelo",
+      "slug": "velos-a-assistance-electrique-en-libre-service-pointe-a-pitre-la-guadeloupe-karuvelo",
+      "systemId": "karu",
+      "name": "Karu'vélo Pointe-à-Pitre La Guadeloupe",
+      "systemName": "KARU'VELO",
+      "title": "VLS Karu'vélo Pointe-à-Pitre La Guadeloupe",
+      "areas": [
+        "Pointe-à-Pitre"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/karu/gbfs.json",
+      "stationCount": 17,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-pointe-a-pitre-la-guadeloupe-karuvelo",
+      "updated": "2025-04-23T06:18:54.182846Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-sables-dolonne-les-petites-reines",
+      "slug": "velos-a-assistance-electrique-en-libre-service-sables-dolonne-les-petites-reines",
+      "systemId": "petitesreines",
+      "name": "Les petites reines Sables d'Olonne Agglomération",
+      "systemName": "Les Petites Reines",
+      "title": "VLS Les petites reines Sables d'Olonne Agglomération",
+      "areas": [
+        "Les Sables-d'Olonne"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/petitesreines/gbfs.json",
+      "stationCount": 17,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-sables-dolonne-les-petites-reines",
+      "updated": "2025-04-22T23:46:22.823370Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-saint-pierre-la-reunion-civis-altervelo",
+      "slug": "velos-a-assistance-electrique-en-libre-service-saint-pierre-la-reunion-civis-altervelo",
+      "systemId": "altervelo",
+      "name": "Altervélo Saint-Pierre La Réunion (CIVIS)",
+      "systemName": "Altervelo Libre-service",
+      "title": "VLS Altervélo Saint-Pierre La Réunion (CIVIS)",
+      "areas": [
+        "Saint-Pierre"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/altervelo/gbfs.json",
+      "stationCount": 36,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-saint-pierre-la-reunion-civis-altervelo",
+      "updated": "2025-04-23T06:16:47.296674Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-saumur-ogalo-cyclette",
+      "slug": "velos-a-assistance-electrique-en-libre-service-saumur-ogalo-cyclette",
+      "systemId": "ogalo",
+      "name": "Ogalo Saumur",
+      "systemName": "Ogalo Cyclette",
+      "title": "VLS Ogalo Saumur",
+      "areas": [
+        "Saumur"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/ogalo/gbfs.json",
+      "stationCount": 25,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-saumur-ogalo-cyclette",
+      "updated": "2025-04-22T23:31:53.725916Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-velomoove-bassin-de-pompey",
+      "slug": "velos-a-assistance-electrique-en-libre-service-velomoove-bassin-de-pompey",
+      "systemId": "velomoove_pompey",
+      "name": "VéloMoove Bassin de Pompey",
+      "systemName": "VéloMoove (Pompey)",
+      "title": "VLS VéloMoove Bassin de Pompey",
+      "areas": [
+        "CC du Bassin de Pompey"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/2.2/pompey/en/gbfs.json",
+      "stationCount": 31,
+      "publisher": "Bassin de Pompey",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-velomoove-bassin-de-pompey",
+      "updated": "2026-10-30T03:44:27.203847Z"
+    },
+    {
+      "id": "velos-a-assistance-electrique-en-libre-service-vernou-en-sologne-vernou-velo",
+      "slug": "velos-a-assistance-electrique-en-libre-service-vernou-en-sologne-vernou-velo",
+      "systemId": "vernouvelo",
+      "name": "Vernou-en-Sologne (Vernou Vélo)",
+      "systemName": "Vernou Vélo",
+      "title": "VLS Vernou-en-Sologne (Vernou Vélo)",
+      "areas": [
+        "Vernou-en-Sologne"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/vernouvelo/gbfs.json",
+      "stationCount": 1,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-vernou-en-sologne-vernou-velo",
+      "updated": "2025-04-16T14:23:01.877809Z"
+    },
+    {
+      "id": "velos-en-libre-service-vivelo",
+      "slug": "velos-en-libre-service-vivelo",
+      "systemId": "vivelo",
+      "name": "ViVélo Vichy Communauté",
+      "systemName": "vivelo - Vichy",
+      "title": "VLS ViVélo Vichy Communauté",
+      "areas": [
+        "CA Vichy Communauté"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/vichy/gbfs.json",
+      "stationCount": 8,
+      "publisher": "VICHY COMMUNAUTE",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velos-en-libre-service-vivelo",
+      "updated": "2026-10-30T03:18:32.175766Z"
+    },
+    {
+      "id": "velotoulouse-velo-en-libre-service-au-standard-gbfs",
+      "slug": "velotoulouse-velo-en-libre-service-au-standard-gbfs",
+      "systemId": "toulouse",
+      "name": "VélôToulouse Toulouse Métropole",
+      "systemName": "vélôToulouse",
+      "title": "VLS VélôToulouse Toulouse Métropole",
+      "areas": [
+        "Toulouse Métropole"
+      ],
+      "gbfsVersion": "2.3",
+      "discoveryUrl": "https://api.cyclocity.fr/contracts/toulouse/gbfs/gbfs.json",
+      "stationCount": 466,
+      "publisher": "Toulouse métropole",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/velotoulouse-velo-en-libre-service-au-standard-gbfs",
+      "updated": "2026-11-01T03:32:02.000000Z"
+    },
+    {
+      "id": "vls-aqta-auray-quiberon-terre-atlantique",
+      "slug": "vls-aqta-auray-quiberon-terre-atlantique",
+      "systemId": "auray-quiberon",
+      "name": "AQTA (Auray Quiberon Terre Atlantique)",
+      "systemName": "VLS AQTA",
+      "title": "VLS AQTA (Auray Quiberon Terre Atlantique)",
+      "areas": [
+        "CC Auray Quiberon Terre Atlantique"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/auray-quiberon/gbfs.json",
+      "stationCount": 12,
+      "publisher": "Auray Quiberon Terre Atlantique",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-aqta-auray-quiberon-terre-atlantique",
+      "updated": "2026-10-29T00:14:28.752450Z"
+    },
+    {
+      "id": "vls-auch-veloc",
+      "slug": "vls-auch-veloc",
+      "systemId": "auchveloc",
+      "name": "Auch-Vélo’c Grand Auch",
+      "systemName": "Auch Velo'C",
+      "title": "VLS Auch-Vélo’c Grand Auch",
+      "areas": [
+        "CA Grand Auch Coeur de Gascogne"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/auchveloc/gbfs.json",
+      "stationCount": 10,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-auch-veloc",
+      "updated": "2026-01-28T20:16:38.579324Z"
+    },
+    {
+      "id": "vls-ca-bassin-de-brive-velibeo",
+      "slug": "vls-ca-bassin-de-brive-velibeo",
+      "systemId": "velibeo",
+      "name": "Vélibéo CA Bassin de Brive",
+      "systemName": "Vélibéo",
+      "title": "VLS Vélibéo CA Bassin de Brive",
+      "areas": [
+        "CA du Bassin de Brive"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/velibeo/gbfs.json",
+      "stationCount": 26,
+      "publisher": "Nouvelle-Aquitaine Mobilités",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-ca-bassin-de-brive-velibeo",
+      "updated": "2026-10-30T00:00:00.000000Z"
+    },
+    {
+      "id": "vls-ca-du-libournais-calivelo",
+      "slug": "vls-ca-du-libournais-calivelo",
+      "systemId": "calivelo",
+      "name": "Calivélo communauté d'agglomération du Libournais (La Cali)",
+      "systemName": "CaliVélo",
+      "title": "VLS Calivélo communauté d'agglomération du Libournais (La Cali)",
+      "areas": [
+        "CA du Libournais"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/calivelo/gbfs.json",
+      "stationCount": 73,
+      "publisher": "Nouvelle-Aquitaine Mobilités",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-ca-du-libournais-calivelo",
+      "updated": "2026-10-30T00:00:00.000000Z"
+    },
+    {
+      "id": "vls-ca-grand-angouleme",
+      "slug": "vls-ca-grand-angouleme",
+      "systemId": "velo_modalis_angouleme",
+      "name": "Vélo Modalis Grand Angoulême",
+      "systemName": "Vélo Modalis (Angoulême)",
+      "title": "VLS Vélo Modalis Grand Angoulême",
+      "areas": [
+        "CA du Grand Angoulême"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/angouleme/gbfs.json",
+      "stationCount": 58,
+      "publisher": "Nouvelle-Aquitaine Mobilités",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-ca-grand-angouleme",
+      "updated": "2026-10-30T00:00:00.000000Z"
+    },
+    {
+      "id": "vls-ca-grand-perigueux-perivelo",
+      "slug": "vls-ca-grand-perigueux-perivelo",
+      "systemId": "perivelo",
+      "name": "Périvélo Grand Périgueux",
+      "systemName": "Périvélo",
+      "title": "VLS Périvélo Grand Périgueux",
+      "areas": [
+        "CA Le Grand Périgueux"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/perivelo/gbfs.json",
+      "stationCount": 3,
+      "publisher": "Nouvelle-Aquitaine Mobilités",
+      "licence": "odc-odbl",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-ca-grand-perigueux-perivelo",
+      "updated": "2026-10-30T00:00:00.000000Z"
+    },
+    {
+      "id": "vls-tlp-mobilites",
+      "slug": "vls-tlp-mobilites",
+      "systemId": "tlpmobilites",
+      "name": "Tarbes Lourdes Pyrénées (TLP)",
+      "systemName": "TLP Mobilites",
+      "title": "VLS Tarbes Lourdes Pyrénées (TLP)",
+      "areas": [
+        "CA Tarbes-Lourdes-Pyrénées"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/tlpmobilites/gbfs.json",
+      "stationCount": 19,
+      "publisher": "TLP Mobilités",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-tlp-mobilites",
+      "updated": "2025-04-20T20:57:48.098997Z"
+    },
+    {
+      "id": "vls-velo-fluo-grand-est",
+      "slug": "vls-velo-fluo-grand-est",
+      "systemId": "grand-est",
+      "name": "Vélo Fluo Grand Est",
+      "systemName": "Velo Fluo, Grand-Est",
+      "title": "VLS Vélo Fluo Grand Est",
+      "areas": [
+        "Grand Est"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/velo-fluo/gbfs.json",
+      "stationCount": 52,
+      "publisher": "Fluo Grand Est",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-velo-fluo-grand-est",
+      "updated": "2026-10-29T12:31:06.418392Z"
+    },
+    {
+      "id": "vls-vertuose-longwy",
+      "slug": "vls-vertuose-longwy",
+      "systemId": "vertuose",
+      "name": "Vertuose Grand Longwy",
+      "systemName": "Vertuose",
+      "title": "VLS Vertuose Grand Longwy",
+      "areas": [
+        "CA Grand Longwy Agglomération"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/vertuose/gbfs.json",
+      "stationCount": 39,
+      "publisher": "Ecovelo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-vertuose-longwy",
+      "updated": "2026-01-28T03:00:01.876546Z"
+    },
+    {
+      "id": "vls-vilvolt-agglomeration-depinal",
+      "slug": "vls-vilvolt-agglomeration-depinal",
+      "systemId": "vilvolt_epinal",
+      "name": "Vivolt agglomération d'Epinal",
+      "systemName": "Vilvolt (Épinal)",
+      "title": "VLS Vivolt agglomération d'Epinal",
+      "areas": [
+        "CA d'Epinal"
+      ],
+      "gbfsVersion": "2.2",
+      "discoveryUrl": "https://gbfs.partners.fifteen.eu/gbfs/epinal/gbfs.json",
+      "stationCount": 106,
+      "publisher": "Communauté d'Agglomération d'Epinal",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/vls-vilvolt-agglomeration-depinal",
+      "updated": "2026-10-29T04:39:46.692089Z"
+    },
+    {
+      "id": "zebullo-stations-de-velos-en-libre-service-a-reims-2",
+      "slug": "zebullo-stations-de-velos-en-libre-service-a-reims-2",
+      "systemId": "zebullo",
+      "name": "Zébullo Grand Reims",
+      "systemName": "Zebullo",
+      "title": "VLS Zébullo Grand Reims",
+      "areas": [
+        "CU du Grand Reims"
+      ],
+      "gbfsVersion": "3.0",
+      "discoveryUrl": "https://api.gbfs.ecovelo.mobi/zebullo/gbfs.json",
+      "stationCount": 70,
+      "publisher": "Zébullo",
+      "licence": "lov2",
+      "pageUrl": "https://transport.data.gouv.fr/datasets/zebullo-stations-de-velos-en-libre-service-a-reims-2",
+      "updated": "2025-06-20T18:56:06.974316Z"
+    }
+  ],
+  "excluded": [
+    {
+      "slug": "angers-trottinettes-velos-et-vae-en-libre-service",
+      "title": "Vélos et trottinettes Pony Angers",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bird-trottinettes-en-libre-service-a-ajaccio-gbfs",
+      "title": "Trottinettes Bird Ajaccio",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bird-trottinettes-en-libre-service-a-bastia-gbfs",
+      "title": "Trottinettes Bird Bastia",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bird-trottinettes-en-libre-service-a-blois-gbfs",
+      "title": "Trottinettes Bird Blois",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bird-trottinettes-en-libre-service-a-chalons-en-champagne-gbfs",
+      "title": "Trottinettes Bird Châlons-en-Champagne",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bird-trottinettes-en-libre-service-a-gap-gbfs",
+      "title": "Trottinettes Bird Gap",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bird-trottinettes-en-libre-service-a-laval-gbfs",
+      "title": "Trottinettes Bird Laval",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bird-trottinettes-en-libre-service-a-vichy-gbfs",
+      "title": "Trottinettes Bird Vichy",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bordeaux-velos-et-trottinettes-en-libre-service",
+      "title": "Vélos et trottinettes Pony Bordeaux",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "bycor-vaels-ouest-rhodanien",
+      "title": "VLS BYCOR Ouest Rhodanien",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "citiz-autopartage-auvergne-rhone-alpes",
+      "title": "Autopartage Citiz Auvergne Rhône Alpes (AURA)",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-bourgogne-franche-comte",
+      "title": "Autopartage Citiz Bourgogne Franche-Comté BFC",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-developpement",
+      "title": "Autopartage Citiz Développement",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-grand-est",
+      "title": "Autopartage Citiz Grand Est",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-grand-poitiers",
+      "title": "Autopartage Citiz Grand Poitiers",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-hauts-de-france",
+      "title": "Autopartage Citiz Haut de France",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-la-rochelle",
+      "title": "Autopartage Citiz La Rochelle",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-nantes",
+      "title": "Autopartage Citiz Nantes Métropole",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-occitanie",
+      "title": "Autopartage Citiz Occitanie",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-pays-basque-aupa",
+      "title": "Autopartage Citiz Pays Basque AUPA",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-provence",
+      "title": "Autopartage Citiz Provence",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "citiz-autopartage-rennes-metropole",
+      "title": "Autopartage Citiz Rennes Métropole",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "donnees-du-service-de-velos-en-libre-service-le-marcel-troyes-champagne-metropole",
+      "title": "VLS Le Marcel Troyes Champagne Métropole",
+      "reason": "not a bike-share network (no vehicle type)"
+    },
+    {
+      "slug": "donnees-gbfs-service-vls-dauxerre",
+      "title": "VLS AuxR_M le vélo Communauté d’agglomération de l’Auxerrois",
+      "reason": "feed unreachable when the catalog was built"
+    },
+    {
+      "slug": "estrees-saint-denis",
+      "title": "VLS Hoplà CC Plaine d’Estrées",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "fichier-gbfs-eurometropole-de-metz",
+      "title": "VLS GraouLib' Eurométropole de Metz",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "flotte-getaround-en-libre-service-france",
+      "title": "Autopartage Getaround France",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "gbfs-autopartage-publique-clem",
+      "title": "Autopartage Clem",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "gbfs-casa",
+      "title": "Vélos Lime Communauté d’Agglomération Sophia Antipolis (CASA)",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-casgbs",
+      "title": "Vélos Lime Paris West",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-le-havre-2",
+      "title": "Vélos et trottinettes Lime Le Havre",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-les-lilas",
+      "title": "Vélos Lime Les Lilas",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-lille",
+      "title": "Vélos et trottinettes Lime Lille",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-marseille",
+      "title": "Vélos et trottinettes Lime Marseille",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-nantes",
+      "title": "Vélos Voi Nantes",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "gbfs-netex-grand-paris-seine-et-oise",
+      "title": "Vélos et trottinettes Voi Grand Paris Seine et Oise",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "gbfs-netex-vlones",
+      "title": "Vélos Voi V'lones (Irigny, Saint-Genis-Laval, Charly , Vernaison)",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "gbfs-nice",
+      "title": "Vélos et trottinettes Lime Nice",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-nogent-sur-marne",
+      "title": "Vélos Lime Nogent-sur-Marne",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-paris-1",
+      "title": "Vélos Lime Paris",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-paris-antony",
+      "title": "Vélos Lime Antony",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-paris-saclay",
+      "title": "Vélos Lime Paris Saclay",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gbfs-paris-sceaux",
+      "title": "Vélos Lime Paris Sceaux",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "gevaudan-velo-en-libre-service",
+      "title": "VLS VélopartaG CC du Gévaudan",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "grand-chatellerault",
+      "title": "VLS Vélibleu Grand Chatellerault",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "larbresle-velo-en-livre-service",
+      "title": "VLS VELPAR CC Pays de l'Arbresle",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "liste-des-stations-velolib-et-disponibilite-en-temps-reel-4",
+      "title": "VLS Vélolib CU Caen la Mer (Twisto)",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "location-de-velos-velobaie",
+      "title": "VLS Vélo'Baie Saint-Brieuc",
+      "reason": "feed unreachable when the catalog was built"
+    },
+    {
+      "slug": "offre-et-disponibilite-temps-reel-du-service-citiz-en-autopartage-metropole-de-lyon",
+      "title": "Autopartage Citiz Métropole de Lyon",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "oloron-velo-en-libre-service",
+      "title": "VLS Cycl'O Béarn CC du Haut Béarn",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "optymo-auto-en-libre-service",
+      "title": "Autopartage Optymo Belfort",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "pays-dopale",
+      "title": "VLS Vél'In CC Pays d'Opale",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "pays-du-coquelicot-velo-en-libre-service",
+      "title": "VLS Go'clicot vélo CC du Pays du Coquelicot",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "porte-de-vassiviere-vls",
+      "title": "VLS vélos partagés Vassivière CC Porte de Vassivière",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "remi-autopartage-stations",
+      "title": "Autopartage Rémi Région Centre-Val de loire",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "stations-trottinette-en-libre-service-de-la-roche-sur-yon",
+      "title": "Trottinettes Pony La Roche-sur-Yon",
+      "reason": "not a bike-share network (scooter)"
+    },
+    {
+      "slug": "tier-dott-gbfs-bordeaux",
+      "title": "Vélos et trottinettes Dott Bordeaux",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-bourgoin-jallieu",
+      "title": "Vélos et trottinettes Dott Bourgoin-Jaillieu",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-casgbs",
+      "title": "Vélos et trottinettes Dott CA Saint Germain Boucles de Seine (CASGBS)",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-france",
+      "title": "Vélos et trottinettes Dott France",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-gpseo",
+      "title": "Vélos et trottinettes Dott Communauté Urbaine Grand Paris Seine & Oise (GPSEO)",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-lyon",
+      "title": "Vélos et trottinettes Dott Lyon",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-ol-vallee",
+      "title": "Vélos et trottinettes Dott OL Vallée",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-paris",
+      "title": "Vélos et trottinettes Dott Paris",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-saint-quentin-en-yvelines",
+      "title": "Vélos et trottinettes Dott Saint-Quentin-en-Yvelines",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "tier-dott-gbfs-siemu",
+      "title": "Vélos et trottinettes Dott Syndicat Intercommunal d'Etudes des Mobilités Urbaines Marne-la-Vallée (SIEMU)",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "trottinettes-pony-a-lorient",
+      "title": "Vélos et trottinettes Pony Lorient",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "vallee-dossau-velo-en-libre-service",
+      "title": "VLS Vél'Ossau CC Vallée d'Ossau",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "vallee-vezere-velo-en-libre-service",
+      "title": "VLS Vélo Vallée de Vézère CC Vallée de l'Homme (CCVH)",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "vehicules-en-autopartage-1",
+      "title": "Autopartage Citiz Gironde",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "vehicules-en-autopartage-leoandgo-dans-la-metropole-de-lyon-disponibilites-temps-reel",
+      "title": "Autopartage Leo&Go Métropole de Lyon",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "vehicules-en-libre-service-autopartage-citiz",
+      "title": "Autopartage Citiz Angers Loire Métropole",
+      "reason": "not a bike-share network (carsharing)"
+    },
+    {
+      "slug": "velos-a-assistance-electrique-en-libre-service-communaute-de-communes-des-7-vallees",
+      "title": "VLS CC des 7 Vallées",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-a-assistance-electrique-en-libre-service-saint-flour-cite-cycle",
+      "title": "VLS Cité Cycle Saint-Flour",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-en-libre-service-du-reseau-transvilles-au-format-gbfs",
+      "title": "VLS Transvilles Valenciennes",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "velos-et-trottinettes-pony-beauvais",
+      "title": "Trottinettes Pony Beauvais",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "velos-et-trottinettes-pony-bourges",
+      "title": "Vélos et trottinettes Pony Bourges",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-et-trottinettes-pony-evry",
+      "title": "Vélos et trottinettes Pony Evry",
+      "reason": "free-floating network: only docked stations are served for now"
+    },
+    {
+      "slug": "velos-et-trottinettes-pony-herouville",
+      "title": "Vélos et trottinettes Pony Hérouville",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-et-trottinettes-pony-limoges",
+      "title": "Vélos et trottinettes Pony Limoges",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-et-trottinettes-pony-perpignan",
+      "title": "Vélos et trottinettes Pony Perpignan",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-et-trottinettes-pony-poitiers",
+      "title": "Vélos et trottinettes Pony Poitiers",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-pony-a-marseille-gbfs-netex",
+      "title": "Vélos Pony Marseille",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-pony-a-nice",
+      "title": "Vélos et trottinettes Pony Nice",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "velos-pony-pays-basque",
+      "title": "Vélos et trottinettes Pony Pays Basque",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "vls-ca-grand-cognac-agglomeration",
+      "title": "VLS Vélo Modalis Grand Cognac Agglomération",
+      "reason": "not a bike-share network (no vehicle type)"
+    },
+    {
+      "slug": "vls-ca-royan-atlantique",
+      "title": "VLS Vélo Modalis CA Royan Atlantique",
+      "reason": "not a bike-share network (no vehicle type)"
+    },
+    {
+      "slug": "vls-ca-saintes-grandes-rives-l-agglo",
+      "title": "VLS Vélo Modalis Saintes Grandes Rives Agglo",
+      "reason": "not a bike-share network (no vehicle type)"
+    },
+    {
+      "slug": "vls-viavelo-villefranche-sur-saone",
+      "title": "VLS Viavélo CA Villefranche Beaujolais Saône",
+      "reason": "not a bike-share network (no vehicle type)"
+    },
+    {
+      "slug": "voi-gbfs-et-netex-le-havre-et-octeville-sur-mer",
+      "title": "Vélos et trottinettes Voi Havre et Octeville-sur-Mer",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "voi-gbfs-et-netex-marseille",
+      "title": "Vélos et trottinettes Voi Marseille",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "voi-gbfs-saint-quentin-en-yvelines",
+      "title": "Vélos et trottinettes Voi Saint-Quentin-en-Yvelines",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "voi-trottinettes-et-velos-aire-grenobloise",
+      "title": "Vélos et trottinettes Voi Grenoble",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "voi-velos-paris",
+      "title": "Vélos Voi Paris",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "yego-gbfs-bordeaux",
+      "title": "Scooters YEGO Bordeaux",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "yego-gbfs-nice",
+      "title": "Scooters YEGO Nice",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "yego-gbfs-paris",
+      "title": "Scooters YEGO Paris",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "yego-gbfs-toulouse",
+      "title": "Scooters YEGO Toulouse",
+      "reason": "licence \"notspecified\" is not an open licence served here (lov2, fr-lo, odc-odbl)"
+    },
+    {
+      "slug": "yelo-disponibilite-des-velos-en-libre-service",
+      "title": "VLS Yélo CA La Rochelle",
+      "reason": "not a bike-share network (no vehicle type)"
+    }
+  ]
+}

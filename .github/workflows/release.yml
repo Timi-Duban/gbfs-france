@@ -1,0 +1,38 @@
+name: Release
+
+# Push a tag `vX.Y.Z` matching apps/mcp/package.json. The first npm publish is manual; then
+# configure npm trusted publishing (this repo + release.yml) so no npm token is stored.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing (provenance) and MCP registry OIDC login
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup
+      - name: Tag matches package version
+        run: test "v$(node -p "require('./apps/mcp/package.json').version")" = "$GITHUB_REF_NAME"
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - uses: ./.github/actions/mcp-publisher
+      - run: mcp-publisher validate server.json
+        working-directory: apps/mcp
+      # pnpm pack rewrites workspace: ranges; npm publishes the tarball through OIDC.
+      - name: Publish to npm
+        working-directory: apps/mcp
+        run: |
+          pnpm pack --out package.tgz
+          npm publish package.tgz --provenance --access public
+      - run: mcp-publisher login github-oidc
+      - run: mcp-publisher publish
+        working-directory: apps/mcp

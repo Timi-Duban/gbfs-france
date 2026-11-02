@@ -1,0 +1,16 @@
+name: Setup
+description: pnpm, Node and dependencies
+inputs:
+  node-version:
+    description: Node.js version
+    default: '24'
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+    - uses: actions/setup-node@v5
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: pnpm
+    - run: pnpm install --frozen-lockfile
+      shell: bash

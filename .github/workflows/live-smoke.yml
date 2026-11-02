@@ -1,0 +1,19 @@
+name: Live smoke
+
+# Weekly check against real operator feeds (Vélib 1.x, Vélo'v 2.3, Naolib 3.0). Not a PR gate.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup
+      - run: pnpm build
+      - run: pnpm --filter gbfs-france-mcp smoke
