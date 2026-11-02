@@ -3,8 +3,7 @@ import { LICENCES } from '../packages/gbfs-core/src/catalog/schema';
 import type { Catalog, CatalogNetwork } from '../packages/gbfs-core/src/catalog/schema';
 import { fold } from '../packages/gbfs-core/src/catalog/search';
 import {
-  adapterFor,
-  isSupportedVersion,
+  findAdapter,
   parseDiscovery,
   versionRank,
 } from '../packages/gbfs-core/src/feeds/discovery';
@@ -57,11 +56,10 @@ async function probe(url: string, fetchJson: FetchJson): Promise<Candidate | str
   } catch {
     return 'the catalog URL is not a GBFS discovery file (gbfs.json)';
   }
-  if (!isSupportedVersion(discovery.version))
-    return `GBFS version ${discovery.version} is not supported`;
+  const adapter = findAdapter(discovery.version);
+  if (!adapter) return `GBFS version ${discovery.version} is not supported`;
   const { station_information: infoUrl, station_status: statusUrl } = discovery.feeds;
   if (!infoUrl || !statusUrl) return 'no station feeds (free-floating only)';
-  const adapter = adapterFor(discovery.version);
   let stationCount: number;
   try {
     stationCount = adapter.stationInformation(await fetchJson(infoUrl)).length;
@@ -121,7 +119,7 @@ async function buildDataset(d: Dataset, fetchJson: FetchJson) {
   });
   if (!isOpenLicence(d.licence)) {
     return exclude(
-      `licence "${d.licence}" is not an open licence served here (lov2, fr-lo, odc-odbl)`,
+      `licence "${d.licence}" is not an open licence served here (${LICENCES.join(', ')})`,
     );
   }
   const subTypes = d.sub_types ?? [];

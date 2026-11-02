@@ -1,8 +1,13 @@
+import { OUTDATED_AFTER_SECONDS } from '@gbfs-france/core';
 import type { StationView } from '@gbfs-france/core';
 import { describe, expect, it } from 'vitest';
-import { age, stationLines } from '../src/format';
+import { age, stationLine, stationLines } from '../src/format';
 
-const station = (name: string, reportedAgeSeconds: number | null): StationView => ({
+const station = (
+  name: string,
+  reportedAgeSeconds: number | null,
+  over: Partial<StationView> = {},
+): StationView => ({
   id: name,
   name,
   lat: 0,
@@ -17,7 +22,19 @@ const station = (name: string, reportedAgeSeconds: number | null): StationView =
   isReturning: true,
   reportedAt: null,
   reportedAgeSeconds,
-  outdated: reportedAgeSeconds !== null && reportedAgeSeconds > 1800,
+  outdated: reportedAgeSeconds !== null && reportedAgeSeconds > OUTDATED_AFTER_SECONDS,
+  ...over,
+});
+
+describe('stationLine', () => {
+  // QA 2026-11-02: "13 bikes, 1 e-bikes" read as 14 bikes.
+  it.each([
+    [{ bikes: 13, ebikes: 1, docks: 1 }, 'Lobau: 13 bikes (1 e-bike), 1 dock'],
+    [{ bikes: 1, ebikes: 0, docks: 2 }, 'Lobau: 1 bike (0 e-bikes), 2 docks'],
+    [{ bikes: 13, ebikes: null, docks: null }, 'Lobau: 13 bikes, ? docks'],
+  ])('shows e-bikes inside the bike total (%j)', (over, line) => {
+    expect(stationLine(station('Lobau', null, over))).toBe(line);
+  });
 });
 
 describe('outdated stations', () => {

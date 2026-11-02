@@ -20,12 +20,4 @@ export class Lru<V> {
       if (!oldest.done) this.map.delete(oldest.value);
     }
   }
-
-  has(key: string): boolean {
-    return this.map.has(key);
-  }
-
-  get size(): number {
-    return this.map.size;
-  }
 }

@@ -52,9 +52,13 @@ export function stationLines(stations: StationView[]): string[] {
 }
 
 export function freshnessNote(f: Freshness): string {
-  return f.stale ? ` Operator unreachable: showing cached data from ${f.ageSeconds} s ago.` : '';
+  return f.stale ? ` Operator unreachable: showing cached data from ${age(f.ageSeconds)} ago.` : '';
 }
 
 export function errorText(e: GbfsError): string {
-  return e.attribution ? `${e.message}\n${credit(e.attribution)}` : e.message;
+  const message =
+    e.kind === 'unknown-network'
+      ? `${e.message} Call search_networks to get a network id.`
+      : e.message;
+  return e.attribution ? `${message}\n${credit(e.attribution)}` : message;
 }

@@ -5,8 +5,9 @@ import { Lru } from './lru';
 import type { FeedKind } from './policy';
 import { MAX_ENTRIES, STALE_IF_ERROR_MS, TIMEOUT_MS, cacheSeconds } from './policy';
 
+// Holds the parsed value: one URL is always read with the same parser.
 interface Entry {
-  raw: unknown;
+  value: unknown;
   fetchedAt: number;
   expiresAt: number;
 }
@@ -36,14 +37,14 @@ export class FeedLoader {
     const cached = this.cache.get(url);
     const now = this.opts.now();
     if (cached && now < cached.expiresAt) {
-      return { value: parse(cached.raw), fetchedAt: cached.fetchedAt, stale: false };
+      return { value: cached.value as T, fetchedAt: cached.fetchedAt, stale: false };
     }
     try {
       const raw = await this.fetchOnce(url);
       const value = parse(raw);
       const fetchedAt = this.opts.now();
       const expiresAt = fetchedAt + cacheSeconds(kind, readTtl(raw)) * 1000;
-      this.cache.set(url, { raw, fetchedAt, expiresAt });
+      this.cache.set(url, { value, fetchedAt, expiresAt });
       return { value, fetchedAt, stale: false };
     } catch (err) {
       // Only an entry still in the LRU can be served stale: evicted data is never resurrected.
@@ -53,7 +54,7 @@ export class FeedLoader {
         last &&
         this.opts.now() - last.expiresAt <= STALE_IF_ERROR_MS
       ) {
-        return { value: parse(last.raw), fetchedAt: last.fetchedAt, stale: true };
+        return { value: last.value as T, fetchedAt: last.fetchedAt, stale: true };
       }
       throw err;
     }

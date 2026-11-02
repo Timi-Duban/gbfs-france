@@ -2,11 +2,14 @@ import { createGbfsFrance } from '@gbfs-france/core';
 import type { FetchLike } from '@gbfs-france/core';
 import { Client, InMemoryTransport } from '@modelcontextprotocol/client';
 import { afterEach, describe, expect, it } from 'vitest';
-import { fakeFetch, fixtures } from '../../../packages/gbfs-core/test/helpers';
+import {
+  FIXTURE_NOW_MS as NOW,
+  fakeFetch,
+  fixtures,
+} from '../../../packages/gbfs-core/test/helpers';
 import { nearbyOutput, searchOutput, stationOutput } from '../src/schemas';
 import { createServer } from '../src/server';
 
-const NOW = 1_793_626_400_000;
 let client: Client | undefined;
 
 async function connect(fetch: FetchLike = fakeFetch(fixtures.v1)) {

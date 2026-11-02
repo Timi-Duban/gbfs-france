@@ -8,24 +8,18 @@ import { adapterFor, parseDiscovery } from './feeds/discovery';
 import type { VehicleTypeRecord } from './feeds/model';
 import { FeedLoader } from './fetch/feed-loader';
 import type { Loaded } from './fetch/feed-loader';
+import { LIMITS } from './limits';
 import { distanceMeters, joinStations, meetsNeed } from './stations';
 import type {
   Attribution,
   FetchLike,
-  GbfsError,
   GbfsFrance,
   GbfsFranceOptions,
   LatLon,
   NetworkRef,
   NetworkSummary,
   Result,
-  StationView,
 } from './types';
-
-const DEFAULT_LIMIT = 5;
-const MAX_LIMIT = 20;
-const DEFAULT_MAX_DISTANCE_M = 2000;
-const MAX_DISTANCE_M = 10_000;
 
 let bundledCatalog: Catalog | undefined;
 
@@ -70,16 +64,17 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
     headers: options.headers ?? {},
   });
 
-  function findNetwork(networkId: string): CatalogNetwork | GbfsError {
+  function findNetwork(networkId: string): Result<CatalogNetwork> {
     const network = catalog.networks.find((n) => n.id === networkId);
-    if (network) return network;
+    if (network) return { ok: true, data: network };
     const excluded = catalog.excluded.find((e) => e.slug === networkId);
-    return {
-      kind: 'not-supported-network',
-      message: excluded
-        ? `${excluded.title} is not supported yet: ${excluded.reason}.`
-        : `Unknown network "${networkId}". Call search_networks to get a network id.`,
-    };
+    const error = excluded
+      ? {
+          kind: 'not-supported-network' as const,
+          message: `${excluded.title} is not supported yet: ${excluded.reason}.`,
+        }
+      : { kind: 'unknown-network' as const, message: `Unknown network "${networkId}".` };
+    return { ok: false, error };
   }
 
   /** Discovery -> Adapter -> station_information x station_status (+ vehicle_types when useful). */
@@ -127,21 +122,26 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
   /** Runs a network query and maps every core failure to a typed error. */
   async function withNetwork<T>(
     networkId: string,
-    run: (network: CatalogNetwork, ref: NetworkRef, attribution: Attribution) => Promise<Result<T>>,
+    run: (ctx: {
+      network: CatalogNetwork;
+      ref: NetworkRef;
+      attribution: Attribution;
+    }) => Promise<Result<T>>,
   ): Promise<Result<T>> {
     const found = findNetwork(networkId);
-    if (!('id' in found)) return { ok: false, error: found };
-    const ref = { id: found.id, name: found.name };
-    const attribution = attributionOf(found);
+    if (!found.ok) return found;
+    const network = found.data;
+    const ref = { id: network.id, name: network.name };
+    const attribution = attributionOf(network);
     try {
-      return await run(found, ref, attribution);
+      return await run({ network, ref, attribution });
     } catch (err) {
       if (!(err instanceof FeedFailure)) throw err;
       return {
         ok: false,
         error: {
           kind: err.kind,
-          message: `${found.name}: ${err.message}`,
+          message: `${network.name}: ${err.message}`,
           network: ref,
           attribution,
         },
@@ -151,7 +151,7 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
 
   return {
     async searchNetworks(query, opts = {}) {
-      const limit = clamp(opts.limit ?? DEFAULT_LIMIT, 1, MAX_LIMIT);
+      const limit = clamp(opts.limit ?? LIMITS.defaultLimit, 1, LIMITS.maxLimit);
       const { networks, unsupported } = searchCatalog(catalog, query, limit);
       return {
         ok: true,
@@ -160,20 +160,25 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
     },
 
     nearbyStations(networkId, at: LatLon, opts = {}) {
-      return withNetwork(networkId, async (network, ref, attribution) => {
-        const limit = clamp(opts.limit ?? DEFAULT_LIMIT, 1, MAX_LIMIT);
+      return withNetwork(networkId, async ({ network, ref, attribution }) => {
+        const limit = clamp(opts.limit ?? LIMITS.defaultLimit, 1, LIMITS.maxLimit);
         const maxDistance = clamp(
-          opts.maxDistanceMeters ?? DEFAULT_MAX_DISTANCE_M,
+          opts.maxDistanceMeters ?? LIMITS.defaultMaxDistanceMeters,
           1,
-          MAX_DISTANCE_M,
+          LIMITS.maxDistanceMeters,
         );
         const { stations, dropped, freshness } = await loadStations(network);
-        const byDistance: StationView[] = stations
-          .map((s) => ({ ...s, distanceMeters: Math.round(distanceMeters(at, s)) }))
-          .sort((a, b) => a.distanceMeters - b.distanceMeters);
-        const nearest = byDistance[0]?.distanceMeters ?? null;
-        const matches = byDistance
-          .filter((s) => (s.distanceMeters ?? 0) <= maxDistance && meetsNeed(s, opts.need))
+        const withDistance = stations.map((s) => ({
+          ...s,
+          distanceMeters: Math.round(distanceMeters(at, s)),
+        }));
+        const nearest = withDistance.reduce<number | null>(
+          (min, s) => (min === null || s.distanceMeters < min ? s.distanceMeters : min),
+          null,
+        );
+        const matches = withDistance
+          .filter((s) => s.distanceMeters <= maxDistance && meetsNeed(s, opts.need))
+          .sort((a, b) => a.distanceMeters - b.distanceMeters)
           .slice(0, limit);
         return {
           ok: true,
@@ -191,7 +196,7 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
     },
 
     getStation(networkId, stationId) {
-      return withNetwork(networkId, async (network, ref, attribution) => {
+      return withNetwork(networkId, async ({ network, ref, attribution }) => {
         const { stations, freshness } = await loadStations(network);
         const station = stations.find((s) => s.id === stationId);
         if (!station) {

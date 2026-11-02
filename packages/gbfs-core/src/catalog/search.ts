@@ -40,32 +40,47 @@ function match(token: string, field: Set<string>): number {
   return 0;
 }
 
+interface SearchIndex {
+  networks: { network: CatalogNetwork; primary: Set<string>; all: Set<string> }[];
+  excluded: { entry: Catalog['excluded'][number]; text: Set<string> }[];
+}
+
+// Word sets built once per catalog, not on every query.
+const indexes = new WeakMap<Catalog, SearchIndex>();
+
+function indexOf(catalog: Catalog): SearchIndex {
+  let index = indexes.get(catalog);
+  if (!index) {
+    index = {
+      networks: catalog.networks.map((n) => ({
+        network: n,
+        primary: words([n.name, n.systemName, ...n.areas]),
+        all: words([n.name, n.systemName, n.title, n.publisher, n.slug, ...n.areas]),
+      })),
+      excluded: catalog.excluded.map((e) => ({ entry: e, text: words([e.title, e.slug]) })),
+    };
+    indexes.set(catalog, index);
+  }
+  return index;
+}
+
 /** Accent-insensitive word-prefix search; exact name/area words rank first, then size. */
 export function searchCatalog(catalog: Catalog, query: string, limit: number) {
   const tokens = queryWords(query);
   if (tokens.length === 0) return { networks: [], unsupported: [] };
 
+  const index = indexOf(catalog);
   const scored: { network: CatalogNetwork; score: number }[] = [];
-  for (const network of catalog.networks) {
-    const primary = words([network.name, network.systemName, ...network.areas]);
-    const all = words([
-      network.name,
-      network.systemName,
-      network.title,
-      network.publisher,
-      network.slug,
-      ...network.areas,
-    ]);
+  for (const { network, primary, all } of index.networks) {
     if (!tokens.every((t) => match(t, all) > 0)) continue;
     const score = tokens.reduce((sum, t) => sum + match(t, primary), 0);
     scored.push({ network, score });
   }
   scored.sort((a, b) => b.score - a.score || b.network.stationCount - a.network.stationCount);
 
-  const unsupported = catalog.excluded.filter((e) => {
-    const text = words([e.title, e.slug]);
-    return tokens.every((t) => match(t, text) > 0);
-  });
+  const unsupported = index.excluded
+    .filter(({ text }) => tokens.every((t) => match(t, text) > 0))
+    .map((e) => e.entry);
 
   return {
     networks: scored.slice(0, limit).map((s) => s.network),

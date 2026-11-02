@@ -2,14 +2,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import snapshot from '../data/catalog.json';
 import { createGbfsFrance } from '../src';
 import type { FetchLike, GbfsErrorKind, Result } from '../src';
-import { clone, fakeFetch, feedName, fixtures } from './helpers';
+import { FIXTURE_NOW_MS as NOW, clone, fakeFetch, feedName, fixtures } from './helpers';
 import type { Feeds } from './helpers';
 
 const VELIB = 'velib-velos-et-bornes-disponibilite-temps-reel';
 const NAOLIB =
   snapshot.networks.find((n) => n.gbfsVersion === '3.0' && n.name.startsWith('Naolib Nantes'))
     ?.id ?? '';
-const NOW = 1_793_626_400_000;
 const NEAR_FIRST_VELIB = { lat: 48.866, lon: 2.2757 };
 
 function client(feeds: Feeds, calls: string[] = [], now = () => NOW) {
@@ -140,10 +139,10 @@ describe('typed errors: never throws', () => {
     expect(errorKind(await pending)).toBe('timeout');
   });
 
-  it('not-supported-network for unknown and excluded ids', async () => {
+  it('unknown-network and not-supported-network ids', async () => {
     const gbfs = client({});
     const unknown = await gbfs.nearbyStations('nope', NEAR_FIRST_VELIB);
-    expect(unknown).toMatchObject({ ok: false, error: { kind: 'not-supported-network' } });
+    expect(unknown).toMatchObject({ ok: false, error: { kind: 'unknown-network' } });
     const excluded = snapshot.excluded[0];
     const r = await gbfs.getStation(excluded?.slug ?? '', '1');
     expect(r).toMatchObject({
