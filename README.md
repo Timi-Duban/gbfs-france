@@ -23,9 +23,9 @@ Not supported: Autopartage Citiz Métropole de Lyon (not a bike-share network (c
 
 > nearby_stations { "network_id": "stations-velov-…", "lat": 45.7578, "lon": 4.832, "limit": 3, "need": "bikes" }
 3 station(s) on Vélo'v Lyon.
-BELLECOUR / ST EXUPÉRY (128 m): 14 bikes, 2 e-bikes, 25 docks [last report over 30 min ago]
-PLACE ANTONIN PONCET (187 m): 17 bikes, 3 e-bikes, 22 docks [last report over 30 min ago]
-BELLECOUR / RÉPUBLIQUE (202 m): 12 bikes, 7 e-bikes, 2 docks [last report over 30 min ago]
+BELLECOUR / ST EXUPÉRY (128 m): 14 bikes (2 e-bikes), 25 docks [last report over 30 min ago]
+PLACE ANTONIN PONCET (187 m): 17 bikes (3 e-bikes), 22 docks [last report over 30 min ago]
+BELLECOUR / RÉPUBLIQUE (202 m): 12 bikes (7 e-bikes), 2 docks [last report over 30 min ago]
 Data: Métropole de Lyon, Licence Ouverte v2.0 (Etalab), https://transport.data.gouv.fr/datasets/…
 ```
 

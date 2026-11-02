@@ -63,7 +63,7 @@ describe('MCP server (in-memory client)', () => {
     expect(near.stations[0]?.name).toBe('Benjamin Godard - Victor Hugo');
     expect(near.attribution.publisher).toBe('Ville de Paris');
     expect(text(nearby)).toMatch(
-      /Benjamin Godard - Victor Hugo \(\d+ m\): 1 bikes, 0 e-bikes, 34 docks/,
+      /Benjamin Godard - Victor Hugo \(\d+ m\): 1 bike \(0 e-bikes\), 34 docks/,
     );
     expect(text(nearby)).toContain('Data: Ville de Paris');
 
