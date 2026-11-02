@@ -1,0 +1,66 @@
+{
+ "last_updated": "2026-11-02T13:31:59.043Z",
+ "ttl": 300,
+ "version": "3.0",
+ "data": {
+  "stations": [
+   {
+    "station_id": "1",
+    "name": [
+     {
+      "text": "PRÉFECTURE",
+      "language": "fr"
+     },
+     {
+      "text": "PRÉFECTURE",
+      "language": "en"
+     }
+    ],
+    "lat": 47.21984,
+    "lon": -1.554891,
+    "address": "Place du Port Communeau",
+    "rental_methods": [
+     "creditcard"
+    ],
+    "capacity": 33
+   },
+   {
+    "station_id": "3",
+    "name": [
+     {
+      "text": "STRASBOURG",
+      "language": "fr"
+     },
+     {
+      "text": "STRASBOURG",
+      "language": "en"
+     }
+    ],
+    "lat": 47.21682,
+    "lon": -1.551979,
+    "address": "4, rue des Carmélites - Place Tirant Lo Blanc",
+    "capacity": 15
+   },
+   {
+    "station_id": "6",
+    "name": [
+     {
+      "text": "PLACE DU CIRQUE",
+      "language": "fr"
+     },
+     {
+      "text": "PLACE DU CIRQUE",
+      "language": "en"
+     }
+    ],
+    "lat": 47.217597,
+    "lon": -1.556938,
+    "address": "7, allée Duquesne",
+    "rental_methods": [
+     "creditcard"
+    ],
+    "capacity": 21
+   }
+  ]
+ }
+}

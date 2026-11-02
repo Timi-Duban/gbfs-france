@@ -1,0 +1,11 @@
+{
+ "data": {
+  "system_id": "velomagg_montpellier",
+  "name": "Vélomagg (Montpellier)",
+  "language": "en",
+  "timezone": "Europe/Paris"
+ },
+ "last_updated": 1793626268,
+ "ttl": 60,
+ "version": "2.2"
+}

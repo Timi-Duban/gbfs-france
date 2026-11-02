@@ -1,0 +1,26 @@
+{
+ "last_updated": 1793626301,
+ "ttl": 3600,
+ "version": "2.3",
+ "data": {
+  "vehicle_types": [
+   {
+    "vehicle_type_id": "mechanical",
+    "form_factor": "bicycle",
+    "propulsion_type": "human",
+    "name": "Vélov",
+    "default_reserve_time": 900,
+    "return_constraint": "any_station"
+   },
+   {
+    "vehicle_type_id": "electrical",
+    "form_factor": "bicycle",
+    "propulsion_type": "electric_assist",
+    "name": "Vélov",
+    "max_range_meters": 40000,
+    "default_reserve_time": 900,
+    "return_constraint": "any_station"
+   }
+  ]
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "last_updated": "2026-11-02T13:31:27.660561997Z",
+ "ttl": 3600,
+ "version": "3.0",
+ "data": {
+  "system_id": "nantes",
+  "name": [
+   {
+    "text": "Naolib",
+    "language": "fr"
+   },
+   {
+    "text": "Naolib",
+    "language": "en"
+   }
+  ],
+  "languages": [
+   "fr",
+   "en"
+  ],
+  "timezone": "Europe/Paris"
+ }
+}

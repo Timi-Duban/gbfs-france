@@ -1,0 +1,48 @@
+{
+  "name": "gbfs-france-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for live bike-share availability in France (GBFS).",
+  "type": "module",
+  "license": "MIT",
+  "author": "Timi Duban",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timi-duban/gbfs-france.git",
+    "directory": "apps/mcp"
+  },
+  "homepage": "https://github.com/timi-duban/gbfs-france#readme",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "gbfs",
+    "bike-share",
+    "velib",
+    "france",
+    "open-data"
+  ],
+  "mcpName": "io.github.timi-duban/gbfs-france",
+  "bin": {
+    "gbfs-france-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsup",
+    "smoke": "tsx scripts/live-smoke.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.4.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@gbfs-france/core": "workspace:*",
+    "@modelcontextprotocol/client": "^2.4.0",
+    "tsup": "^8.5.1"
+  }
+}

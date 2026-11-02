@@ -1,0 +1,60 @@
+{
+ "last_updated": "2026-11-02T13:31:59.043Z",
+ "ttl": 1,
+ "version": "3.0",
+ "data": {
+  "stations": [
+   {
+    "station_id": "1",
+    "num_vehicles_available": 24,
+    "vehicle_types_available": [
+     {
+      "vehicle_type_id": "mechanical",
+      "count": 24
+     }
+    ],
+    "num_vehicles_disabled": 0,
+    "num_docks_available": 9,
+    "num_docks_disabled": 0,
+    "is_installed": true,
+    "is_renting": true,
+    "is_returning": true,
+    "last_reported": "2026-11-02T03:31:55Z"
+   },
+   {
+    "station_id": "3",
+    "num_vehicles_available": 6,
+    "vehicle_types_available": [
+     {
+      "vehicle_type_id": "mechanical",
+      "count": 6
+     }
+    ],
+    "num_vehicles_disabled": 0,
+    "num_docks_available": 9,
+    "num_docks_disabled": 0,
+    "is_installed": true,
+    "is_renting": true,
+    "is_returning": true,
+    "last_reported": "2026-11-02T02:21:02Z"
+   },
+   {
+    "station_id": "6",
+    "num_vehicles_available": 2,
+    "vehicle_types_available": [
+     {
+      "vehicle_type_id": "mechanical",
+      "count": 2
+     }
+    ],
+    "num_vehicles_disabled": 0,
+    "num_docks_available": 19,
+    "num_docks_disabled": 0,
+    "is_installed": true,
+    "is_renting": true,
+    "is_returning": true,
+    "last_reported": "2026-11-02T06:44:02Z"
+   }
+  ]
+ }
+}
