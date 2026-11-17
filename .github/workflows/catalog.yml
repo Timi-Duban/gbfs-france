@@ -1,6 +1,6 @@
 name: Catalog snapshot
 
-# Weekly rebuild of the committed catalog from transport.data.gouv.fr, proposed as a PR.
+# Weekly rebuild of the committed catalog from transport.data.gouv.fr, merged via a PR once tests pass.
 on:
   schedule:
     - cron: '0 5 * * 1'
@@ -18,7 +18,8 @@ jobs:
       - uses: ./.github/actions/setup
       - run: pnpm catalog
       - run: pnpm test
-      - uses: peter-evans/create-pull-request@v7
+      - id: pr
+        uses: peter-evans/create-pull-request@v7
         with:
           branch: chore/catalog-snapshot
           commit-message: 'chore(catalog): refresh network snapshot'
@@ -28,3 +29,8 @@ jobs:
             packages/gbfs-core/data/catalog.json
             README.md
             README.fr.md
+      # Tests above gate the merge; main has no required checks, so merge directly.
+      - if: contains(fromJSON('["created","updated"]'), steps.pr.outputs.pull-request-operation)
+        run: gh pr merge ${{ steps.pr.outputs.pull-request-number }} --squash --delete-branch
+        env:
+          GH_TOKEN: ${{ github.token }}
