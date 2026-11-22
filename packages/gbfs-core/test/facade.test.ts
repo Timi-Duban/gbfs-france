@@ -164,3 +164,81 @@ describe('typed errors: never throws', () => {
     expect(nantes.ok).toBe(true);
   });
 });
+
+describe('locateNetworks', () => {
+  it('lists networks around a point with distance and attribution', async () => {
+    const r = await client({}).locateNetworks(NEAR_FIRST_VELIB);
+    expect(r.ok && r.data.networks[0]).toMatchObject({
+      id: VELIB,
+      distanceMeters: 0,
+      attribution: { licence: 'odc-odbl' },
+    });
+  });
+});
+
+describe('nearbyStationsAround', () => {
+  it('finds the network from coordinates alone', async () => {
+    const r = await client(fixtures.v1).nearbyStationsAround(NEAR_FIRST_VELIB);
+    if (!r.ok) throw new Error(r.error.message);
+    expect(r.data.failures).toEqual([]);
+    expect(r.data.results.map((n) => n.network.id)).toEqual([VELIB]);
+    expect(r.data.results[0]?.stations[0]?.id).toBe('213688169');
+  });
+
+  it('returns no result and fetches nothing far from every network', async () => {
+    const calls: string[] = [];
+    const r = await client(fixtures.v1, calls).nearbyStationsAround({ lat: 46.5, lon: -4 });
+    expect(r).toEqual({ ok: true, data: { results: [], failures: [] } });
+    expect(calls).toEqual([]);
+  });
+
+  it('keeps answering when one candidate fails, and errors when all do', async () => {
+    const down: FetchLike = () => Promise.reject(new TypeError('down'));
+    const r = await createGbfsFrance({ fetch: down, now: () => NOW }).nearbyStationsAround(
+      NEAR_FIRST_VELIB,
+    );
+    expect(errorKind(r)).toBe('unreachable');
+
+    // Nantes: Naolib (served) and Naolib Micromob' (down) both cover the point.
+    const naolib = fakeFetch(fixtures.v30);
+    const micromobDown: FetchLike = (url, init) =>
+      url.includes('chantrerie') ? Promise.reject(new TypeError('down')) : naolib(url, init);
+    const partial = await createGbfsFrance({
+      fetch: micromobDown,
+      now: () => NOW,
+    }).nearbyStationsAround({ lat: 47.2198, lon: -1.5549 });
+    if (!partial.ok) throw new Error(partial.error.message);
+    expect(partial.data.results.map((n) => n.network.id)).toEqual([NAOLIB]);
+    expect(partial.data.failures).toMatchObject([{ kind: 'unreachable' }]);
+  });
+
+  it('leaves out a candidate network with no station in range', async () => {
+    const calls: string[] = [];
+    // Inside the Vélib box, > 5 km from the 3 fixture stations.
+    const r = await client(fixtures.v1, calls).nearbyStationsAround({ lat: 48.8566, lon: 2.3522 });
+    expect(r).toEqual({ ok: true, data: { results: [], failures: [] } });
+    expect(calls.length).toBeGreaterThan(0);
+  });
+
+  it('orders networks by their nearest station', async () => {
+    const at = { lat: 47.2198, lon: -1.5549 };
+    const micromobId = snapshot.networks.find((n) => n.discoveryUrl.includes('chantrerie'))?.id;
+    // Micromob gets its own feed URLs, with every station moved onto the point.
+    const gbfs: unknown = JSON.parse(
+      JSON.stringify(fixtures.v30.gbfs).replaceAll(
+        'https://api.cyclocity.fr/contracts/nantes/gbfs/v3/',
+        'https://micromob.test/',
+      ),
+    );
+    const info = clone(fixtures.v30.station_information);
+    for (const s of info.data.stations) Object.assign(s, at);
+    const micromob = fakeFetch({ ...fixtures.v30, gbfs, station_information: info });
+    const naolib = fakeFetch(fixtures.v30);
+    const fetch: FetchLike = (url, init) =>
+      /chantrerie|micromob\.test/.test(url) ? micromob(url, init) : naolib(url, init);
+    const r = await createGbfsFrance({ fetch, now: () => NOW }).nearbyStationsAround(at);
+    if (!r.ok) throw new Error(r.error.message);
+    expect(r.data.results.map((n) => n.network.id)).toEqual([micromobId, NAOLIB]);
+    expect(r.data.results.map((n) => n.nearestDistanceMeters)).toEqual([0, expect.any(Number)]);
+  });
+});

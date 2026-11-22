@@ -1,4 +1,10 @@
-import type { GbfsError, GbfsFrance } from '@gbfs-france/core';
+import type {
+  GbfsError,
+  GbfsFrance,
+  NearbyAround,
+  NearbyStations,
+  Result,
+} from '@gbfs-france/core';
 import { McpServer } from '@modelcontextprotocol/server';
 import pkg from '../package.json';
 import {
@@ -27,14 +33,30 @@ function toolError(error: GbfsError) {
   return { isError: true, content: [{ type: 'text' as const, text: errorText(error) }] };
 }
 
+/** One network's answer in the shape of a lookup around a point. */
+function asAround(r: Result<NearbyStations>): Result<NearbyAround> {
+  return r.ok ? { ok: true, data: { results: [r.data], failures: [] } } : r;
+}
+
+function nearbyText(d: NearbyStations, maxDistance: number): string {
+  const head = d.outsideNetworkArea
+    ? `No ${d.network.name} station within ${maxDistance} m; the nearest is ${d.nearestDistanceMeters} m away.`
+    : `${d.stations.length} station(s) on ${d.network.name}.`;
+  return [
+    head + freshnessNote(d.freshness),
+    ...stationLines(d.stations),
+    credit(d.attribution),
+  ].join('\n');
+}
+
 /** Adapter: each MCP tool validates input, calls the core facade and formats its Result. */
 export function createServer(gbfs: GbfsFrance): McpServer {
   const server = new McpServer(
     { name: 'gbfs-france', version: VERSION },
     {
       instructions:
-        'Live bike-share availability for docked networks in France (GBFS). Call search_networks ' +
-        'with a city first, then nearby_stations or get_station with the returned network id.',
+        'Live bike-share availability for docked networks in France (GBFS). With coordinates, call ' +
+        'nearby_stations directly; with a city name, call search_networks first for its network id.',
     },
   );
 
@@ -66,29 +88,31 @@ export function createServer(gbfs: GbfsFrance): McpServer {
     {
       title: 'Nearby bike stations',
       description:
-        'Nearest stations of one network to a point, with live bikes, e-bikes and free docks. ' +
-        'Get network_id from search_networks first.',
+        'Nearest stations to a point, with live bikes, e-bikes and free docks. Without network_id, ' +
+        'searches the supported networks nearest the point; with it, only that network.',
       inputSchema: nearbyInput,
       outputSchema: nearbyOutput,
       annotations,
     },
     async ({ network_id, lat, lon, limit, need, max_distance_meters }) => {
-      const r = await gbfs.nearbyStations(
-        network_id,
-        { lat, lon },
-        { limit, maxDistanceMeters: max_distance_meters, ...(need ? { need } : {}) },
-      );
+      const at = { lat, lon };
+      const opts = { limit, maxDistanceMeters: max_distance_meters, ...(need ? { need } : {}) };
+      const r =
+        network_id === undefined
+          ? await gbfs.nearbyStationsAround(at, opts)
+          : asAround(await gbfs.nearbyStations(network_id, at, opts));
       if (!r.ok) return toolError(r.error);
-      const d = r.data;
-      const head = d.outsideNetworkArea
-        ? `No ${d.network.name} station within ${max_distance_meters} m; the nearest is ${d.nearestDistanceMeters} m away.`
-        : `${d.stations.length} station(s) on ${d.network.name}.`;
-      const text = [
-        head + freshnessNote(d.freshness),
-        ...stationLines(d.stations),
-        credit(d.attribution),
-      ];
-      return { content: [{ type: 'text', text: text.join('\n') }], structuredContent: d };
+      const { results, failures } = r.data;
+      const blocks = results.map((d) => nearbyText(d, max_distance_meters));
+      if (!blocks.length) {
+        const scope = failures.length ? 'No network that answered' : 'No supported network';
+        blocks.push(
+          `${scope} has a station within ${max_distance_meters} m of this point. ` +
+            'Coverage: docked networks with an open licence (call search_networks for a city).',
+        );
+      }
+      for (const f of failures) blocks.push(`Could not check: ${errorText(f)}`);
+      return { content: [{ type: 'text', text: blocks.join('\n\n') }], structuredContent: r.data };
     },
   );
 

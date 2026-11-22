@@ -7,7 +7,7 @@ Serveur [MCP](https://modelcontextprotocol.io) pour la disponibilité en direct 
 Lecture seule, sortie structurée et court texte (en anglais), producteur des données cité dans chaque réponse.
 
 - `search_networks(query)` : identifiants de réseau pour une ville, un territoire ou un nom, et réseaux non pris en charge avec la raison.
-- `nearby_stations(network_id, lat, lon, limit?, need?: bikes|docks, max_distance_meters?)` : stations les plus proches, avec vélos, VAE, places libres.
+- `nearby_stations(network_id?, lat, lon, limit?, need?: bikes|docks, max_distance_meters?)` : stations les plus proches, avec vélos, VAE, places libres. Sans `network_id`, jusqu'à 3 réseaux dont les stations sont les plus proches du point (emprise des stations dans l'instantané).
 - `get_station(network_id, station_id)` : état en direct d'une station.
 
 ```text
@@ -33,7 +33,7 @@ Réseaux en station sous licence ouverte (Licence Ouverte, ODbL) avec un flux GB
 
 <!-- networks:start -->
 
-60 networks (snapshot 2026-11-17): Altervélo Saint-Pierre La Réunion (CIVIS), AQTA (Auray Quiberon Terre Atlantique), Auch-Vélo’c Grand Auch, Brennus à Vélo Grand Sénonais, C Vélo Clermont-Ferrand, Calivélo communauté d'agglomération du Libournais (La Cali), Cap Cotentin Vélo, Choletbus 2 Roues Cholet, CYCLOlibre Carcassonne, IDEcycle Pau, Impulsyon La Roche Sur Yon, Karu'vélo Pointe-à-Pitre La Guadeloupe, Le Vélo Baulois La Baule-Escoublac, Le Vélo TBM Bordeaux Métropole, Les petites reines Sables d'Olonne Agglomération, LeVélo Marseille, Libélo Valence Romans, Lovélo Rouen, MontenVélo CC Pays du Mont-Blanc (CCPMB), Naolib Micromob', Naolib Nantes Métropole, NemoVélo Nîmes Métropole, Ogalo Saumur, Optymo Belfort, Périvélo Grand Périgueux, R'Houle ports de Piriac-sur-Mer et de La Turballe, Rubis'Vélo Grand Bourg Agglomération, Semo CA Seine-Eure, STAR Rennes, Tanlib Niort, Tarbes Lourdes Pyrénées (TLP), Tempo Vélo Agen, Ti Vélo Pays de Landerneau-Daoulas, V'lille Lille, Vel'in Grand Calais (SITAC), Vélam Amiens, Vélhop Strasbourg Eurométropole, Vélib Paris et communes limitrophes, Vélibéo CA Bassin de Brive, VéliVert Saint-Etienne, Vélo d'Aqui Argelès-sur-mer, Vélo Fluo Grand Est, Vélo Modalis Grand Angoulême, Vélo'Cité Laon, Vélo'v Lyon, VéloCité Besançon, VéloCité Mulhouse, Vélomagg Montpellier Méditerranée Métropole, VéloMoove Bassin de Pompey, Velonecy Grand Annecy, Velopop’ Avignon, VélOstan’lib Nancy, VélôToulouse Toulouse Métropole, VéloZef Brest, VélYcéo Saint-Nazaire, Vernou-en-Sologne (Vernou Vélo), Vertuose Grand Longwy, ViVélo Vichy Communauté, Vivolt agglomération d'Epinal, Zébullo Grand Reims.
+60 networks (snapshot 2026-11-22): Altervélo Saint-Pierre La Réunion (CIVIS), AQTA (Auray Quiberon Terre Atlantique), Auch-Vélo’c Grand Auch, Brennus à Vélo Grand Sénonais, C Vélo Clermont-Ferrand, Calivélo communauté d'agglomération du Libournais (La Cali), Cap Cotentin Vélo, Choletbus 2 Roues Cholet, CYCLOlibre Carcassonne, IDEcycle Pau, Impulsyon La Roche Sur Yon, Karu'vélo Pointe-à-Pitre La Guadeloupe, Le Vélo Baulois La Baule-Escoublac, Le Vélo TBM Bordeaux Métropole, Les petites reines Sables d'Olonne Agglomération, LeVélo Marseille, Libélo Valence Romans, Lovélo Rouen, MontenVélo CC Pays du Mont-Blanc (CCPMB), Naolib Micromob', Naolib Nantes Métropole, NemoVélo Nîmes Métropole, Ogalo Saumur, Optymo Belfort, Périvélo Grand Périgueux, R'Houle ports de Piriac-sur-Mer et de La Turballe, Rubis'Vélo Grand Bourg Agglomération, Semo CA Seine-Eure, STAR Rennes, Tanlib Niort, Tarbes Lourdes Pyrénées (TLP), Tempo Vélo Agen, Ti Vélo Pays de Landerneau-Daoulas, V'lille Lille, Vel'in Grand Calais (SITAC), Vélam Amiens, Vélhop Strasbourg Eurométropole, Vélib Paris et communes limitrophes, Vélibéo CA Bassin de Brive, VéliVert Saint-Etienne, Vélo d'Aqui Argelès-sur-mer, Vélo Fluo Grand Est, Vélo Modalis Grand Angoulême, Vélo'Cité Laon, Vélo'v Lyon, VéloCité Besançon, VéloCité Mulhouse, Vélomagg Montpellier Méditerranée Métropole, VéloMoove Bassin de Pompey, Velonecy Grand Annecy, Velopop’ Avignon, VélOstan’lib Nancy, VélôToulouse Toulouse Métropole, VéloZef Brest, VélYcéo Saint-Nazaire, Vernou-en-Sologne (Vernou Vélo), Vertuose Grand Longwy, ViVélo Vichy Communauté, Vivolt agglomération d'Epinal, Zébullo Grand Reims.
 
 <!-- networks:end -->
 
@@ -41,7 +41,7 @@ Réseaux en station sous licence ouverte (Licence Ouverte, ODbL) avec un flux GB
 
 `apps/mcp` (stdio) appelle `packages/gbfs-core`, sans import Node (compatible Hermes, pour une future app Expo) :
 
-- **Façade** [`facade.ts`](packages/gbfs-core/src/facade.ts) : trois appels qui cachent catalogue, versions, jointure, cache et erreurs.
+- **Façade** [`facade.ts`](packages/gbfs-core/src/facade.ts) : quelques appels qui cachent catalogue, recherche de réseau par coordonnées, versions, jointure, cache et erreurs.
 - **Adaptateur** [`feeds/v2.ts`](packages/gbfs-core/src/feeds/v2.ts), [`v3.ts`](packages/gbfs-core/src/feeds/v3.ts) : un par version GBFS, mêmes enregistrements.
 - **Cache-Aside + single-flight** [`feed-loader.ts`](packages/gbfs-core/src/fetch/feed-loader.ts) : ttl borné, stale-if-error 10 min, LRU 64.
 - **Type Result** : `{ ok: false, error }` au lieu d'une exception.

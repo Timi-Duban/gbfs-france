@@ -65,9 +65,9 @@ describe('MCP server (in-memory client)', () => {
       name: 'nearby_stations',
       arguments: { network_id: velib?.id, lat: 48.866, lon: 2.2757, limit: 3 },
     });
-    const near = nearbyOutput.parse(nearby.structuredContent);
-    expect(near.stations[0]?.name).toBe('Benjamin Godard - Victor Hugo');
-    expect(near.attribution.publisher).toBe('Ville de Paris');
+    const [near] = nearbyOutput.parse(nearby.structuredContent).results;
+    expect(near?.stations[0]?.name).toBe('Benjamin Godard - Victor Hugo');
+    expect(near?.attribution.publisher).toBe('Ville de Paris');
     expect(text(nearby)).toMatch(
       /Benjamin Godard - Victor Hugo \(\d+ m\): 1 bike \(0 e-bikes\), 34 docks/,
     );
@@ -75,10 +75,72 @@ describe('MCP server (in-memory client)', () => {
 
     const station = await c.callTool({
       name: 'get_station',
-      arguments: { network_id: velib?.id, station_id: near.stations[0]?.id },
+      arguments: { network_id: velib?.id, station_id: near?.stations[0]?.id },
     });
     expect(stationOutput.parse(station.structuredContent).attribution.licence).toBe('odc-odbl');
     expect(text(station)).toContain('[last report 57 min ago]');
+  });
+
+  it('nearby_stations without network_id finds the network from coordinates', async () => {
+    const r = await (
+      await connect()
+    ).callTool({ name: 'nearby_stations', arguments: { lat: 48.866, lon: 2.2757 } });
+    const { results, failures } = nearbyOutput.parse(r.structuredContent);
+    expect(failures).toEqual([]);
+    expect(results.map((n) => n.network.name)).toEqual(['Vélib Paris et communes limitrophes']);
+    expect(text(r)).toMatch(/^1 station\(s\) on Vélib .*\nBenjamin Godard/);
+  });
+
+  it('nearby_stations without network_id explains when no network covers the point', async () => {
+    const r = await (
+      await connect()
+    ).callTool({ name: 'nearby_stations', arguments: { lat: 46.5, lon: -4 } });
+    expect(r.isError).toBeFalsy();
+    expect(nearbyOutput.parse(r.structuredContent).results).toEqual([]);
+    expect(text(r)).toMatch(/^No supported network has a station within 2000 m/);
+  });
+
+  it('nearby_stations without network_id reports networks it could not check', async () => {
+    const at = { lat: 47.2198, lon: -1.5549 }; // Naolib and Naolib Micromob' cover it
+    const naolib = fakeFetch(fixtures.v30);
+    const micromobDown: FetchLike = (url, init) =>
+      url.includes('chantrerie') ? Promise.reject(new TypeError('down')) : naolib(url, init);
+    const mcp = await connect(micromobDown);
+    const partial = await mcp.callTool({ name: 'nearby_stations', arguments: at });
+    expect(partial.isError).toBeFalsy();
+    const { results, failures } = nearbyOutput.parse(partial.structuredContent);
+    expect(results).toHaveLength(1);
+    expect(failures).toMatchObject([{ kind: 'unreachable', attribution: { licence: 'lov2' } }]);
+    expect(text(partial)).toMatch(/\n\nCould not check: Naolib Micromob.*: Network error\./);
+
+    const none = await mcp.callTool({
+      name: 'nearby_stations',
+      arguments: { ...at, lon: at.lon + 0.0015, max_distance_meters: 50 },
+    });
+    expect(text(none)).toMatch(
+      /^No network that answered has a station within 50 m.*\n\nCould not/s,
+    );
+
+    await client?.close();
+    const down: FetchLike = () => Promise.reject(new TypeError('down'));
+    const all = await (await connect(down)).callTool({ name: 'nearby_stations', arguments: at });
+    expect(all.isError).toBe(true);
+    expect(text(all)).toMatch(/Network error\./);
+  });
+
+  it('nearby_stations explains when the network has no station in range', async () => {
+    const r = await (
+      await connect()
+    ).callTool({
+      name: 'nearby_stations',
+      arguments: {
+        network_id: 'velib-velos-et-bornes-disponibilite-temps-reel',
+        lat: 48.8566,
+        lon: 2.3522,
+      },
+    });
+    expect(r.isError).toBeFalsy();
+    expect(text(r)).toMatch(/^No Vélib .* station within 2000 m; the nearest is \d+ m away\./);
   });
 
   it.each([
@@ -86,6 +148,7 @@ describe('MCP server (in-memory client)', () => {
     ['search_networks', { query: 'x'.repeat(81) }],
     ['search_networks', { query: 'lyon', limit: 21 }],
     ['nearby_stations', { network_id: 'x', lat: 91, lon: 0 }],
+    ['nearby_stations', { network_id: '', lat: 0, lon: 0 }],
     ['nearby_stations', { network_id: 'x', lat: 0, lon: 181 }],
     ['nearby_stations', { network_id: 'x', lat: 0, lon: 0, limit: 0 }],
     ['nearby_stations', { network_id: 'x', lat: 0, lon: 0, max_distance_meters: 10_001 }],

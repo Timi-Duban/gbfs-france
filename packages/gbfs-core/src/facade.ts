@@ -1,6 +1,7 @@
 import snapshot from '../data/catalog.json';
 import { LICENCE_NAMES, catalogSchema } from './catalog/schema';
 import type { Catalog, CatalogNetwork } from './catalog/schema';
+import { locateNetworks } from './catalog/locate';
 import { searchCatalog } from './catalog/search';
 import { FeedFailure } from './errors';
 import type { Discovery } from './feeds/discovery';
@@ -8,14 +9,17 @@ import { adapterFor, parseDiscovery } from './feeds/discovery';
 import type { VehicleTypeRecord } from './feeds/model';
 import { FeedLoader } from './fetch/feed-loader';
 import type { Loaded } from './fetch/feed-loader';
-import { LIMITS } from './limits';
+import { LIMITS, clamp } from './limits';
 import { distanceMeters, joinStations, meetsNeed } from './stations';
 import type {
   Attribution,
   FetchLike,
+  GbfsError,
   GbfsFrance,
   GbfsFranceOptions,
   LatLon,
+  NearbyOptions,
+  NearbyStations,
   NetworkRef,
   NetworkSummary,
   Result,
@@ -50,9 +54,16 @@ function summaryOf(n: CatalogNetwork): NetworkSummary {
   };
 }
 
-const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
+interface NetworkCtx {
+  network: CatalogNetwork;
+  ref: NetworkRef;
+  attribution: Attribution;
+}
 
-/** Facade: three calls hiding catalog, version Adapters, feed join, cache and errors. */
+const maxDistanceOf = (opts: { maxDistanceMeters?: number }) =>
+  clamp(opts.maxDistanceMeters ?? LIMITS.defaultMaxDistanceMeters, 1, LIMITS.maxDistanceMeters);
+
+/** Facade: a few calls hiding catalog, version Adapters, feed join, cache and errors. */
 export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
   const catalog = loadCatalog();
   const now = options.now ?? (() => Date.now());
@@ -120,17 +131,10 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
   }
 
   /** Runs a network query and maps every core failure to a typed error. */
-  async function withNetwork<T>(
-    networkId: string,
-    run: (ctx: {
-      network: CatalogNetwork;
-      ref: NetworkRef;
-      attribution: Attribution;
-    }) => Promise<Result<T>>,
+  async function onNetwork<T>(
+    network: CatalogNetwork,
+    run: (ctx: NetworkCtx) => Promise<Result<T>>,
   ): Promise<Result<T>> {
-    const found = findNetwork(networkId);
-    if (!found.ok) return found;
-    const network = found.data;
     const ref = { id: network.id, name: network.name };
     const attribution = attributionOf(network);
     try {
@@ -149,6 +153,48 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
     }
   }
 
+  async function withNetwork<T>(
+    networkId: string,
+    run: (ctx: NetworkCtx) => Promise<Result<T>>,
+  ): Promise<Result<T>> {
+    const found = findNetwork(networkId);
+    return found.ok ? onNetwork(found.data, run) : found;
+  }
+
+  async function nearbyIn(
+    { network, ref, attribution }: NetworkCtx,
+    at: LatLon,
+    opts: NearbyOptions,
+  ): Promise<Result<NearbyStations>> {
+    const limit = clamp(opts.limit ?? LIMITS.defaultLimit, 1, LIMITS.maxLimit);
+    const maxDistance = maxDistanceOf(opts);
+    const { stations, dropped, freshness } = await loadStations(network);
+    const withDistance = stations.map((s) => ({
+      ...s,
+      distanceMeters: Math.round(distanceMeters(at, s)),
+    }));
+    const nearest = withDistance.reduce<number | null>(
+      (min, s) => (min === null || s.distanceMeters < min ? s.distanceMeters : min),
+      null,
+    );
+    const matches = withDistance
+      .filter((s) => s.distanceMeters <= maxDistance && meetsNeed(s, opts.need))
+      .sort((a, b) => a.distanceMeters - b.distanceMeters)
+      .slice(0, limit);
+    return {
+      ok: true,
+      data: {
+        network: ref,
+        stations: matches,
+        nearestDistanceMeters: nearest,
+        outsideNetworkArea: nearest === null || nearest > maxDistance,
+        droppedStations: dropped,
+        freshness,
+        attribution,
+      },
+    };
+  }
+
   return {
     async searchNetworks(query, opts = {}) {
       const limit = clamp(opts.limit ?? LIMITS.defaultLimit, 1, LIMITS.maxLimit);
@@ -159,40 +205,43 @@ export function createGbfsFrance(options: GbfsFranceOptions = {}): GbfsFrance {
       };
     },
 
-    nearbyStations(networkId, at: LatLon, opts = {}) {
-      return withNetwork(networkId, async ({ network, ref, attribution }) => {
-        const limit = clamp(opts.limit ?? LIMITS.defaultLimit, 1, LIMITS.maxLimit);
-        const maxDistance = clamp(
-          opts.maxDistanceMeters ?? LIMITS.defaultMaxDistanceMeters,
-          1,
-          LIMITS.maxDistanceMeters,
-        );
-        const { stations, dropped, freshness } = await loadStations(network);
-        const withDistance = stations.map((s) => ({
-          ...s,
-          distanceMeters: Math.round(distanceMeters(at, s)),
-        }));
-        const nearest = withDistance.reduce<number | null>(
-          (min, s) => (min === null || s.distanceMeters < min ? s.distanceMeters : min),
-          null,
-        );
-        const matches = withDistance
-          .filter((s) => s.distanceMeters <= maxDistance && meetsNeed(s, opts.need))
-          .sort((a, b) => a.distanceMeters - b.distanceMeters)
-          .slice(0, limit);
-        return {
-          ok: true,
-          data: {
-            network: ref,
-            stations: matches,
-            nearestDistanceMeters: nearest,
-            outsideNetworkArea: nearest === null || nearest > maxDistance,
-            droppedStations: dropped,
-            freshness,
-            attribution,
-          },
-        };
-      });
+    nearbyStations(networkId, at, opts = {}) {
+      return withNetwork(networkId, (ctx) => nearbyIn(ctx, at, opts));
+    },
+
+    async locateNetworks(at, opts = {}) {
+      const located = locateNetworks(catalog.networks, at, maxDistanceOf(opts));
+      return {
+        ok: true,
+        data: {
+          networks: located.map((l) => ({
+            ...summaryOf(l.network),
+            distanceMeters: l.distanceMeters,
+          })),
+          snapshotDate: catalog.generatedAt,
+        },
+      };
+    },
+
+    async nearbyStationsAround(at, opts = {}) {
+      const candidates = locateNetworks(catalog.networks, at, maxDistanceOf(opts)).slice(
+        0,
+        LIMITS.maxNetworksAround,
+      );
+      const answers = await Promise.all(
+        candidates.map((c) => onNetwork(c.network, (ctx) => nearbyIn(ctx, at, opts))),
+      );
+      const results: NearbyStations[] = [];
+      const failures: GbfsError[] = [];
+      for (const a of answers) {
+        if (!a.ok) failures.push(a.error);
+        else if (!a.data.outsideNetworkArea) results.push(a.data);
+      }
+      const [firstFailure] = failures;
+      if (firstFailure && failures.length === answers.length)
+        return { ok: false, error: firstFailure };
+      results.sort((a, b) => (a.nearestDistanceMeters ?? 0) - (b.nearestDistanceMeters ?? 0));
+      return { ok: true, data: { results, failures } };
     },
 
     getStation(networkId, stationId) {

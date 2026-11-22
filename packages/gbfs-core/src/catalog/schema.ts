@@ -19,6 +19,8 @@ export const catalogNetworkSchema = z.object({
   gbfsVersion: z.string(),
   discoveryUrl: z.string(),
   stationCount: z.number(),
+  /** Station bounding box [minLat, minLon, maxLat, maxLon] when the catalog was built. */
+  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
   publisher: z.string(),
   licence: z.enum(LICENCES),
   pageUrl: z.string(),
