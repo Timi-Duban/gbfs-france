@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T20:41:10.933Z",
+  "generatedAt": "2026-11-23T15:44:13.329Z",
   "source": "https://transport.data.gouv.fr/api/datasets",
   "networks": [
     {
@@ -48,7 +48,7 @@
       "publisher": "Valence Romans Mobilités",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/ce-jeu-de-donnees-contient-la-liste-et-lemplacement-des-velostations-en-libres-service-du-service-libelo-appartenant-a-valence-romans-mobilites",
-      "updated": "2026-11-22T03:42:00.030769Z"
+      "updated": "2026-11-23T03:53:18.640546Z"
     },
     {
       "id": "choletbus-2-roues-vaels",
@@ -168,7 +168,7 @@
       "publisher": "Métropole Rouen Normandie",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/donnees-statiques-et-temps-reel-du-service-de-vls-lovelo-metropole-rouen-normandie",
-      "updated": "2026-11-22T04:00:33.000000Z"
+      "updated": "2026-11-23T04:01:49.000000Z"
     },
     {
       "id": "donnees-velopop-temps-reel-sur-lagglomeration-du-grand-avignon-velos-electriques-en-libre-service",
@@ -216,7 +216,7 @@
       "publisher": "Clermont Auvergne Métropole",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/etat-des-stations-de-velos-en-libre-service-c-velo-gbfs-du-syndicat-mixte-des-transports-en-commun-de-lagglomeration-clermontoise-smtc-ac-1",
-      "updated": "2026-11-22T03:21:30.357618Z"
+      "updated": "2026-11-23T03:35:53.070381Z"
     },
     {
       "id": "flux-gbfs-montenvelo",
@@ -264,7 +264,7 @@
       "publisher": "Saint-Etienne Métropole",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/flux-temps-reel-velivert",
-      "updated": "2026-11-22T02:03:40.221306Z"
+      "updated": "2026-11-23T03:13:12.607047Z"
     },
     {
       "id": "gbfs-tempo-velo",
@@ -288,7 +288,7 @@
       "publisher": "Tempo Vélo",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/gbfs-tempo-velo",
-      "updated": "2025-04-21T16:39:34.669913Z"
+      "updated": "2026-11-22T08:50:51.895467Z"
     },
     {
       "id": "idecycle-velos-en-libre-service-au-standard-gbfs",
@@ -336,7 +336,7 @@
       "publisher": "Métropole Européenne de Lille ",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/ilevia-vlille-disponibilite-en-temps-reel",
-      "updated": "2026-11-22T01:15:04.000000Z"
+      "updated": "2026-11-23T01:19:04.000000Z"
     },
     {
       "id": "liste-api-ecovelo-pour-stations-velyceo-electriques-sur-saint-nazaire-agglo",
@@ -456,7 +456,7 @@
       "publisher": "Optymo - Belfort",
       "licence": "odc-odbl",
       "pageUrl": "https://transport.data.gouv.fr/datasets/optymo-velo-en-libre-service",
-      "updated": "2026-11-21T16:47:13.403567Z"
+      "updated": "2026-11-22T16:50:43.942318Z"
     },
     {
       "id": "rubisvelo-velos-a-assistance-electrique-en-libre-service-de-grand-bourg-agglomeration",
@@ -528,7 +528,7 @@
       "publisher": "Bordeaux Métropole",
       "licence": "fr-lo",
       "pageUrl": "https://transport.data.gouv.fr/datasets/station-le-velo-en-temps-reel-1",
-      "updated": "2026-11-22T02:38:07.291782Z"
+      "updated": "2026-11-23T03:00:22.701138Z"
     },
     {
       "id": "stations-de-velo-en-libre-service-velocite-sur-mulhouse-flux-gbfs",
@@ -576,7 +576,7 @@
       "publisher": "Eurométropole de Strasbourg",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/stations-en-libre-service-velhop-flux-gbfs",
-      "updated": "2026-11-22T03:46:38.000000Z"
+      "updated": "2026-11-23T03:54:23.000000Z"
     },
     {
       "id": "stations-velo-en-libre-service-vls-de-la-roche-sur-yon",
@@ -686,7 +686,7 @@
       ],
       "gbfsVersion": "2.3",
       "discoveryUrl": "https://download.data.grandlyon.com/files/rdata/jcd_jcdecaux.jcdvelov/gbfs.json",
-      "stationCount": 467,
+      "stationCount": 466,
       "bbox": [
         45.6933,
         4.7785,
@@ -696,7 +696,7 @@
       "publisher": "Métropole de Lyon",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/stations-velov-de-la-metropole-de-lyon-disponibilites-temps-reel",
-      "updated": "2026-11-22T03:12:00.539382Z"
+      "updated": "2026-11-23T03:14:31.084767Z"
     },
     {
       "id": "ti-velo-1",
@@ -744,7 +744,7 @@
       "publisher": "Ville de Paris",
       "licence": "odc-odbl",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velib-velos-et-bornes-disponibilite-temps-reel",
-      "updated": "2026-11-22T03:59:04.000000Z"
+      "updated": "2026-11-23T03:59:04.000000Z"
     },
     {
       "id": "velo-a-assistance-electrique-en-libre-service",
@@ -792,7 +792,7 @@
       "publisher": "Brest métropole",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velo-a-assistance-electrique-en-libre-service-velozef-en-temps-reel",
-      "updated": "2026-11-21T13:22:54.562333Z"
+      "updated": "2026-11-23T01:39:49.086130Z"
     },
     {
       "id": "velo-en-libre-service-de-la-ville-damiens",
@@ -816,7 +816,7 @@
       "publisher": "Amiens Métropole - Communauté d'Agglomération",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velo-en-libre-service-de-la-ville-damiens",
-      "updated": "2026-11-22T02:57:04.320906Z"
+      "updated": "2026-11-23T03:17:09.736087Z"
     },
     {
       "id": "velo-en-libre-service-du-star-au-standard-gbfs",
@@ -840,7 +840,7 @@
       "publisher": "STAR",
       "licence": "odc-odbl",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velo-en-libre-service-du-star-au-standard-gbfs",
-      "updated": "2026-11-21T18:45:16.000000Z"
+      "updated": "2026-11-22T18:48:13.000000Z"
     },
     {
       "id": "velos-a-assistance-electrique-en-libre-service-argeles-sur-mer-velo-daqui-1",
@@ -937,7 +937,7 @@
       "publisher": "Ecovelo",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-laon-velocite",
-      "updated": "2025-04-22T22:31:51.342553Z"
+      "updated": "2026-11-23T04:04:56.751028Z"
     },
     {
       "id": "velos-a-assistance-electrique-en-libre-service-levelo-sur-marseille",
@@ -1081,7 +1081,7 @@
       "publisher": "Ecovelo",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-saumur-ogalo-cyclette",
-      "updated": "2025-04-22T23:31:53.725916Z"
+      "updated": "2026-11-23T03:59:32.686288Z"
     },
     {
       "id": "velos-a-assistance-electrique-en-libre-service-velomoove-bassin-de-pompey",
@@ -1105,7 +1105,7 @@
       "publisher": "Bassin de Pompey",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velos-a-assistance-electrique-en-libre-service-velomoove-bassin-de-pompey",
-      "updated": "2026-11-22T03:42:53.388790Z"
+      "updated": "2026-11-23T03:48:10.793008Z"
     },
     {
       "id": "velos-a-assistance-electrique-en-libre-service-vernou-en-sologne-vernou-velo",
@@ -1177,7 +1177,7 @@
       "publisher": "Toulouse métropole",
       "licence": "odc-odbl",
       "pageUrl": "https://transport.data.gouv.fr/datasets/velotoulouse-velo-en-libre-service-au-standard-gbfs",
-      "updated": "2026-11-22T03:59:02.000000Z"
+      "updated": "2026-11-23T03:59:02.000000Z"
     },
     {
       "id": "vls-aqta-auray-quiberon-terre-atlantique",
@@ -1369,7 +1369,7 @@
       "publisher": "Fluo Grand Est",
       "licence": "lov2",
       "pageUrl": "https://transport.data.gouv.fr/datasets/vls-velo-fluo-grand-est",
-      "updated": "2026-11-22T03:29:09.436396Z"
+      "updated": "2026-11-23T03:35:57.539959Z"
     },
     {
       "id": "vls-vertuose-longwy",
