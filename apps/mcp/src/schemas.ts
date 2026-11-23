@@ -1,5 +1,5 @@
-import { LICENCES, LIMITS } from '@gbfs-france/core';
-import type { NearbyStations, NetworkSearch, StationDetails } from '@gbfs-france/core';
+import { GBFS_ERROR_KINDS, LICENCES, LIMITS } from '@gbfs-france/core';
+import type { NearbyAround, NetworkSearch, StationDetails } from '@gbfs-france/core';
 import { z } from 'zod';
 
 // Input bounds keep answers small for the AI and turn bad ids into clear errors.
@@ -24,7 +24,11 @@ export const searchInput = z.object({
 });
 
 export const nearbyInput = z.object({
-  network_id: networkId,
+  network_id: networkId
+    .optional()
+    .describe(
+      'Network id from search_networks. Omit to search the supported networks nearest the point.',
+    ),
   lat: z.number().min(-90).max(90),
   lon: z.number().min(-180).max(180),
   limit,
@@ -92,7 +96,7 @@ export const searchOutput = z.object({
   snapshotDate: z.string(),
 }) satisfies z.ZodType<NetworkSearch>;
 
-export const nearbyOutput = z.object({
+const nearbyNetwork = z.object({
   network,
   stations: z.array(station),
   nearestDistanceMeters: z.number().nullable(),
@@ -100,7 +104,20 @@ export const nearbyOutput = z.object({
   droppedStations: z.number(),
   freshness,
   attribution,
-}) satisfies z.ZodType<NearbyStations>;
+});
+
+const error = z.object({
+  kind: z.enum(GBFS_ERROR_KINDS),
+  message: z.string(),
+  network: network.exactOptional(),
+  attribution: attribution.exactOptional(),
+});
+
+/** One entry per network: the given one, or every network with a station in range. */
+export const nearbyOutput = z.object({
+  results: z.array(nearbyNetwork),
+  failures: z.array(error),
+}) satisfies z.ZodType<NearbyAround>;
 
 // `satisfies` fails typecheck if these copies drift from the core result types.
 export const stationOutput = z.object({

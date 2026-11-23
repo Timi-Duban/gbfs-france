@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { fixtures } from '../../packages/gbfs-core/test/helpers';
-import { buildCatalog } from '../catalog-builder';
+import { boundingBox, buildCatalog } from '../catalog-builder';
 import datasets from './fixtures/datasets.json';
 
 const VELIB = 'https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/gbfs.json';
@@ -88,6 +88,24 @@ describe('buildCatalog', async () => {
     expect(brive[0]?.gbfsVersion).toBe('3.0');
   });
 
+  it('treats feeds with the same stations as one system when system_information is missing', async () => {
+    const [brive] = datasets.filter((d) => d.slug === 'vls-ca-bassin-de-brive-velibeo');
+    const noSystem = Object.fromEntries(
+      Object.entries(fixtures.v30).filter(([feed]) => feed !== 'system_information'),
+    );
+    for (const [url, body] of serve('https://nosys.test', noSystem)) routes.set(url, body);
+    const twice = {
+      ...brive,
+      slug: 'twice',
+      resources: [
+        { format: 'gbfs', original_url: BRIVE_V3 },
+        { format: 'gbfs', original_url: 'https://nosys.test/gbfs.json' },
+      ],
+    };
+    const r = await buildCatalog([twice], fetchJson, '2026-11-02');
+    expect(r.networks.map((n) => n.id)).toEqual(['twice']);
+  });
+
   it('suffixes ids with the system id when a dataset holds several systems', async () => {
     const [velov] = datasets.filter((d) => d.slug.startsWith('stations-velov'));
     const multi = {
@@ -113,5 +131,69 @@ describe('buildCatalog', async () => {
     expect(r.excluded).toEqual([
       { slug: 'down', title: velov?.title, reason: expect.stringMatching(/unreachable/) },
     ]);
+  });
+
+  it('excludes networks whose stations are all 0/0 placeholders', async () => {
+    const [velov] = datasets.filter((d) => d.slug.startsWith('stations-velov'));
+    const info = structuredClone(fixtures.v23.station_information);
+    for (const s of info.data.stations) Object.assign(s, { lat: 0, lon: 0 });
+    const nowhere = 'https://nowhere.test';
+    for (const [url, body] of serve(nowhere, { ...fixtures.v23, station_information: info }))
+      routes.set(url, body);
+    const r = await buildCatalog(
+      [
+        {
+          ...velov,
+          slug: 'nowhere',
+          resources: [{ format: 'gbfs', original_url: `${nowhere}/gbfs.json` }],
+        },
+      ],
+      fetchJson,
+      '2026-11-02',
+    );
+    expect(r.excluded).toEqual([
+      { slug: 'nowhere', title: velov?.title, reason: 'no station has usable coordinates' },
+    ]);
+  });
+});
+
+describe('boundingBox', () => {
+  const at = (lat: number, lon: number) => ({
+    id: '',
+    name: '',
+    lat,
+    lon,
+    address: null,
+    capacity: null,
+  });
+
+  it('ignores 0/0 placeholders and out-of-range coordinates', () => {
+    expect(boundingBox([at(48.85, 2.35), at(0, 0), at(91, 2), at(48.9, 2.412345)])).toEqual([
+      48.85, 2.35, 48.9, 2.4124,
+    ]);
+  });
+
+  it('leaves out a stray station far from the rest', () => {
+    const lyon = [at(45.75, 4.83), at(45.76, 4.85), at(45.74, 4.82), at(45.77, 4.86)];
+    expect(boundingBox([...lyon, at(48.8, 1.95)])).toEqual([45.74, 4.82, 45.77, 4.86]);
+  });
+
+  it('keeps every city of a regional network', () => {
+    const nancy = [at(48.69, 6.18), at(48.7, 6.19)];
+    const metz = [at(49.12, 6.17), at(49.11, 6.18)];
+    const strasbourg = [at(48.58, 7.75), at(48.59, 7.74)];
+    expect(boundingBox([...nancy, ...metz, ...strasbourg])).toEqual([48.58, 6.17, 49.12, 7.75]);
+  });
+
+  it('keeps a smaller town of a regional network', () => {
+    const strasbourg = Array.from({ length: 20 }, (_, i) =>
+      at(48.57 + i * 0.002, 7.74 + i * 0.002),
+    );
+    const mulhouse = [at(47.75, 7.33), at(47.76, 7.34)];
+    expect(boundingBox([...strasbourg, ...mulhouse])).toEqual([47.75, 7.33, 48.608, 7.778]);
+  });
+
+  it('returns null when no station is usable', () => {
+    expect(boundingBox([at(0, 0)])).toBeNull();
   });
 });

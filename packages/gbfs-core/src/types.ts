@@ -1,4 +1,5 @@
 import type { Catalog, LICENCES } from './catalog/schema';
+import type { GBFS_ERROR_KINDS } from './errors';
 
 /** Open licences served. Anything else is excluded from the catalog. */
 export type Licence = (typeof LICENCES)[number];
@@ -22,6 +23,17 @@ export interface NetworkSummary {
   gbfsVersion: string;
   stationCount: number;
   attribution: Attribution;
+}
+
+export interface LocatedNetworkSummary extends NetworkSummary {
+  /** Distance to the network's station bounding box, 0 inside it. */
+  distanceMeters: number;
+}
+
+export interface NetworksAround {
+  /** Nearest first; inside several boxes, the smaller box first. */
+  networks: LocatedNetworkSummary[];
+  snapshotDate: string;
 }
 
 export type UnsupportedNetwork = Catalog['excluded'][number];
@@ -87,6 +99,13 @@ export interface NearbyStations {
   attribution: Attribution;
 }
 
+export interface NearbyAround {
+  /** Networks with an installed station within `maxDistanceMeters`, nearest station first. */
+  results: NearbyStations[];
+  /** Candidate networks whose feeds failed. */
+  failures: GbfsError[];
+}
+
 export interface StationDetails {
   network: NetworkRef;
   station: StationView;
@@ -94,14 +113,7 @@ export interface StationDetails {
   attribution: Attribution;
 }
 
-export type GbfsErrorKind =
-  | 'unreachable'
-  | 'timeout'
-  | 'invalid-feed'
-  | 'unsupported-version'
-  | 'unknown-network'
-  | 'not-supported-network'
-  | 'station-not-found';
+export type GbfsErrorKind = (typeof GBFS_ERROR_KINDS)[number];
 
 export interface GbfsError {
   kind: GbfsErrorKind;
@@ -145,4 +157,11 @@ export interface GbfsFrance {
     opts?: NearbyOptions,
   ): Promise<Result<NearbyStations>>;
   getStation(networkId: string, stationId: string): Promise<Result<StationDetails>>;
+  /** Catalog-only: networks whose stations lie near a point. */
+  locateNetworks(
+    at: LatLon,
+    opts?: { maxDistanceMeters?: number },
+  ): Promise<Result<NetworksAround>>;
+  /** nearbyStations without a network id: queries the nearest candidate networks. */
+  nearbyStationsAround(at: LatLon, opts?: NearbyOptions): Promise<Result<NearbyAround>>;
 }

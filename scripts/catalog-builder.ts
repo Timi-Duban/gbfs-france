@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import { LICENCES } from '../packages/gbfs-core/src/catalog/schema';
 import type { Catalog, CatalogNetwork } from '../packages/gbfs-core/src/catalog/schema';
+import type { StationInfoRecord } from '../packages/gbfs-core/src/feeds/model';
 import { fold } from '../packages/gbfs-core/src/catalog/search';
+import { distanceMeters } from '../packages/gbfs-core/src/stations';
 import {
   findAdapter,
   parseDiscovery,
@@ -34,12 +36,56 @@ interface Candidate {
   version: string;
   discoveryUrl: string;
   stationCount: number;
+  bbox: CatalogNetwork['bbox'];
 }
 
 const OPEN_LICENCES: ReadonlySet<string> = new Set(LICENCES);
 
 function isOpenLicence(licence: string): licence is CatalogNetwork['licence'] {
   return OPEN_LICENCES.has(licence);
+}
+
+/** 4 decimals (~11 m), rounded outward so no station falls outside its own box. */
+const down = (v: number) => Math.floor(v * 1e4 + 1e-6) / 1e4;
+const up = (v: number) => Math.ceil(v * 1e4 - 1e-6) / 1e4;
+
+function median(values: number[]): number {
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = sorted.length >> 1;
+  return sorted.length % 2 ? (sorted[mid] ?? 0) : ((sorted[mid - 1] ?? 0) + (sorted[mid] ?? 0)) / 2;
+}
+
+/** Far from the centre: this many times the typical distance (at least 2 km). */
+const STRAY_FACTOR = 10;
+const MIN_SPREAD_M = 2000;
+/** A far station with another one this close is a real town, not a stray. */
+const NEIGHBOUR_M = 10_000;
+
+/**
+ * Station bounding box, ignoring 0/0 and out-of-range placeholders and strays (test or misplaced
+ * stations far from the centre with no other station nearby). Null if none is usable.
+ */
+export function boundingBox(stations: StationInfoRecord[]): CatalogNetwork['bbox'] | null {
+  const valid = stations.filter(
+    (s) => Math.abs(s.lat) <= 90 && Math.abs(s.lon) <= 180 && !(s.lat === 0 && s.lon === 0),
+  );
+  if (valid.length === 0) return null;
+  const centre = { lat: median(valid.map((s) => s.lat)), lon: median(valid.map((s) => s.lon)) };
+  const spread = median(valid.map((s) => distanceMeters(centre, s)));
+  const limit = STRAY_FACTOR * Math.max(spread, MIN_SPREAD_M);
+  const kept = valid.filter(
+    (s) =>
+      distanceMeters(centre, s) <= limit ||
+      valid.some((o) => o !== s && distanceMeters(o, s) <= NEIGHBOUR_M),
+  );
+  const lats = kept.map((s) => s.lat);
+  const lons = kept.map((s) => s.lon);
+  return [
+    down(Math.min(...lats)),
+    down(Math.min(...lons)),
+    up(Math.max(...lats)),
+    up(Math.max(...lons)),
+  ];
 }
 
 /** Probes one gbfs resource; returns a docked-bike candidate or the reason it is excluded. */
@@ -60,13 +106,15 @@ async function probe(url: string, fetchJson: FetchJson): Promise<Candidate | str
   if (!adapter) return `GBFS version ${discovery.version} is not supported`;
   const { station_information: infoUrl, station_status: statusUrl } = discovery.feeds;
   if (!infoUrl || !statusUrl) return 'no station feeds (free-floating only)';
-  let stationCount: number;
+  let stations: StationInfoRecord[];
   try {
-    stationCount = adapter.stationInformation(await fetchJson(infoUrl)).length;
+    stations = adapter.stationInformation(await fetchJson(infoUrl));
   } catch {
     return 'station_information unreachable or invalid when the catalog was built';
   }
-  if (stationCount === 0) return 'no stations (free-floating only)';
+  if (stations.length === 0) return 'no stations (free-floating only)';
+  const bbox = boundingBox(stations);
+  if (!bbox) return 'no station has usable coordinates';
   let systemId = url;
   let name = '';
   const systemUrl = discovery.feeds['system_information'];
@@ -79,7 +127,14 @@ async function probe(url: string, fetchJson: FetchJson): Promise<Candidate | str
       // Keep the URL as system id and the dataset title as name.
     }
   }
-  return { systemId, name, version: discovery.version, discoveryUrl: url, stationCount };
+  return {
+    systemId,
+    name,
+    version: discovery.version,
+    discoveryUrl: url,
+    stationCount: stations.length,
+    bbox,
+  };
 }
 
 /** Curated "VLS <name> <city>" titles read better than operator system names ("Paris"). */
@@ -141,11 +196,14 @@ async function buildDataset(d: Dataset, fetchJson: FetchJson) {
     if (typeof c === 'string') reasons.push(c);
     else candidates.push(c);
   }
-  // Same system published in several versions (same system_id or same name): keep the highest one.
+  // Same system published in several versions (same system_id, name or stations): keep the highest.
   const systems: Candidate[] = [];
   for (const c of candidates.sort((a, b) => versionRank(b.version) - versionRank(a.version))) {
     const duplicate = systems.some(
-      (s) => s.systemId === c.systemId || (c.name !== '' && fold(s.name) === fold(c.name)),
+      (s) =>
+        s.systemId === c.systemId ||
+        (c.name !== '' && fold(s.name) === fold(c.name)) ||
+        (s.stationCount === c.stationCount && s.bbox.join() === c.bbox.join()),
     );
     if (!duplicate) systems.push(c);
   }
@@ -163,6 +221,7 @@ async function buildDataset(d: Dataset, fetchJson: FetchJson) {
       gbfsVersion: c.version,
       discoveryUrl: c.discoveryUrl,
       stationCount: c.stationCount,
+      bbox: c.bbox,
       publisher: d.publisher?.name ?? 'unknown',
       licence,
       pageUrl: d.page_url,

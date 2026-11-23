@@ -23,11 +23,16 @@ for (const { query, lat, lon } of CASES) {
   const nearby = id
     ? await client.callTool({ name: 'nearby_stations', arguments: { network_id: id, lat, lon } })
     : undefined;
-  const stations = nearbyOutput.safeParse(nearby?.structuredContent).data?.stations ?? [];
-  const ok = Boolean(id) && !nearby?.isError && stations.length > 0;
+  const stations =
+    nearbyOutput.safeParse(nearby?.structuredContent).data?.results[0]?.stations ?? [];
+  // The same point without network_id must find that network too.
+  const around = await client.callTool({ name: 'nearby_stations', arguments: { lat, lon } });
+  const aroundIds =
+    nearbyOutput.safeParse(around.structuredContent).data?.results.map((r) => r.network.id) ?? [];
+  const ok = id !== undefined && !nearby?.isError && stations.length > 0 && aroundIds.includes(id);
   failed ||= !ok;
   console.log(
-    `${ok ? 'OK  ' : 'FAIL'} ${query}: ${id ?? 'not found'}, ${stations.length} station(s)`,
+    `${ok ? 'OK  ' : 'FAIL'} ${query}: ${id ?? 'not found'}, ${stations.length} station(s), around: ${aroundIds.join(', ') || 'none'}`,
   );
   if (!ok && nearby) console.log(JSON.stringify(nearby.content));
 }
