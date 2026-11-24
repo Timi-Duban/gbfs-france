@@ -1,5 +1,7 @@
 # GBFS France
 
+[![Timi-Duban/gbfs-france MCP server](https://glama.ai/mcp/servers/Timi-Duban/gbfs-france/badges/score.svg)](https://glama.ai/mcp/servers/Timi-Duban/gbfs-france)
+
 Serveur [MCP](https://modelcontextprotocol.io) pour la disponibilité en direct des vélos en libre-service en France, à partir des flux GBFS référencés sur [transport.data.gouv.fr](https://transport.data.gouv.fr). [English](README.md)
 
 ## Outils

@@ -1,5 +1,7 @@
 # GBFS France
 
+[![Timi-Duban/gbfs-france MCP server](https://glama.ai/mcp/servers/Timi-Duban/gbfs-france/badges/score.svg)](https://glama.ai/mcp/servers/Timi-Duban/gbfs-france)
+
 [MCP](https://modelcontextprotocol.io) server for live bike-share availability in France, from the GBFS feeds listed on [transport.data.gouv.fr](https://transport.data.gouv.fr). [Français](README.fr.md)
 
 ## Tools
